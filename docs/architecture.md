@@ -1,16 +1,3 @@
-### 技术栈:
-Springboot3
-Mybatis
-Mysql
-
-### 版本:
-Mysql 8.0
-Java 17
-
-### 启动方式
-build后运行.jar文件
-
-### 目录结构（初步）
 src/main/java/com/example/teamplatform
 │
 ├── TeamPlatformApplication.java
