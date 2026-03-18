@@ -1,4 +1,4 @@
-src/main/java/com/example/teamplatform
+src/main/java/com/zjgsu/teamplatform
 │
 ├── TeamPlatformApplication.java
 │
