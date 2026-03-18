@@ -1,5 +1,3 @@
-~~~```markdown
-```markdown
 ```markdown
 ```mermaid
 erDiagram
