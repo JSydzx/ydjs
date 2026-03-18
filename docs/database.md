@@ -1,3 +1,6 @@
+~~~```markdown
+```markdown
+```mermaid
 erDiagram
     USER {
         int id
@@ -18,4 +21,5 @@ erDiagram
 
     USER ||--o{ TEAM : creates
     USER ||--o{ JOIN_REQUEST : submits
-    TEAM ||--o{ JOIN_REQUEST : receives
+    TEAM ||--o{ JOIN_REQUEST : receivesxxxxxxxxxx USER ||--o{ TEAM : createsUSER ||--o{ JOIN_REQUEST : submitsTEAM ||--o{ JOIN_REQUEST : receives```markdown
+~~~
