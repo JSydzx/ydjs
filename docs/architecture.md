@@ -1,4 +1,4 @@
-## 1. 前端架构设计 (Frontend Architecture)
+<img width="3578" height="1506" alt="tongyi-mermaid-2026-03-23-150815" src="https://github.com/user-attachments/assets/dfa34167-6736-4ef2-8c7c-dbc7e5f1f288" />## 1. 前端架构设计 (Frontend Architecture)
 
 ### 1.1 技术选型
 核心语言: Kotlin 2.0+
@@ -91,105 +91,13 @@ Cache: Redis
 DB: MySQL
 
 ## 4.2 场景一：首页信息流加载 (Offline-First 策略)
-sequenceDiagram
-    participant User
-    participant App as Android App
-    participant Repo as Repository
-    participant LocalDB as Room (Local)
-    participant Server as Backend API
-    participant Cache as Redis
-
-    User->>App: 打开首页
-    App->>Repo: 请求首页帖子流
-    
-    rect rgb(240, 248, 255)
-        note right of App: 第一阶段：立即返回本地缓存
-        Repo->>LocalDB: 查询最近缓存的帖子
-        LocalDB-->>Repo: 返回旧数据 (若有)
-        Repo-->>App: 发射 StateFlow (Loading -> Success[OldData])
-        App->>User: 渲染旧数据 (无闪烁)
-    end
-
-    rect rgb(255, 250, 240)
-        note right of App: 第二阶段：后台静默刷新
-        App->>Server: 异步请求最新数据 (携带 last_timestamp)
-        Server->>Cache: 检查热点数据
-        Cache-->>Server: (可选) 命中缓存
-        Server->>LocalDB: 若无缓存则查 DB
-        LocalDB-->>Server: 返回数据
-        Server-->>App: 返回最新 JSON
-        
-        App->>LocalDB: 更新本地缓存 (Insert/Update)
-        App->>Repo: 重新请求/更新数据源
-        Repo-->>App: 发射 StateFlow (Success[NewData])
-        App->>User: 平滑更新列表 (DiffUtil)
-    end
+<img width="3578" height="1506" alt="tongyi-mermaid-2026-03-23-150815" src="https://github.com/user-attachments/assets/5046be00-2756-4405-bb77-65f3ded4be1b" />
 
 ## 4.3 场景二：用户发布动态 (含图片上传)
-sequenceDiagram
-    participant User
-    participant App as Android App
-    participant Server as Backend API
-    participant OSS as 对象存储
-    participant MQ as 消息队列
-    participant DB as MySQL
-
-    User->>App: 输入内容，选择图片，点击发布
-    App->>App: 本地压缩图片，表单校验
-    
-    par 并行处理
-        App->>OSS: 上传图片文件 (Multipart)
-        OSS-->>App: 返回图片 URL 列表
-    and
-        note right of App: 等待图片上传完成
-    end
-
-    App->>Server: 提交帖子数据 (文本 + 图片 URLs)
-    
-    Server->>Server: 鉴权 & 敏感词过滤
-    Server->>DB: 插入帖子记录 (事务)
-    DB-->>Server: 返回 Post ID
-    
-    Server->>MQ: 发送 "PostCreated" 事件
-    MQ-->>Server: 确认接收
-    Server-->>App: 返回发布成功
-    
-    App->>User: 提示成功，跳转至详情页/首页
-    
-    note right of MQ: 异步消费者处理
-    MQ->>Server(Consumer): 消费事件
-    Server(Consumer)->>DB: 增加用户积分
-    Server(Consumer)->>Server: 推送通知给粉丝
+<img width="3578" height="1506" alt="tongyi-mermaid-2026-03-23-151201" src="https://github.com/user-attachments/assets/0d27e243-1b70-4aff-be21-2e4c888e4714" />
 
 ## 4.4 场景三：活动报名与名额扣减 (防超卖)
-sequenceDiagram
-    participant User
-    participant App as Android App
-    participant Server as Backend API
-    participant Redis as Redis (Lock/Count)
-    participant DB as MySQL
-
-    User->>App: 点击“立即报名”
-    App->>Server: 发起报名请求 (EventID, UserID)
-    
-    Server->>Redis: 尝试获取分布式锁 (Key: event_lock_{id})
-    alt 获取锁失败
-        Server-->>App: 返回“系统繁忙，请稍后”
-    else 获取锁成功
-        Server->>Redis: 检查剩余名额 (decr)
-        alt 名额 <= 0
-            Server->>Redis: 释放锁
-            Server-->>App: 返回“名额已满”
-        else 名额充足
-            Server->>DB: 开启事务
-            Server->>DB: 插入报名记录
-            Server->>DB: 更新活动当前人数
-            Server->>DB: 提交事务
-            
-            Server->>Redis: 释放锁
-            Server-->>App: 返回“报名成功”
-        end
-    end
+![Uploading tongyi-mermaid-2026-03-23-151215.png…]()
 
 ## 4.5 交互协议规范
 通信协议: HTTPS (TLS 1.3)
