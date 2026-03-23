@@ -21,7 +21,7 @@
 | 图 5: 日程 | 周视图表格、时间段划分 | `van-calendar` (辅助), 自定义 `div/table` 布局 (因需展示上午/下午/晚上) |
 
 ### 1.2 模块结构 (Multi-Module)
-
+```text
 src/
 ├── App.vue                      # 根组件 (包含 <router-view> 和 <van-tabbar>)
 ├── main.ts                      # 入口文件
