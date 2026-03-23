@@ -68,7 +68,7 @@ src/
 └── data/                        # 【数据层】
     ├── api/                     # Axios 实例封装 (interceptors.ts)
     └── db/                      # IndexedDB 封装 (用于离线缓存帖子)
-
+```
 ### 1.3 关键设计策略
 #### 1. 沉浸式布局与适配 (Responsive Layout)
 - 策略: 利用 Vant 的 ConfigProvider 配置主题色，使用 viewport 单位 (vw/vh) 或 rem 适配不同屏幕。
