@@ -1,4 +1,4 @@
-<img width="3578" height="1506" alt="tongyi-mermaid-2026-03-23-150815" src="https://github.com/user-attachments/assets/dfa34167-6736-4ef2-8c7c-dbc7e5f1f288" />## 1. 前端架构设计 (Frontend Architecture)
+## 1. 前端架构设计 (Frontend Architecture)
 
 ### 1.1 技术选型
 核心语言: Kotlin 2.0+
@@ -97,7 +97,8 @@ DB: MySQL
 <img width="3578" height="1506" alt="tongyi-mermaid-2026-03-23-151201" src="https://github.com/user-attachments/assets/0d27e243-1b70-4aff-be21-2e4c888e4714" />
 
 ## 4.4 场景三：活动报名与名额扣减 (防超卖)
-![Uploading tongyi-mermaid-2026-03-23-151215.png…]()
+<img width="3578" height="1506" alt="tongyi-mermaid-2026-03-23-151215" src="https://github.com/user-attachments/assets/4119bc77-2681-41f7-9e27-cce51bcd3715" />
+
 
 ## 4.5 交互协议规范
 通信协议: HTTPS (TLS 1.3)
