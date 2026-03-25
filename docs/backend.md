@@ -22,42 +22,49 @@ src/main/java/com/example/teamplatform
 │   ├── UserController.java
 │   ├── TeamController.java
 │   ├── JoinRequestController.java
-│   └── NotificationController.java
+│   ├── NotificationController.java
+│   └── InvitationController.java
 │
 ├── service
 │   ├── UserService.java
 │   ├── TeamService.java
 │   ├── JoinRequestService.java
-│   └── NotificationService.java
+│   ├── NotificationService.java
+│   └── InvitationService.java
 │
 ├── service/impl
 │   ├── UserServiceImpl.java
 │   ├── TeamServiceImpl.java
 │   ├── JoinRequestServiceImpl.java
-│   └── NotificationServiceImpl.java
+│   ├── NotificationServiceImpl.java
+│   └── InvitationServiceImpl.java
 │
 ├── mapper
 │   ├── UserMapper.java
 │   ├── TeamMapper.java
 │   ├── TeamMemberMapper.java
 │   ├── JoinRequestMapper.java
-│   └── NotificationMapper.java
+│   ├── NotificationMapper.java
+│   └── InvitationMapper.java
 │
 ├── entity
 │   ├── User.java
 │   ├── Team.java
 │   ├── TeamMember.java
 │   ├── JoinRequest.java
-│   └── Notification.java
+│   ├── Notification.java
+│   └── Invitation.java
 │
 ├── dto
 │   ├── LoginDTO.java
 │   ├── TeamCreateDTO.java
-│   └── JoinRequestDTO.java
+│   ├── JoinRequestDTO.java
+│   └── InvitationDTO.java
 │
 ├── vo
 │   ├── TeamVO.java
-│   └── UserVO.java
+│   ├── UserVO.java
+│   └── InvitationVO.java
 │
 ├── common
 │   ├── Result.java
@@ -132,6 +139,7 @@ src/main/java/com/example/teamplatform
 public class User {
     private Long id;
     private String username;
+    private String nickname;
     private String password;
     private String email;
     private String avatar;
@@ -147,6 +155,7 @@ public class Team {
     private Long id;
     private String name;
     private String description;
+    private String tag;
     private Long creatorId;
     private Integer maxMembers;
     private Integer currentMembers;
@@ -178,6 +187,7 @@ public class JoinRequest {
     private String status;
     private LocalDateTime requestedAt;
     private LocalDateTime processedAt;
+    private String reason;
     // getters and setters
 }
 ```
@@ -188,7 +198,21 @@ public class Notification {
     private Long id;
     private Long userId;
     private String message;
+    private String type;
     private Boolean isRead;
+    private LocalDateTime createdAt;
+    // getters and setters
+}
+```
+
+### Invitation.java
+```java
+public class Invitation {
+    private Long id;
+    private Long inviteId;
+    private Long teamId;
+    private Long userId;
+    private String status;
     private LocalDateTime createdAt;
     // getters and setters
 }
@@ -210,6 +234,7 @@ public class LoginDTO {
 public class TeamCreateDTO {
     private String name;
     private String description;
+    private String tag;
     private Integer maxMembers;
     // getters and setters
 }
@@ -219,6 +244,28 @@ public class TeamCreateDTO {
 ```java
 public class JoinRequestDTO {
     private Long teamId;
+    private String reason;
+    // getters and setters
+}
+```
+
+### InvitationDTO.java
+```java
+public class InvitationDTO {
+    private Long teamId;
+    private Long userId;
+    // getters and setters
+}
+```
+
+### InvitationVO.java
+```java
+public class InvitationVO {
+    private Long id;
+    private String teamName;
+    private String inviterName;
+    private String status;
+    private LocalDateTime createdAt;
     // getters and setters
 }
 ```
@@ -229,6 +276,7 @@ public class TeamVO {
     private Long id;
     private String name;
     private String description;
+    private String tag;
     private String creatorName;
     private Integer currentMembers;
     private Integer maxMembers;
@@ -243,6 +291,7 @@ public class TeamVO {
 public class UserVO {
     private Long id;
     private String username;
+    private String nickname;
     private String email;
     private String avatar;
     // getters and setters
@@ -252,25 +301,42 @@ public class UserVO {
 ## API 接口
 
 ### 用户相关
-- POST /api/user/register - 用户注册
+- POST /api/user/register - 用户注册 (包括 nickname)
 - POST /api/user/login - 用户登录
-- GET /api/user/profile - 获取用户信息
+- GET /api/user/profile - 获取用户信息 (包括 nickname, avatar)
+- PUT /api/user/profile - 更新用户信息
 
 ### 团队相关
-- POST /api/team/create - 发起组队 (创建团队)
+- POST /api/team/create - 发起组队 (创建团队，包括 tag)
 - GET /api/team/list - 查看组队列表
-- GET /api/team/{id} - 查看组队详情
+- GET /api/team/{id} - 查看组队详情 (包括 tag)
 - GET /api/team/my - 查看我的团队
+- PUT /api/team/{id} - 更新团队信息
+- DELETE /api/team/{id} - 删除团队 (仅创建者)
+
+### 团队成员相关
+- GET /api/team/{id}/members - 查看团队成员列表
+- POST /api/team/{id}/members - 添加成员 (通过批准加入请求)
+- DELETE /api/team/{id}/members/{userId} - 移除成员 (管理员权限)
 
 ### 加入请求相关
-- POST /api/join/request - 加入组队 (发送加入请求)
+- POST /api/join/request - 加入组队 (发送加入请求，包括 reason)
 - GET /api/join/requests - 查看我的加入请求
+- GET /api/team/{id}/join-requests - 查看团队的加入请求 (管理员权限)
 - POST /api/join/{requestId}/approve - 批准加入请求
 - POST /api/join/{requestId}/reject - 拒绝加入请求
 
+### 邀请相关
+- POST /api/invitation/send - 发送邀请
+- GET /api/invitation/list - 查看我的邀请
+- GET /api/team/{id}/invitations - 查看团队的邀请 (管理员权限)
+- POST /api/invitation/{id}/accept - 接受邀请
+- POST /api/invitation/{id}/reject - 拒绝邀请
+
 ### 通知相关
-- GET /api/notification/list - 查看通知列表
+- GET /api/notification/list - 查看通知列表 (包括 type)
 - POST /api/notification/{id}/read - 标记通知为已读
+- DELETE /api/notification/{id} - 删除通知
 
 ## 依赖配置 (pom.xml 示例)
 ```xml
@@ -334,5 +400,7 @@ jwt:
 - 发起组队：用户创建团队，成为创建者和第一个成员。
 - 加入组队：用户发送加入请求，团队创建者可以批准或拒绝。
 - 查看组队：用户可以浏览所有活跃团队，查看详情，查看自己的团队。
+- 邀请成员：团队管理员可以发送邀请给用户，用户可以接受或拒绝邀请。
+- 通知：系统发送通知，包括加入请求、系统消息、团队更新等。
 
 此设计涵盖了基本功能，适合课程大作业水平。可以根据需要扩展更多功能，如团队聊天、文件共享等。
