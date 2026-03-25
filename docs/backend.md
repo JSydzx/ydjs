@@ -71,6 +71,7 @@ src/main/java/com/example/teamplatform
 ### 用户表 (user)
 - id (BIGINT, PRIMARY KEY, AUTO_INCREMENT)
 - username (VARCHAR(50), UNIQUE, NOT NULL)
+- nickname(VARCHAR(50))
 - password (VARCHAR(255), NOT NULL)
 - email (VARCHAR(100), UNIQUE, NOT NULL)
 - avatar (VARCHAR(255))
@@ -81,6 +82,7 @@ src/main/java/com/example/teamplatform
 - id (BIGINT, PRIMARY KEY, AUTO_INCREMENT)
 - name (VARCHAR(100), NOT NULL)
 - description (TEXT)
+- tag(VARCHAR(255))
 - creator_id (BIGINT, NOT NULL, FOREIGN KEY -> user.id)
 - max_members (INT, DEFAULT 10)
 - current_members (INT, DEFAULT 1)
@@ -92,7 +94,7 @@ src/main/java/com/example/teamplatform
 - id (BIGINT, PRIMARY KEY, AUTO_INCREMENT)
 - team_id (BIGINT, NOT NULL, FOREIGN KEY -> team.id)
 - user_id (BIGINT, NOT NULL, FOREIGN KEY -> user.id)
-- role (ENUM('CREATOR', 'MEMBER'), DEFAULT 'MEMBER')
+- role (ENUM('CREATOR', 'ADMIN', 'MEMBER'), DEFAULT 'MEMBER')
 - joined_at (DATETIME, DEFAULT CURRENT_TIMESTAMP)
 - UNIQUE(team_id, user_id)
 
@@ -103,14 +105,25 @@ src/main/java/com/example/teamplatform
 - status (ENUM('PENDING', 'APPROVED', 'REJECTED'), DEFAULT 'PENDING')
 - requested_at (DATETIME, DEFAULT CURRENT_TIMESTAMP)
 - processed_at (DATETIME)
+- reason(VARCHAR(1000))
 - UNIQUE(team_id, user_id)
 
 ### 通知表 (notification)
 - id (BIGINT, PRIMARY KEY, AUTO_INCREMENT)
 - user_id (BIGINT, NOT NULL, FOREIGN KEY -> user.id)
 - message (TEXT, NOT NULL)
+- type ENUM('JOIN_REQUEST','SYSTEM','TEAM_UPDATE')
 - is_read (BOOLEAN, DEFAULT FALSE)
 - created_at (DATETIME, DEFAULT CURRENT_TIMESTAMP)
+
+### 邀请表(invitation)
+
+- id
+- invite_id 
+- team_id
+- user_id
+- status ENUM('PENDING','ACCEPTED','REJECTED')
+- created_at
 
 ## 实体类 (Entity)
 
