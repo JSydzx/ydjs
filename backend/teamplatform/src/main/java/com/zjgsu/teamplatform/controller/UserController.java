@@ -23,7 +23,7 @@ public class UserController {
         log.info("login: {}", request);
 
         Map<String, Object> response = new HashMap<>();
-        
+
         // test
         if ("admin".equals(username) && "123456".equals(password)) {
             response.put("code", 200);
