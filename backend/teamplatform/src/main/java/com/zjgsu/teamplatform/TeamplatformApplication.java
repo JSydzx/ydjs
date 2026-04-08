@@ -2,10 +2,10 @@ package com.zjgsu.teamplatform;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.mybatis.spring.annotation.MapperScan;
 
-@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
-//@SpringBootApplication
+@MapperScan("com.zjgsu.teamplatform.mapper")
+@SpringBootApplication
 public class TeamplatformApplication {
 
 	public static void main(String[] args) {
