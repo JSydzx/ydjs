@@ -1,9 +1,6 @@
-# 校园活动组队平台 - 前端目录结构说明
+## 前端目录结构说明
 
-## 1. 项目概述
-本项目采用 **Vue 3 + Vite + Vant 4** 技术栈构建移动端 H5 应用。目录结构遵循模块化、组件化原则，清晰分离视图、逻辑、数据和公共资源，便于团队协作与后期维护。
-
-## 2. 完整目录树
+本项目采用 **Vue 3 + Vite + Vant 4** 技术栈。
 
 ```text
 campus-team-platform/
@@ -26,55 +23,50 @@ campus-team-platform/
 │   │       └── global.scss      # 全局重置样式
 │   │
 │   ├── components/              # 公共通用组件
-│   │   ├── TeamCard.vue         # [核心] 组队卡片组件 (用于首页/我的队伍)
-│   │   ├── StatusTag.vue        # [核心] 状态标签组件 (待审核/同意/拒绝)
+│   │   ├── TeamCard.vue         # [核心] 组队卡片组件
+│   │   ├── StatusTag.vue        # [核心] 状态标签组件
 │   │   ├── EmptyState.vue       # 空数据占位组件
 │   │   └── LoadingSpinner.vue   # 自定义加载动画
 │   │
 │   ├── layouts/                 # 布局组件
 │   │   ├── MainLayout.vue       # 主布局 (包含底部 TabBar 导航)
-│   │   └── AuthLayout.vue       # 认证布局 (无底部导航，用于登录/注册)
+│   │   └── AuthLayout.vue       # 认证布局 (无底部导航)
 │   │
 │   ├── router/                  # 路由配置
 │   │   ├── index.js             # 路由入口及守卫逻辑
-│   │   └── routes.js            # 路由表定义 (对应 10 个页面)
+│   │   └── routes.js            # 路由表定义
 │   │
 │   ├── stores/                  # Pinia 状态管理
 │   │   ├── index.js             # Store 注册入口
-│   │   └── user.js              # 用户状态 (token, userInfo, loginStatus)
+│   │   └── user.js              # 用户状态管理
 │   │
 │   ├── utils/                   # 工具函数库
-│   │   ├── request.js           # Axios 封装 (拦截器/错误处理)
-│   │   ├── constants.js         # 常量定义 (活动类型/申请状态枚举)
+│   │   ├── request.js           # Axios 封装
+│   │   ├── constants.js         # 常量定义
 │   │   └── validate.js          # 表单验证规则
 │   │
-│   ├── views/                   # 页面视图组件 (核心业务页面)
-│   │   ├── auth/                # 认证相关页面
+│   ├── views/                   # 页面视图组件
+│   │   ├── auth/                # 认证相关
 │   │   │   ├── Login.vue        # 1. 登录页
 │   │   │   └── Register.vue     # 2. 注册页
-│   │   │
-│   │   ├── home/                # 首页相关页面
-│   │   │   ├── Home.vue         # 3. 首页 (组队列表/搜索/筛选)
+│   │   ├── home/                # 首页相关
+│   │   │   ├── Home.vue         # 3. 首页
 │   │   │   └── TeamDetail.vue   # 4. 组队详情页
-│   │   │
-│   │   ├── team/                # 组队管理页面
+│   │   ├── team/                # 组队管理
 │   │   │   ├── CreateTeam.vue   # 5. 发布组队页
-│   │   │   ├── MyTeams.vue      # 6. 我的队伍页 (创建/加入)
-│   │   │   └── TeamManage.vue   # 7. 队伍管理页 (队长专用)
-│   │   │
-│   │   ├── application/         # 申请相关页面
+│   │   │   ├── MyTeams.vue      # 6. 我的队伍页
+│   │   │   └── TeamManage.vue   # 7. 队伍管理页
+│   │   ├── application/         # 申请相关
 │   │   │   └── MyApplications.vue # 8. 申请记录页
-│   │   │
-│   │   ├── message/             # 消息相关页面
+│   │   ├── message/             # 消息相关
 │   │   │   └── Notification.vue # 9. 消息通知页
-│   │   │
-│   │   └── profile/             # 个人中心页面
-│   │       └── Profile.vue      # 10. 个人中心 (资料/退出)
+│   │   └── profile/             # 个人中心
+│   │       └── Profile.vue      # 10. 个人中心
 │   │
 │   ├── App.vue                  # 根组件
-│   └── main.js                  # 项目入口文件 (挂载插件/路由/Store)
+│   └── main.js                  # 项目入口文件
 │
-├── .env                         # 环境变量配置 (API 基础 URL)
+├── .env                         # 环境变量配置
 ├── .gitignore                   # Git 忽略文件配置
 ├── index.html                   # HTML 模板
 ├── package.json                 # 项目依赖配置
