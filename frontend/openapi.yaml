@@ -1,0 +1,333 @@
+openapi: 3.0.3
+info:
+  title: ydjs Web API
+  version: 1.0.0
+  description: ydjs 移动 Web 端接口文档（基于当前前端 API 实现）
+servers:
+  - url: /api
+paths:
+  /posts:
+    get:
+      summary: 获取帖子列表
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+            minimum: 1
+            default: 1
+          required: true
+          description: 当前页码
+        - in: query
+          name: size
+          schema:
+            type: integer
+            minimum: 1
+            default: 10
+          required: true
+          description: 每页数量
+      responses:
+        '200':
+          description: 帖子分页数据
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatePost'
+    post:
+      summary: 创建帖子
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePostRequest'
+      responses:
+        '201':
+          description: 创建成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonResponse'
+  /announcements:
+    get:
+      summary: 获取公告列表
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+            minimum: 1
+            default: 1
+          required: true
+          description: 当前页码
+        - in: query
+          name: size
+          schema:
+            type: integer
+            minimum: 1
+            default: 5
+          required: true
+          description: 每页数量
+      responses:
+        '200':
+          description: 公告分页数据
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginateAnnouncement'
+  /schedule:
+    get:
+      summary: 获取日程表
+      parameters:
+        - in: query
+          name: week
+          schema:
+            type: string
+            enum: ['本周', '下周', '两周后']
+            default: '本周'
+          required: true
+          description: 查询周期
+      responses:
+        '200':
+          description: 日程信息
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduleResponse'
+  /teams:
+    get:
+      summary: 获取我的队伍列表
+      responses:
+        '200':
+          description: 队伍列表
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Team'
+    post:
+      summary: 创建队伍
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTeamRequest'
+      responses:
+        '201':
+          description: 创建成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonResponse'
+  /user/profile:
+    get:
+      summary: 获取用户信息
+      responses:
+        '200':
+          description: 用户信息
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserProfile'
+    put:
+      summary: 更新用户信息
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUserProfileRequest'
+      responses:
+        '200':
+          description: 更新成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonResponse'
+components:
+  schemas:
+    BaseResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 0
+        message:
+          type: string
+          example: 成功
+    CommonResponse:
+      allOf:
+        - $ref: '#/components/schemas/BaseResponse'
+        - type: object
+          properties:
+            data:
+              type: object
+              nullable: true
+    PaginatePost:
+      type: object
+      properties:
+        total:
+          type: integer
+          example: 100
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/PostItem'
+    PaginateAnnouncement:
+      type: object
+      properties:
+        total:
+          type: integer
+          example: 20
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/AnnouncementItem'
+    PostItem:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        title:
+          type: string
+          example: 我是标题，XXXX队伍招人
+        preview:
+          type: string
+          example: 我是正文预览，仅展示两行...
+        meta:
+          type: string
+          example: 2026-03-30
+        avatar:
+          type: string
+          example: https://via.placeholder.com/40
+        nickname:
+          type: string
+          example: XXXX
+        imgUrl:
+          type: string
+          example: https://via.placeholder.com/320x180
+        views:
+          type: integer
+          example: 2410
+        likes:
+          type: integer
+          example: 160
+        shares:
+          type: integer
+          example: 2
+        category:
+          type: string
+          example: 全部
+        userId:
+          type: integer
+          example: 1001
+    AnnouncementItem:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        title:
+          type: string
+          example: 推荐的标题
+        summary:
+          type: string
+          example: 这是公告摘要
+    ScheduleResponse:
+      type: object
+      properties:
+        days:
+          type: array
+          items:
+            type: string
+          example: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+        slots:
+          type: array
+          items:
+            type: object
+            properties:
+              time:
+                type: string
+                example: 上午
+              events:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 101
+                    title:
+                      type: string
+                      example: 上午训练
+    Team:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: XX 战队
+        memberCount:
+          type: integer
+          example: 8
+        eventCount:
+          type: integer
+          example: 3
+    UserProfile:
+      type: object
+      properties:
+        name:
+          type: string
+          example: 哈基米
+        school:
+          type: string
+          example: XX 大学
+        postCount:
+          type: integer
+          example: 0
+        followCount:
+          type: integer
+          example: 0
+        favoriteCount:
+          type: integer
+          example: 0
+    CreatePostRequest:
+      type: object
+      required: [title, content]
+      properties:
+        title:
+          type: string
+          example: 我是标题，XXXX队伍招人
+        content:
+          type: string
+          example: 正文内容
+        topic:
+          type: string
+          example: 篮球
+    CreateTeamRequest:
+      type: object
+      required: [name]
+      properties:
+        name:
+          type: string
+          example: 新战队
+    UpdateUserProfileRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          example: 哈基米
+        school:
+          type: string
+          example: XX 大学
+        signature:
+          type: string
+          example: 激情四射
