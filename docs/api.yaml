@@ -1,0 +1,428 @@
+openapi: 3.0.3
+info:
+  title: Campus Team Platform API
+  version: 1.0.0
+  description: 校园活动组队平台 API 文档
+
+servers:
+  - url: http://localhost:8080
+
+paths:
+
+  /api/user/register:
+    post:
+      summary: 用户注册
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserRegisterRequest'
+      responses:
+        '200':
+          description: 注册成功
+
+  /api/user/login:
+    post:
+      summary: 用户登录
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserLoginRequest'
+      responses:
+        '200':
+          description: 登录成功
+
+  /api/user/profile:
+    get:
+      summary: 获取用户信息
+      responses:
+        '200':
+          description: 用户信息
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+    put:
+      summary: 更新用户信息
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserUpdateRequest'
+      responses:
+        '200':
+          description: 更新成功
+
+  /api/team/create:
+    post:
+      summary: 创建团队
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TeamCreateRequest'
+      responses:
+        '200':
+          description: 创建成功
+
+  /api/team/list:
+    get:
+      summary: 获取团队列表
+      responses:
+        '200':
+          description: 团队列表
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Team'
+
+  /api/team/{id}:
+    get:
+      summary: 获取团队详情
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 团队详情
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Team'
+
+    put:
+      summary: 更新团队
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TeamUpdateRequest'
+      responses:
+        '200':
+          description: 更新成功
+
+    delete:
+      summary: 删除团队
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 删除成功
+
+  /api/team/my:
+    get:
+      summary: 获取我的团队
+      responses:
+        '200':
+          description: 我的团队
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Team'
+
+  /api/team/{id}/members:
+    get:
+      summary: 获取团队成员
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 成员列表
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+
+    post:
+      summary: 添加成员
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 添加成功
+
+  /api/team/{id}/members/{userId}:
+    delete:
+      summary: 移除成员
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 移除成功
+
+  /api/join/request:
+    post:
+      summary: 发送加入请求
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JoinRequestCreate'
+      responses:
+        '200':
+          description: 请求已发送
+
+  /api/join/requests:
+    get:
+      summary: 获取我的加入请求
+      responses:
+        '200':
+          description: 请求列表
+
+  /api/team/{id}/join-requests:
+    get:
+      summary: 获取团队加入请求
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 请求列表
+
+  /api/join/{requestId}/approve:
+    post:
+      summary: 批准加入请求
+      parameters:
+        - name: requestId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 已批准
+
+  /api/join/{requestId}/reject:
+    post:
+      summary: 拒绝加入请求
+      parameters:
+        - name: requestId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 已拒绝
+
+  /api/invitation/send:
+    post:
+      summary: 发送邀请
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InvitationCreate'
+      responses:
+        '200':
+          description: 发送成功
+
+  /api/invitation/list:
+    get:
+      summary: 获取我的邀请
+      responses:
+        '200':
+          description: 邀请列表
+
+  /api/team/{id}/invitations:
+    get:
+      summary: 获取团队邀请
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 邀请列表
+
+  /api/invitation/{id}/accept:
+    post:
+      summary: 接受邀请
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 已接受
+
+  /api/invitation/{id}/reject:
+    post:
+      summary: 拒绝邀请
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 已拒绝
+
+  /api/notification/list:
+    get:
+      summary: 获取通知列表
+      responses:
+        '200':
+          description: 通知列表
+
+  /api/notification/{id}/read:
+    post:
+      summary: 标记已读
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 已标记
+
+  /api/notification/{id}:
+    delete:
+      summary: 删除通知
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 删除成功
+
+components:
+  schemas:
+
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+        username:
+          type: string
+        nickname:
+          type: string
+        avatar:
+          type: string
+
+    UserRegisterRequest:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+        nickname:
+          type: string
+
+    UserLoginRequest:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+
+    UserUpdateRequest:
+      type: object
+      properties:
+        nickname:
+          type: string
+        avatar:
+          type: string
+
+    Team:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        tag:
+          type: string
+        description:
+          type: string
+
+    TeamCreateRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        tag:
+          type: string
+        description:
+          type: string
+
+    TeamUpdateRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        tag:
+          type: string
+        description:
+          type: string
+
+    JoinRequestCreate:
+      type: object
+      properties:
+        teamId:
+          type: integer
+        reason:
+          type: string
+
+    InvitationCreate:
+      type: object
+      properties:
+        teamId:
+          type: integer
+        userId:
+          type: integer
