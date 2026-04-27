@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 axios.interceptors.request.use((config) => {
   const token = localStorage.getItem('token')
   const userId = localStorage.getItem('userId') // 前端需要存储 userId
