@@ -19,7 +19,7 @@ describe('ApplyView', () => {
       },
     })
 
-    expect(wrapper.find('h1').text()).toBe('申请加入')
+    expect(wrapper.find('h1').text()).toBe('申请理由')
     expect(wrapper.find('textarea').exists()).toBe(true)
     expect(wrapper.find('.submit-button').exists()).toBe(true)
   })

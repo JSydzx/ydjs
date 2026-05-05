@@ -1,5 +1,4 @@
-import { beforeEach, expect, test, vi } from 'vitest'
-import { describe } from 'node:test'
+import { beforeEach, describe, expect, test, vi } from 'vitest'
 
 // Mock localStorage
 const localStorageMock = {

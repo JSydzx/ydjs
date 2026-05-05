@@ -10,7 +10,7 @@
     </div>
     <div v-if="teams.length === 0" class="empty">还没有队伍，去创建或加入一个吧</div>
     <ul v-else>
-      <li v-for="team in teams" :key="team.id" class="team-card">
+      <li v-for="team in teams" :key="team.id" class="team-card" @click="goToDetail(team.id)">
         <h3>{{ team.name }}</h3>
         <p>成员: {{ team.memberCount }} | 赛事: {{ team.eventCount }}</p>
       </li>
@@ -43,6 +43,10 @@ const createTeam = async () => {
     await apiCreateTeam({ name: teamName })
     await loadTeams()
   }
+}
+
+const goToDetail = (teamId: number) => {
+  router.push(`/team/${teamId}`)
 }
 
 onMounted(loadTeams)
