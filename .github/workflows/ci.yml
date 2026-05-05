@@ -23,19 +23,19 @@ jobs:
           files: coverage.xml
           flags: backend
 
-frontend:
-  runs-on: ubuntu-latest
-  steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-node@v4
-      with:
-        node-version: '20'
-        cache: 'npm'
-    - run: npm ci --prefix frontend
-    - run: npm run lint --prefix frontend
-    - run: npm test --prefix frontend -- --coverage --ci
-    - uses: codecov/codecov-action@v4
-      with:
-        token: ${{ secrets.CODECOV_TOKEN }}
-        files: frontend/coverage/lcov.info
-        flags: frontend
+  frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - run: npm ci --prefix frontend
+      - run: npm run lint --prefix frontend
+      - run: npm test --prefix frontend -- --coverage --ci
+      - uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: frontend/coverage/lcov.info
+          flags: frontend
