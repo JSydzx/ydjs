@@ -8,6 +8,7 @@
     "build": "vue-tsc -b && vite build",
     "preview": "vite preview",
     "test": "vitest run --coverage",
+    "coverage:upload": "codecov -f ./coverage/lcov.info",
     "lint": "eslint src/ --max-warnings 0"
   },
   "dependencies": {
