@@ -1,9 +1,9 @@
 # CI/CD 配置贡献说明
-姓名：XXX  学号：XXX  角色：前端 / 后端  日期：XXXX-XX-XX
+姓名：肖云志  学号：2312190529  角色：前端  日期：2026-05-05
 ## 完成的工作
 ### 工作流相关
-- [ ] 参与编写 / 审查 `.github/workflows/ci.yml`
-- [ ] 配置 Codecov 覆盖率上传（backend / frontend flag）
+- [√] 参与编写 、 审查 `.github/workflows/ci.yml`
+- [√] 配置 Codecov 覆盖率上传（frontend flag）
 - [ ] 添加 README 状态徽章
 ### 代码适配
 - [ ] 本地测试命令与 CI 一致，无需额外配置
