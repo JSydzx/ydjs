@@ -9,6 +9,11 @@ export interface PostItem {
   title: string
   preview: string
   meta: string
+  avatar: string
+  userId: number
+  nickname: string
+  time: string
+  imgUrl?: string
 }
 export interface Paginate<T> {
   total: number

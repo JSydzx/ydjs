@@ -1,16 +1,33 @@
 <template>
   <div class="page apply-page">
     <header class="apply-header">
-      <button class="back-button" @click="goBack">← 返回</button>
-      <h1 class="apply-title">申请理由</h1>
+      <button
+        class="back-button"
+        @click="goBack"
+      >
+        ← 返回
+      </button>
+      <h1 class="apply-title">
+        申请理由
+      </h1>
     </header>
 
     <section class="apply-form">
-      <textarea v-model="reason" placeholder="请填写您的申请理由..." class="reason-input" rows="8"></textarea>
+      <textarea
+        v-model="reason"
+        placeholder="请填写您的申请理由..."
+        class="reason-input"
+        rows="8"
+      />
     </section>
 
     <section class="apply-actions">
-      <button class="submit-button" @click="submitApplication">提交申请</button>
+      <button
+        class="submit-button"
+        @click="submitApplication"
+      >
+        提交申请
+      </button>
     </section>
   </div>
 </template>

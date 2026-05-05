@@ -3,15 +3,15 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for frontend/src/views/TeamView.vue</title>
+    <title>Code coverage report for views/TeamDetailView.vue</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="../../../prettify.css" />
-    <link rel="stylesheet" href="../../../base.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="../../../favicon.png" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style type='text/css'>
         .coverage-summary .sorter {
-            background-image: url(../../../sort-arrow-sprite.png);
+            background-image: url(../sort-arrow-sprite.png);
         }
     </style>
 </head>
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../index.html">All files</a> / <a href="index.html">frontend/src/views</a> TeamView.vue</h1>
+        <h1><a href="../index.html">All files</a> / <a href="index.html">views</a> TeamDetailView.vue</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">98.86% </span>
+                <span class="strong">58.18% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>174/176</span>
+                <span class='fraction'>64/110</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">83.33% </span>
+                <span class="strong">49.12% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>10/12</span>
+                <span class='fraction'>28/57</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">42.85% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>3/7</span>
+                <span class='fraction'>9/21</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">98.86% </span>
+                <span class="strong">57.79% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>174/176</span>
+                <span class='fraction'>63/109</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -554,199 +554,483 @@
 <a name='L489'></a><a href='#L489'>489</a>
 <a name='L490'></a><a href='#L490'>490</a>
 <a name='L491'></a><a href='#L491'>491</a>
-<a name='L492'></a><a href='#L492'>492</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L492'></a><a href='#L492'>492</a>
+<a name='L493'></a><a href='#L493'>493</a>
+<a name='L494'></a><a href='#L494'>494</a>
+<a name='L495'></a><a href='#L495'>495</a>
+<a name='L496'></a><a href='#L496'>496</a>
+<a name='L497'></a><a href='#L497'>497</a>
+<a name='L498'></a><a href='#L498'>498</a>
+<a name='L499'></a><a href='#L499'>499</a>
+<a name='L500'></a><a href='#L500'>500</a>
+<a name='L501'></a><a href='#L501'>501</a>
+<a name='L502'></a><a href='#L502'>502</a>
+<a name='L503'></a><a href='#L503'>503</a>
+<a name='L504'></a><a href='#L504'>504</a>
+<a name='L505'></a><a href='#L505'>505</a>
+<a name='L506'></a><a href='#L506'>506</a>
+<a name='L507'></a><a href='#L507'>507</a>
+<a name='L508'></a><a href='#L508'>508</a>
+<a name='L509'></a><a href='#L509'>509</a>
+<a name='L510'></a><a href='#L510'>510</a>
+<a name='L511'></a><a href='#L511'>511</a>
+<a name='L512'></a><a href='#L512'>512</a>
+<a name='L513'></a><a href='#L513'>513</a>
+<a name='L514'></a><a href='#L514'>514</a>
+<a name='L515'></a><a href='#L515'>515</a>
+<a name='L516'></a><a href='#L516'>516</a>
+<a name='L517'></a><a href='#L517'>517</a>
+<a name='L518'></a><a href='#L518'>518</a>
+<a name='L519'></a><a href='#L519'>519</a>
+<a name='L520'></a><a href='#L520'>520</a>
+<a name='L521'></a><a href='#L521'>521</a>
+<a name='L522'></a><a href='#L522'>522</a>
+<a name='L523'></a><a href='#L523'>523</a>
+<a name='L524'></a><a href='#L524'>524</a>
+<a name='L525'></a><a href='#L525'>525</a>
+<a name='L526'></a><a href='#L526'>526</a>
+<a name='L527'></a><a href='#L527'>527</a>
+<a name='L528'></a><a href='#L528'>528</a>
+<a name='L529'></a><a href='#L529'>529</a>
+<a name='L530'></a><a href='#L530'>530</a>
+<a name='L531'></a><a href='#L531'>531</a>
+<a name='L532'></a><a href='#L532'>532</a>
+<a name='L533'></a><a href='#L533'>533</a>
+<a name='L534'></a><a href='#L534'>534</a>
+<a name='L535'></a><a href='#L535'>535</a>
+<a name='L536'></a><a href='#L536'>536</a>
+<a name='L537'></a><a href='#L537'>537</a>
+<a name='L538'></a><a href='#L538'>538</a>
+<a name='L539'></a><a href='#L539'>539</a>
+<a name='L540'></a><a href='#L540'>540</a>
+<a name='L541'></a><a href='#L541'>541</a>
+<a name='L542'></a><a href='#L542'>542</a>
+<a name='L543'></a><a href='#L543'>543</a>
+<a name='L544'></a><a href='#L544'>544</a>
+<a name='L545'></a><a href='#L545'>545</a>
+<a name='L546'></a><a href='#L546'>546</a>
+<a name='L547'></a><a href='#L547'>547</a>
+<a name='L548'></a><a href='#L548'>548</a>
+<a name='L549'></a><a href='#L549'>549</a>
+<a name='L550'></a><a href='#L550'>550</a>
+<a name='L551'></a><a href='#L551'>551</a>
+<a name='L552'></a><a href='#L552'>552</a>
+<a name='L553'></a><a href='#L553'>553</a>
+<a name='L554'></a><a href='#L554'>554</a>
+<a name='L555'></a><a href='#L555'>555</a>
+<a name='L556'></a><a href='#L556'>556</a>
+<a name='L557'></a><a href='#L557'>557</a>
+<a name='L558'></a><a href='#L558'>558</a>
+<a name='L559'></a><a href='#L559'>559</a>
+<a name='L560'></a><a href='#L560'>560</a>
+<a name='L561'></a><a href='#L561'>561</a>
+<a name='L562'></a><a href='#L562'>562</a>
+<a name='L563'></a><a href='#L563'>563</a>
+<a name='L564'></a><a href='#L564'>564</a>
+<a name='L565'></a><a href='#L565'>565</a>
+<a name='L566'></a><a href='#L566'>566</a>
+<a name='L567'></a><a href='#L567'>567</a>
+<a name='L568'></a><a href='#L568'>568</a>
+<a name='L569'></a><a href='#L569'>569</a>
+<a name='L570'></a><a href='#L570'>570</a>
+<a name='L571'></a><a href='#L571'>571</a>
+<a name='L572'></a><a href='#L572'>572</a>
+<a name='L573'></a><a href='#L573'>573</a>
+<a name='L574'></a><a href='#L574'>574</a>
+<a name='L575'></a><a href='#L575'>575</a>
+<a name='L576'></a><a href='#L576'>576</a>
+<a name='L577'></a><a href='#L577'>577</a>
+<a name='L578'></a><a href='#L578'>578</a>
+<a name='L579'></a><a href='#L579'>579</a>
+<a name='L580'></a><a href='#L580'>580</a>
+<a name='L581'></a><a href='#L581'>581</a>
+<a name='L582'></a><a href='#L582'>582</a>
+<a name='L583'></a><a href='#L583'>583</a>
+<a name='L584'></a><a href='#L584'>584</a>
+<a name='L585'></a><a href='#L585'>585</a>
+<a name='L586'></a><a href='#L586'>586</a>
+<a name='L587'></a><a href='#L587'>587</a>
+<a name='L588'></a><a href='#L588'>588</a>
+<a name='L589'></a><a href='#L589'>589</a>
+<a name='L590'></a><a href='#L590'>590</a>
+<a name='L591'></a><a href='#L591'>591</a>
+<a name='L592'></a><a href='#L592'>592</a>
+<a name='L593'></a><a href='#L593'>593</a>
+<a name='L594'></a><a href='#L594'>594</a>
+<a name='L595'></a><a href='#L595'>595</a>
+<a name='L596'></a><a href='#L596'>596</a>
+<a name='L597'></a><a href='#L597'>597</a>
+<a name='L598'></a><a href='#L598'>598</a>
+<a name='L599'></a><a href='#L599'>599</a>
+<a name='L600'></a><a href='#L600'>600</a>
+<a name='L601'></a><a href='#L601'>601</a>
+<a name='L602'></a><a href='#L602'>602</a>
+<a name='L603'></a><a href='#L603'>603</a>
+<a name='L604'></a><a href='#L604'>604</a>
+<a name='L605'></a><a href='#L605'>605</a>
+<a name='L606'></a><a href='#L606'>606</a>
+<a name='L607'></a><a href='#L607'>607</a>
+<a name='L608'></a><a href='#L608'>608</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -754,84 +1038,32 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1046,252 +1278,409 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">&lt;template&gt;
-  &lt;div class="page team-page"&gt;
-    &lt;header class="team-header"&gt;
-      &lt;button class="back-button" @click="goBack"&gt;
-        &lt;svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"&gt;
+  &lt;div class="page team-detail-page"&gt;
+    &lt;header class="team-detail-header"&gt;
+      &lt;button
+        class="back-button"
+        @click="goBack"
+      &gt;
+        &lt;svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+        &gt;
           &lt;path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" /&gt;
         &lt;/svg&gt;
       &lt;/button&gt;
-      &lt;h1 class="team-title"&gt;我的队伍&lt;/h1&gt;
+      &lt;h1 class="team-detail-title"&gt;
+        团队详情
+      &lt;/h1&gt;
     &lt;/header&gt;
 &nbsp;
-    &lt;div class="team-actions"&gt;
-      &lt;button @click="refresh"&gt;刷新&lt;/button&gt;
-      &lt;button @click="openCreateModal" class="primary-btn"&gt;创建队伍&lt;/button&gt;
-    &lt;/div&gt;
+    &lt;section class="team-info"&gt;
+      &lt;h2 class="team-name"&gt;
+        {{ team.name }}
+      &lt;/h2&gt;
+      &lt;p
+        v-if="team.description"
+        class="team-description"
+      &gt;
+        {{ team.description }}
+      &lt;/p&gt;
+      &lt;p
+        v-if="team.tags &amp;&amp; team.tags.length &gt; 0"
+        class="team-tags"
+      &gt;
+        标签: &lt;span
+          v-for="(tag, index) in team.tags"
+          :key="index"
+          class="tag"
+        &gt;{{ tag }}&lt;/span&gt;
+      &lt;/p&gt;
+      &lt;p class="team-creator"&gt;
+        创建者: UID {{ team.creatorId }}
+      &lt;/p&gt;
+      &lt;p class="team-time"&gt;
+        创建时间: {{ new Date(team.createdAt).toLocaleString() }}
+      &lt;/p&gt;
+    &lt;/section&gt;
 &nbsp;
-    &lt;div v-if="teams.length === 0" class="empty"&gt;还没有队伍，去创建或加入一个吧&lt;/div&gt;
-    &lt;ul v-else&gt;
-      &lt;li v-for="team in teams" :key="team.id" class="team-card" @click="goToTeamDetail(team.id)"&gt;
-        &lt;h3&gt;{{ team.name }}&lt;/h3&gt;
-        &lt;p v-if="team.description"&gt;{{ team.description<span class="branch-0 cbranch-no" title="branch not covered" > }}&lt;/p&gt;</span>
-        &lt;p v-if="team.tags &amp;&amp; team.tags.length &gt; 0"&gt;分区: &lt;span class="tag" v-for="(tag, index) in team.tags"
-            :key="index"&gt;{{ tag }}&lt;/span&gt;&lt;/p&gt;
-        &lt;p&gt;创建时间: {{ new Date(team.createdAt).toLocaleString() }}&lt;/p&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
+    &lt;section class="team-actions"&gt;
+      &lt;button
+        v-if="isCreator"
+        class="action-button edit"
+        @click="openEditModal"
+      &gt;
+        编辑团队
+      &lt;/button&gt;
+      &lt;button
+        v-if="isCreator"
+        class="action-button delete"
+        @click="handleDelete"
+      &gt;
+        删除团队
+      &lt;/button&gt;
+      &lt;button
+        class="action-button members"
+        @click="openMembersModal"
+      &gt;
+        成员管理
+      &lt;/button&gt;
+    &lt;/section&gt;
 &nbsp;
-    &lt;!-- 创建队伍弹窗 --&gt;
-    &lt;div v-if="showCreateModal" class="modal-overlay" @click.self="closeCreateModal"&gt;
+    &lt;!-- 编辑团队弹窗 --&gt;
+    &lt;div
+      v-if="<span class="branch-0 cbranch-no" title="branch not covered" >showEditModal"</span>
+      class="modal-overlay"
+      @click.self="closeEditModal"
+    &gt;
       &lt;div class="modal"&gt;
-        &lt;h3&gt;创建新队伍&lt;/h3&gt;
+        &lt;h3&gt;编辑团队&lt;/h3&gt;
         &lt;div class="form-item"&gt;
-          &lt;label&gt;队伍名称&lt;/label&gt;
-          &lt;input v-model="form.name" type="text" placeholder="请输入队伍名称" /&gt;
+          &lt;label&gt;团队名称&lt;/label&gt;
+          &lt;input
+            v-model="<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >editForm.n</span>ame"</span>
+            type="text"
+            placeholder="请输入团队名称"
+          &gt;
         &lt;/div&gt;
         &lt;div class="form-item"&gt;
-          &lt;label&gt;队伍描述&lt;/label&gt;
-          &lt;textarea v-model="form.description" placeholder="请输入队伍描述" rows="3"&gt;&lt;/textarea&gt;
+          &lt;label&gt;团队描述&lt;/label&gt;
+          &lt;textarea
+            v-model="<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >editForm.d</span>escription"</span>
+            placeholder="请输入团队描述"
+            rows="3"
+          /&gt;
         &lt;/div&gt;
         &lt;div class="form-item"&gt;
           &lt;label&gt;所属分区&lt;/label&gt;
           &lt;div class="checkbox-group"&gt;
-            &lt;label v-for="tag in availableTags" :key="tag" class="checkbox-label"&gt;
-              &lt;input type="checkbox" :value="tag" v-model="<span class="fstat-no" title="function not covered" >form.tags"&gt;</span>
+<span class="cstat-no" title="statement not covered" >            &lt;label</span>
+              v-for="tag in <span class="fstat-no" title="function not covered" >availableTags"</span>
+              :key="tag"
+              class="checkbox-label"
+            &gt;
+              &lt;input
+                v-model="<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >editForm.t</span>ags"</span>
+                type="checkbox"
+                :value="tag"
+              &gt;
               &lt;span class="checkbox-text"&gt;{{ tag }}&lt;/span&gt;
             &lt;/label&gt;
           &lt;/div&gt;
         &lt;/div&gt;
 &nbsp;
         &lt;div class="modal-actions"&gt;
-          &lt;button @click="closeCreateModal"&gt;取消&lt;/button&gt;
-          &lt;button @click="submitCreate" class="primary-btn"&gt;确认创建&lt;/button&gt;
+          &lt;button @click="closeEditModal"&gt;
+            取消
+          &lt;/button&gt;
+          &lt;button
+            class="primary-btn"
+            @click="submitEdit"
+          &gt;
+            确认更新
+          &lt;/button&gt;
         &lt;/div&gt;
       &lt;/div&gt;
     &lt;/div&gt;
 &nbsp;
-    &lt;!-- 编辑队伍弹窗 --&gt;
-    &lt;div v-if="showEditModal" class="modal-overlay" @click.self="closeEditModal"&gt;
+    &lt;!-- 成员管理弹窗 --&gt;
+    &lt;div
+      v-if="showMembersModal"
+      class="modal-overlay"
+      @click.self="closeMembersModal"
+    &gt;
       &lt;div class="modal"&gt;
-        &lt;h3&gt;编辑队伍&lt;/h3&gt;
+        &lt;h3&gt;团队成员&lt;/h3&gt;
+&nbsp;
+        &lt;!-- 添加成员表单 --&gt;
         &lt;div class="form-item"&gt;
-          &lt;label&gt;队伍名称&lt;/label&gt;
-          &lt;input v-model="<span class="fstat-no" title="function not covered" >editForm.name" t</span>ype="text" placeholder="请输入队伍名称" /&gt;
-        &lt;/div&gt;
-        &lt;div class="form-item"&gt;
-          &lt;label&gt;队伍描述&lt;/label&gt;
-          &lt;textarea v-model="<span class="fstat-no" title="function not covered" >editForm.description" p</span>laceholder="请输入队伍描述" rows="3"&gt;&lt;/textarea&gt;
-        &lt;/div&gt;
-        &lt;div class="form-item"&gt;
-          &lt;label&gt;所属分区&lt;/label&gt;
-          &lt;div class="checkbox-group"&gt;
-            &lt;label v-for="tag in availableTags" :key="tag" class="checkbox-label"&gt;
-              &lt;input type="checkbox" :value="tag" v-model="editForm.tags"&gt;
-              &lt;span class="checkbox-text"&gt;{{ tag }}&lt;/span&gt;
-            &lt;/label&gt;
+          &lt;label&gt;添加成员 (通过UID)&lt;/label&gt;
+          &lt;div class="add-member-form"&gt;
+            &lt;input
+              v-model="addMemberForm.userId"
+              type="number"
+              placeholder="请输入用户UID"
+            &gt;
+            &lt;button
+              class="primary-btn"
+              @click="submitAddMember"
+            &gt;
+              邀请
+            &lt;/button&gt;
           &lt;/div&gt;
         &lt;/div&gt;
 &nbsp;
+        &lt;!-- 成员列表 --&gt;
+        &lt;div class="members-list"&gt;
+          &lt;div
+            v-if="teamMembers.length === 0"
+            class="empty"
+          &gt;
+            暂无成员
+          &lt;/div&gt;
+          &lt;ul v-else&gt;
+            &lt;li
+              v-for="member in teamMembers"
+              :key="member.id"
+              class="member-item"
+            &gt;
+              &lt;div class="member-info"&gt;
+                &lt;img
+                  :src="member.avatar<span class="branch-1 cbranch-no" title="branch not covered" > || 'https://via.placeholder.com/40'"</span>
+                  alt="头像"
+                  class="member-avatar"
+                &gt;
+                &lt;div class="member-details"&gt;
+                  &lt;span class="member-username"&gt;{{ member.username }}&lt;/span&gt;
+                  &lt;span
+                    v-if="member.nickname"
+                    class="member-nickname"
+                  &gt;{{ member.nickname<span class="branch-1 cbranch-no" title="branch not covered" > }}&lt;/span&gt;</span>
+                  &lt;span class="member-uid"&gt;UID: {{ member.id }}&lt;/span&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+              &lt;button
+                v-if="<span class="branch-0 cbranch-no" title="branch not covered" >isCreator"</span>
+                class="remove-button"
+                @<span class="fstat-no" title="function not covered" >click=</span>"<span class="cstat-no" title="statement not covered" >handleRemoveMember(member.id)"</span>
+              &gt;
+                移除
+              &lt;/button&gt;
+            &lt;/li&gt;
+          &lt;/ul&gt;
+        &lt;/div&gt;
+&nbsp;
         &lt;div class="modal-actions"&gt;
-          &lt;button @click="closeEditModal"&gt;取消&lt;/button&gt;
-          &lt;button @click="submitEdit" class="primary-btn"&gt;确认更新&lt;/button&gt;
+          &lt;button
+            class="primary-btn"
+            @click="closeMembersModal"
+          &gt;
+            关闭
+          &lt;/button&gt;
         &lt;/div&gt;
       &lt;/div&gt;
     &lt;/div&gt;
-&nbsp;
-&nbsp;
   &lt;/div&gt;
 &lt;/template&gt;
 &nbsp;
 &lt;script setup lang="ts"&gt;
-import { onMounted, ref, reactive } from 'vue'
-import { useRouter } from 'vue-router'
-import { getMyTeams, createTeam as apiCreateTeam, updateTeam, deleteTeam } from '../api/team.ts'
-import type { TeamVO } from '../api/team.ts'
+import { ref, reactive, computed, onMounted } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import { getTeamDetail, updateTeam, deleteTeam, getTeamMembers, addTeamMember, removeTeamMember, TeamVO, UserVO } from '../api/team.ts'
 &nbsp;
-const teams = ref&lt;TeamVO[]&gt;([])
+const route = useRoute()
 const router = useRouter()
+const teamId = Number(route.params.id)
 &nbsp;
-// 弹窗控制
-const showCreateModal = ref(false)
+const team = ref&lt;TeamVO&gt;({
+  id: teamId,
+  name: '',
+  description: '',
+  tags: [],
+  creatorId: 0,
+  createdAt: '',
+  updatedAt: ''
+})
+&nbsp;
+const teamMembers = ref&lt;UserVO[]&gt;([])
 const showEditModal = ref(false)
+const showMembersModal = ref(false)
 &nbsp;
 // 定义所有可选的分区
 const availableTags = ['篮球', '足球', '排球', '羽毛球', '乒乓球']
 &nbsp;
-// 表单数据
-const form = reactive({
-  name: '',
-  description: '',
-  tags: [] as string[]
-})
-&nbsp;
 // 编辑数据
 const editForm = reactive({
-  id: 0,
   name: '',
   description: '',
   tags: [] as string[]
 })
 &nbsp;
+// 添加成员表单
+const addMemberForm = reactive({
+  userId: 0
+})
 &nbsp;
+// 判断当前用户是否是团队创建者
+const isCreator = computed(() =&gt; {
+  const currentUserId = Number(localStorage.getItem('userId'))
+  return currentUserId === team.value.creatorId
+})
 &nbsp;
-const loadTeams = async () =&gt; {
-  const data = await getMyTeams()
-  teams.value = data
-}
-&nbsp;
-const goBack = () =&gt; {
-  router.back()
-}
-&nbsp;
-const <span class="fstat-no" title="function not covered" >refresh = () =&gt; loadTeams()</span>
-&nbsp;
-const goToTeamDetail = (id: number) =&gt; {
-  router.push({ name: 'teamDetail', params: { id } })
-}
-&nbsp;
-const openCreateModal = () =&gt; {
-  form.name = ''
-  form.description = ''
-  form.tags = []
-  showCreateModal.value = true
-}
-&nbsp;
-const closeCreateModal = () =&gt; {
-  showCreateModal.value = false
-}
-&nbsp;
-const submitCreate = async () =&gt; {
-  if (!form.name.trim()) {
-    window.alert('请输入队伍名称')
-    return
-  }
-&nbsp;
+const loadTeamDetail = async () =&gt; {
   try {
-    const newTeam = await apiCreateTeam({
-      name: form.name,
-      description: form.description,
-      tags: form.tags
-    })
-&nbsp;
-    // 手动添加新团队到列表中
-    if (newTeam) <span class="branch-0 cbranch-no" title="branch not covered" >{</span>
-<span class="cstat-no" title="statement not covered" >      teams.value.unshift(newTeam)</span>
-<span class="cstat-no" title="statement not covered" >    } else {</span>
-      // 如果API返回空，创建一个模拟的团队对象
-      const mockTeam: TeamVO = {
-        id: Date.now(), // 使用时间戳作为临时ID
-        name: form.name,
-        description: form.description,
-        tags: form.tags,
-        creatorId: 1, // 假设当前用户ID为1
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString()
-      }
-      teams.value.unshift(mockTeam)
-    }
-&nbsp;
-    window.alert('创建成功！')
-    closeCreateModal()
+    const data = await getTeamDetail(teamId)
+    team.value = data
   } catch (error) {
-    console.error('创建失败:', error)
-    window.alert('创建失败，请稍后重试')
+<span class="cstat-no" title="statement not covered" >    console.error('获取团队详情失败:', error)</span>
+    // 使用模拟数据
+<span class="cstat-no" title="statement not covered" >    team.value = {</span>
+      id: teamId,
+      name: `团队${teamId}`,
+      description: `这是团队${teamId}的描述`,
+      tags: ['篮球'],
+      creatorId: 1,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
+    }
   }
 }
 &nbsp;
-const openEditModal = (team: TeamVO) =&gt; {
-  editForm.id = team.id
-  editForm.name = team.name
-  editForm.description = team.description || ''
-  editForm.tags = team.tags || []
-  showEditModal.value = true
-}
-&nbsp;
-const closeEditModal = () =&gt; {
-  showEditModal.value = false
-}
-&nbsp;
-const submitEdit = async () =&gt; {
-  if (!editForm.name.trim()) {
-    window.alert('请输入队伍名称')
-    return
-  }
-&nbsp;
+const loadTeamMembers = async () =&gt; {
   try {
-    await updateTeam(editForm.id, {
+    const members = await getTeamMembers(teamId)
+    teamMembers.value = members
+  } catch (error) {
+<span class="cstat-no" title="statement not covered" >    console.error('获取团队成员失败:', error)</span>
+    // 使用模拟数据
+<span class="cstat-no" title="statement not covered" >    teamMembers.value = [</span>
+      {
+        id: 1,
+        username: 'abc',
+        nickname: '测试用户',
+        avatar: 'https://via.placeholder.com/40'
+      },
+      {
+        id: 2,
+        username: 'user2',
+        nickname: '用户2',
+        avatar: 'https://via.placeholder.com/40'
+      }
+    ]
+  }
+}
+&nbsp;
+const <span class="fstat-no" title="function not covered" >goBack = () =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >  router.back()</span>
+}
+&nbsp;
+const <span class="fstat-no" title="function not covered" >openEditModal = () =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >  editForm.name = team.value.name</span>
+<span class="cstat-no" title="statement not covered" >  editForm.description = team.value.description || ''</span>
+<span class="cstat-no" title="statement not covered" >  editForm.tags = team.value.tags || []</span>
+<span class="cstat-no" title="statement not covered" >  showEditModal.value = true</span>
+}
+&nbsp;
+const <span class="fstat-no" title="function not covered" >closeEditModal = () =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >  showEditModal.value = false</span>
+}
+&nbsp;
+const submitEdit = <span class="fstat-no" title="function not covered" >async () =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >  if (!editForm.name.trim()) {</span>
+<span class="cstat-no" title="statement not covered" >    window.alert('请输入团队名称')</span>
+<span class="cstat-no" title="statement not covered" >    return</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  try {</span>
+    const updatedTeam = <span class="cstat-no" title="statement not covered" >await updateTeam(teamId, {</span>
       name: editForm.name,
       description: editForm.description,
       tags: editForm.tags
     })
-    window.alert('更新成功！')
-    closeEditModal()
-    await loadTeams()
+<span class="cstat-no" title="statement not covered" >    team.value = updatedTeam</span>
+<span class="cstat-no" title="statement not covered" >    window.alert('更新成功！')</span>
+<span class="cstat-no" title="statement not covered" >    closeEditModal()</span>
   } catch (error) {
-    console.error('更新失败:', error)
-    window.alert('更新失败，请稍后重试')
+<span class="cstat-no" title="statement not covered" >    console.error('更新失败:', error)</span>
+<span class="cstat-no" title="statement not covered" >    window.alert('更新失败，请稍后重试')</span>
   }
 }
 &nbsp;
-const handleDelete = async (id: number) =&gt; {
-  if (!confirm('确定要删除这个团队吗？')) {
-    return
+const handleDelete = <span class="fstat-no" title="function not covered" >async () =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >  if (!confirm('确定要删除这个团队吗？')) {</span>
+<span class="cstat-no" title="statement not covered" >    return</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  try {</span>
+<span class="cstat-no" title="statement not covered" >    await deleteTeam(teamId)</span>
+<span class="cstat-no" title="statement not covered" >    window.alert('删除成功！')</span>
+<span class="cstat-no" title="statement not covered" >    router.push({ name: 'team' })</span>
+  } catch (error) {
+<span class="cstat-no" title="statement not covered" >    console.error('删除失败:', error)</span>
+<span class="cstat-no" title="statement not covered" >    window.alert('删除失败，请稍后重试')</span>
+  }
+}
+&nbsp;
+const openMembersModal = () =&gt; {
+  loadTeamMembers()
+  showMembersModal.value = true
+}
+&nbsp;
+const <span class="fstat-no" title="function not covered" >closeMembersModal = () =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >  showMembersModal.value = false</span>
+}
+&nbsp;
+const submitAddMember = async () =&gt; {
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (!addMemberForm.userId) {
+<span class="cstat-no" title="statement not covered" >    window.alert('请输入用户UID')</span>
+<span class="cstat-no" title="statement not covered" >    return</span>
   }
 &nbsp;
   try {
-    await deleteTeam(id)
-    window.alert('删除成功！')
-    await loadTeams()
+    await addTeamMember(teamId, {
+      userId: addMemberForm.userId
+    })
+    window.alert('邀请发送成功！')
+    addMemberForm.userId = 0
+    // 重新加载成员列表
+    await loadTeamMembers()
   } catch (error) {
-    console.error('删除失败:', error)
-    window.alert('删除失败，请稍后重试')
+<span class="cstat-no" title="statement not covered" >    console.error('添加成员失败:', error)</span>
+<span class="cstat-no" title="statement not covered" >    window.alert('添加成员失败，请稍后重试')</span>
   }
 }
 &nbsp;
+const handleRemoveMember = <span class="fstat-no" title="function not covered" >async (u</span>serId: number) =&gt; {
+<span class="cstat-no" title="statement not covered" >  if (!confirm('确定要移除这个成员吗？')) {</span>
+<span class="cstat-no" title="statement not covered" >    return</span>
+  }
 &nbsp;
+<span class="cstat-no" title="statement not covered" >  try {</span>
+<span class="cstat-no" title="statement not covered" >    await removeTeamMember(teamId, userId)</span>
+<span class="cstat-no" title="statement not covered" >    window.alert('移除成员成功！')</span>
+    // 重新加载成员列表
+<span class="cstat-no" title="statement not covered" >    await loadTeamMembers()</span>
+  } catch (error) {
+<span class="cstat-no" title="statement not covered" >    console.error('移除成员失败:', error)</span>
+<span class="cstat-no" title="statement not covered" >    window.alert('移除成员失败，请稍后重试')</span>
+  }
+}
 &nbsp;
-onMounted(loadTeams)
+onMounted(() =&gt; {
+  loadTeamDetail()
+})
 &lt;/script&gt;
 &nbsp;
 &lt;style scoped&gt;
-/* 之前的样式保持不变... */
-.team-page {
+.team-detail-page {
   padding: 12px;
   min-height: 100vh;
 }
 &nbsp;
-.team-header {
+.team-detail-header {
   position: relative;
   margin-bottom: 20px;
   text-align: center;
@@ -1313,61 +1702,99 @@ onMounted(loadTeams)
   justify-content: center;
 }
 &nbsp;
-.team-title {
+.team-detail-title {
   margin: 0;
   font-size: 18px;
   font-weight: 600;
   color: #4a90e2;
+  padding-top: 5px;
+}
+&nbsp;
+.team-info {
+  background: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+&nbsp;
+.team-name {
+  margin: 0 0 10px 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: #333;
+}
+&nbsp;
+.team-description {
+  margin: 0 0 15px 0;
+  font-size: 14px;
+  color: #666;
+  line-height: 1.4;
+}
+&nbsp;
+.team-tags {
+  margin: 0 0 10px 0;
+  font-size: 14px;
+  color: #666;
+}
+&nbsp;
+.tag {
+  display: inline-block;
+  background: #f0f2f5;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  margin-right: 8px;
+  color: #4a90e2;
+}
+&nbsp;
+.team-creator,
+.team-time {
+  margin: 5px 0;
+  font-size: 14px;
+  color: #666;
 }
 &nbsp;
 .team-actions {
   display: flex;
   gap: 10px;
-  margin-bottom: 12px;
+  margin-bottom: 30px;
 }
 &nbsp;
-button {
+.action-button {
   flex: 1;
-  padding: 10px;
+  padding: 12px;
   border: 1px solid #ddd;
   border-radius: 6px;
   background: #fff;
   color: #333;
   font-size: 14px;
-  cursor: pointer;
-}
-&nbsp;
-.primary-btn {
-  background: #4a90e2;
-  color: #fff;
-  border: none;
-}
-&nbsp;
-.empty {
-  color: #666;
-  text-align: center;
-  margin-top: 40px;
-}
-&nbsp;
-.team-card {
-  background: #fff;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 12px;
-  margin-bottom: 10px;
+  font-weight: 500;
   cursor: pointer;
   transition: all 0.2s;
 }
 &nbsp;
-.team-card:hover {
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  transform: translateY(-2px);
+.action-button.edit {
+  background: #4a90e2;
+  color: white;
+  border-color: #4a90e2;
 }
 &nbsp;
-.team-card h3 {
-  margin: 0 0 8px 0;
-  font-size: 16px;
-  color: #333;
+.action-button.delete {
+  background: #ff4757;
+  color: white;
+  border-color: #ff4757;
+}
+&nbsp;
+.action-button.members {
+  background: #2ecc71;
+  color: white;
+  border-color: #2ecc71;
+}
+&nbsp;
+.action-button:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
 }
 &nbsp;
 .form-item textarea {
@@ -1391,7 +1818,7 @@ button {
 &nbsp;
 .members-list {
   margin: 15px 0;
-  max-height: 200px;
+  max-height: 250px;
   overflow-y: auto;
 }
 &nbsp;
@@ -1399,11 +1826,24 @@ button {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 8px 0;
+  padding: 12px 0;
   border-bottom: 1px solid #eee;
 }
 &nbsp;
 .member-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+&nbsp;
+.member-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+&nbsp;
+.member-details {
   display: flex;
   flex-direction: column;
 }
@@ -1411,6 +1851,7 @@ button {
 .member-username {
   font-weight: 600;
   font-size: 14px;
+  color: #333;
 }
 &nbsp;
 .member-nickname {
@@ -1418,8 +1859,14 @@ button {
   color: #666;
 }
 &nbsp;
+.member-uid {
+  font-size: 12px;
+  color: #999;
+  margin-top: 2px;
+}
+&nbsp;
 .remove-button {
-  padding: 4px 8px;
+  padding: 6px 12px;
   border: 1px solid #ff4757;
   border-radius: 4px;
   background: #fff;
@@ -1432,109 +1879,10 @@ button {
   background: #ffe6e6;
 }
 &nbsp;
-.team-card p {
-  margin: 4px 0;
-  font-size: 13px;
-  color: #666;
-}
-&nbsp;
-.tag {
-  display: inline-block;
-  background: #f0f2f5;
-  padding: 2px 6px;
-  border-radius: 4px;
-  font-size: 12px;
-  margin-right: 4px;
-  color: #4a90e2;
-}
-&nbsp;
-/* 弹窗样式 */
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-}
-&nbsp;
-.modal {
-  background: #fff;
-  padding: 20px;
-  border-radius: 12px;
-  width: 80%;
-  max-width: 320px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-&nbsp;
-.modal h3 {
-  margin: 0 0 16px 0;
+.empty {
   text-align: center;
-  color: #333;
-}
-&nbsp;
-.form-item {
-  margin-bottom: 16px;
-}
-&nbsp;
-.form-item label {
-  display: block;
-  margin-bottom: 6px;
-  font-size: 14px;
-  color: #333;
-  font-weight: 500;
-}
-&nbsp;
-.form-item input[type="text"] {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  font-size: 14px;
-  box-sizing: border-box;
-}
-&nbsp;
-/* 新增：Checkbox 样式 */
-.checkbox-group {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding: 5px 0;
-}
-&nbsp;
-.checkbox-label {
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  user-select: none;
-}
-&nbsp;
-.checkbox-label input[type="checkbox"] {
-  width: 18px;
-  height: 18px;
-  margin-right: 10px;
-  accent-color: #4a90e2;
-  /* 选中时的颜色 */
-  cursor: pointer;
-}
-&nbsp;
-.checkbox-text {
-  font-size: 14px;
-  color: #333;
-}
-&nbsp;
-.modal-actions {
-  display: flex;
-  gap: 10px;
-  margin-top: 20px;
-}
-&nbsp;
-.modal-actions button {
-  flex: 1;
+  color: #999;
+  padding: 20px 0;
 }
 &lt;/style&gt;</pre></td></tr></table></pre>
 
@@ -1543,16 +1891,16 @@ button {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-04-27T09:45:04.170Z
+                at 2026-05-05T07:40:50.556Z
             </div>
-        <script src="../../../prettify.js"></script>
+        <script src="../prettify.js"></script>
         <script>
             window.onload = function () {
                 prettyPrint();
             };
         </script>
-        <script src="../../../sorter.js"></script>
-        <script src="../../../block-navigation.js"></script>
+        <script src="../sorter.js"></script>
+        <script src="../block-navigation.js"></script>
     </body>
 </html>
     

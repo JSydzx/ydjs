@@ -4,15 +4,42 @@
       <router-view />
     </main>
 
-    <footer v-if="route.name !== 'login'" class="tabbar">
-      <router-link to="/" class="tab" :class="{ active: activeTab === 'home' }"
-        @click="activeTab = 'home'">首页</router-link>
-      <router-link to="/publish" class="tab publish" :class="{ active: activeTab === 'publish' }"
-        @click="activeTab = 'publish'">发布</router-link>
-      <router-link to="/schedule" class="tab" :class="{ active: activeTab === 'schedule' }"
-        @click="activeTab = 'schedule'">日程</router-link>
-      <router-link to="/profile" class="tab" :class="{ active: activeTab === 'profile' }"
-        @click="activeTab = 'profile'">我</router-link>
+    <footer
+      v-if="route.name !== 'login'"
+      class="tabbar"
+    >
+      <router-link
+        to="/"
+        class="tab"
+        :class="{ active: activeTab === 'home' }"
+        @click="activeTab = 'home'"
+      >
+        首页
+      </router-link>
+      <router-link
+        to="/publish"
+        class="tab publish"
+        :class="{ active: activeTab === 'publish' }"
+        @click="activeTab = 'publish'"
+      >
+        发布
+      </router-link>
+      <router-link
+        to="/schedule"
+        class="tab"
+        :class="{ active: activeTab === 'schedule' }"
+        @click="activeTab = 'schedule'"
+      >
+        日程
+      </router-link>
+      <router-link
+        to="/profile"
+        class="tab"
+        :class="{ active: activeTab === 'profile' }"
+        @click="activeTab = 'profile'"
+      >
+        我
+      </router-link>
     </footer>
   </div>
 </template>

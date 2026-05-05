@@ -1,7 +1,10 @@
 <template>
   <div class="page profile-page">
     <div class="profile-card">
-      <div class="avatar" @click="goToLogin"></div>
+      <div
+        class="avatar"
+        @click="goToLogin"
+      />
       <div class="info">
         <h2>{{ user?.name || '未登录' }}</h2>
         <small>{{ user?.school || '' }}</small>
@@ -14,11 +17,24 @@
     </div>
 
     <ul class="menu-list">
-      <li @click="go('service')">服务</li>
-      <li @click="go('team')">我的队伍</li>
-      <li @click="go('email')">我的邮箱</li>
-      <li @click="go('settings')">设置</li>
-      <li @click="logout" class="logout">退出登录</li>
+      <li @click="go('service')">
+        服务
+      </li>
+      <li @click="go('team')">
+        我的队伍
+      </li>
+      <li @click="go('email')">
+        我的邮箱
+      </li>
+      <li @click="go('settings')">
+        设置
+      </li>
+      <li
+        class="logout"
+        @click="logout"
+      >
+        退出登录
+      </li>
     </ul>
   </div>
 </template>

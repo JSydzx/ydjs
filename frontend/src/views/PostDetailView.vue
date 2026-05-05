@@ -1,18 +1,34 @@
 <template>
   <div class="page post-detail-page">
     <header class="detail-header">
-      <button class="back-button" @click="goBack">← 返回</button>
+      <button
+        class="back-button"
+        @click="goBack"
+      >
+        ← 返回
+      </button>
     </header>
 
     <div class="detail-image">
-      <img :src="detail.imgUrl" alt="帖子配图" />
+      <img
+        :src="detail.imgUrl"
+        alt="帖子配图"
+      >
     </div>
 
     <section class="detail-meta">
-      <img class="avatar" :src="detail.avatar" alt="头像" />
+      <img
+        class="avatar"
+        :src="detail.avatar"
+        alt="头像"
+      >
       <div class="meta-text">
-        <div class="nickname">{{ detail.nickname }}</div>
-        <div class="time">{{ detail.time }}</div>
+        <div class="nickname">
+          {{ detail.nickname }}
+        </div>
+        <div class="time">
+          {{ detail.time }}
+        </div>
       </div>
     </section>
 
@@ -22,7 +38,12 @@
     </section>
 
     <section class="detail-actions">
-      <button class="apply-button" @click="applyToTeam">申请加入队伍</button>
+      <button
+        class="apply-button"
+        @click="applyToTeam"
+      >
+        申请加入队伍
+      </button>
     </section>
   </div>
 </template>

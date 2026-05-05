@@ -1,32 +1,58 @@
 <template>
   <div class="page register-page">
     <header class="register-header">
-      <h1 class="register-title">用户注册</h1>
+      <h1 class="register-title">
+        用户注册
+      </h1>
     </header>
 
     <form @submit.prevent="register">
       <div class="form-row">
         <label>用户名</label>
-        <input v-model="form.username" placeholder="请输入用户名" required />
+        <input
+          v-model="form.username"
+          placeholder="请输入用户名"
+          required
+        >
       </div>
       <div class="form-row">
         <label>密码</label>
-        <input v-model="form.password" type="password" placeholder="请输入密码" required />
+        <input
+          v-model="form.password"
+          type="password"
+          placeholder="请输入密码"
+          required
+        >
       </div>
       <div class="form-row">
         <label>昵称</label>
-        <input v-model="form.nickname" placeholder="请输入昵称" />
+        <input
+          v-model="form.nickname"
+          placeholder="请输入昵称"
+        >
       </div>
       <div class="form-row">
         <label>邮箱</label>
-        <input v-model="form.email" type="email" placeholder="请输入邮箱" />
+        <input
+          v-model="form.email"
+          type="email"
+          placeholder="请输入邮箱"
+        >
       </div>
 
-      <button class="register-button" type="submit" :disabled="loading">注册</button>
+      <button
+        class="register-button"
+        type="submit"
+        :disabled="loading"
+      >
+        注册
+      </button>
 
       <div class="login-link">
         <span>已有账号？</span>
-        <router-link to="/login">去登录</router-link>
+        <router-link to="/login">
+          去登录
+        </router-link>
       </div>
     </form>
   </div>

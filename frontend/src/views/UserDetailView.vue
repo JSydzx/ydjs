@@ -1,31 +1,66 @@
 <template>
   <div class="page user-detail-page">
     <header class="user-detail-header">
-      <button class="back-button" @click="goBack">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+      <button
+        class="back-button"
+        @click="goBack"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+        >
           <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" />
         </svg>
       </button>
-      <h1 class="user-detail-title">用户详情</h1>
+      <h1 class="user-detail-title">
+        用户详情
+      </h1>
     </header>
 
     <section class="user-info">
       <div class="avatar-container">
-        <img :src="user.avatar || 'https://via.placeholder.com/100'" alt="用户头像" class="avatar" />
+        <img
+          :src="user.avatar || 'https://via.placeholder.com/100'"
+          alt="用户头像"
+          class="avatar"
+        >
       </div>
       <div class="user-meta">
-        <h2 class="nickname">{{ user.nickname || user.username }}</h2>
-        <p class="uid">UID: {{ user.id }}</p>
-        <p class="username">用户名: {{ user.username }}</p>
-        <p v-if="user.email" class="email">邮箱: {{ user.email }}</p>
+        <h2 class="nickname">
+          {{ user.nickname || user.username }}
+        </h2>
+        <p class="uid">
+          UID: {{ user.id }}
+        </p>
+        <p class="username">
+          用户名: {{ user.username }}
+        </p>
+        <p
+          v-if="user.email"
+          class="email"
+        >
+          邮箱: {{ user.email }}
+        </p>
       </div>
     </section>
 
     <section class="user-posts">
       <h3>发布的帖子</h3>
-      <div v-if="posts.length === 0" class="empty">暂无发布的帖子</div>
+      <div
+        v-if="posts.length === 0"
+        class="empty"
+      >
+        暂无发布的帖子
+      </div>
       <ul v-else>
-        <li v-for="post in posts" :key="post.id" class="post-item">
+        <li
+          v-for="post in posts"
+          :key="post.id"
+          class="post-item"
+        >
           <h4>{{ post.title }}</h4>
           <p>{{ post.preview }}</p>
           <span class="post-time">{{ post.time }}</span>
@@ -38,7 +73,8 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { UserVO } from '../api/user'
+import type { UserVO } from '../api/user'
+import type { PostItem } from '../api/home'
 
 const route = useRoute()
 const router = useRouter()
@@ -54,7 +90,7 @@ const user = ref<UserVO>({
   updatedAt: ''
 })
 
-const posts = ref<any[]>([])
+const posts = ref<PostItem[]>([])
 
 const loadUserInfo = async () => {
   try {
@@ -84,13 +120,21 @@ const loadUserPosts = async () => {
           id: 1,
           title: '篮球队招人',
           preview: '我们篮球队正在招人，欢迎喜欢篮球的朋友加入！',
-          time: '2026-04-25 10:00'
+          time: '2026-04-25 10:00',
+          meta: '',
+          avatar: '',
+          userId: 1,
+          nickname: '用户1'
         },
         {
           id: 2,
           title: '足球比赛通知',
           preview: '本周日有一场足球比赛，感兴趣的朋友可以参加',
-          time: '2026-04-24 15:30'
+          time: '2026-04-24 15:30',
+          meta: '',
+          avatar: '',
+          userId: 1,
+          nickname: '用户1'
         }
       ]
     }

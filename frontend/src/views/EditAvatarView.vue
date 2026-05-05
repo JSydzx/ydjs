@@ -1,27 +1,56 @@
 <template>
   <div class="page edit-avatar-page">
     <header class="edit-avatar-header">
-      <button class="back-button" @click="goBack">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+      <button
+        class="back-button"
+        @click="goBack"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+        >
           <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" />
         </svg>
       </button>
-      <h1 class="edit-avatar-title">修改头像</h1>
+      <h1 class="edit-avatar-title">
+        修改头像
+      </h1>
     </header>
 
     <div class="content">
       <!-- 头像预览区 -->
       <div class="avatar-preview">
-        <img :src="previewUrl || defaultAvatar" alt="预览头像" />
+        <img
+          :src="previewUrl || defaultAvatar"
+          alt="预览头像"
+        >
       </div>
 
       <!-- 文件选择器 (隐藏) -->
-      <input type="file" ref="fileInput" accept="image/*" @change="onFileChange" style="display: none;" />
+      <input
+        ref="fileInput"
+        type="file"
+        accept="image/*"
+        style="display: none;"
+        @change="onFileChange"
+      >
 
       <!-- 操作按钮 -->
       <div class="actions">
-        <button @click="triggerFileInput" class="select-btn">选择图片</button>
-        <button @click="uploadAvatar" :disabled="!selectedFile" class="upload-btn">
+        <button
+          class="select-btn"
+          @click="triggerFileInput"
+        >
+          选择图片
+        </button>
+        <button
+          :disabled="!selectedFile"
+          class="upload-btn"
+          @click="uploadAvatar"
+        >
           确认上传
         </button>
       </div>

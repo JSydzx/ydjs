@@ -19,10 +19,18 @@ export const getUserInfo = (): Promise<{
   )
 }
 
+export interface UserVO {
+  id: number
+  username: string
+  name?: string
+  school?: string
+  signature?: string
+}
+
 export const updateUserInfo = (payload: {
   name?: string
   school?: string
   signature?: string
-}): Promise<any> => {
-  return http.put('/user/profile', payload).then((res) => res)
+}): Promise<UserVO> => {
+  return http.put('/user/profile', payload).then((res) => res as unknown as UserVO)
 }

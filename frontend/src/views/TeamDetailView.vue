@@ -1,61 +1,138 @@
 <template>
   <div class="page team-detail-page">
     <header class="team-detail-header">
-      <button class="back-button" @click="goBack">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+      <button
+        class="back-button"
+        @click="goBack"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+        >
           <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" />
         </svg>
       </button>
-      <h1 class="team-detail-title">团队详情</h1>
+      <h1 class="team-detail-title">
+        团队详情
+      </h1>
     </header>
 
     <section class="team-info">
-      <h2 class="team-name">{{ team.name }}</h2>
-      <p v-if="team.description" class="team-description">{{ team.description }}</p>
-      <p v-if="team.tags && team.tags.length > 0" class="team-tags">
-        标签: <span class="tag" v-for="(tag, index) in team.tags" :key="index">{{ tag }}</span>
+      <h2 class="team-name">
+        {{ team.name }}
+      </h2>
+      <p
+        v-if="team.description"
+        class="team-description"
+      >
+        {{ team.description }}
       </p>
-      <p class="team-creator">创建者: UID {{ team.creatorId }}</p>
-      <p class="team-time">创建时间: {{ new Date(team.createdAt).toLocaleString() }}</p>
+      <p
+        v-if="team.tags && team.tags.length > 0"
+        class="team-tags"
+      >
+        标签: <span
+          v-for="(tag, index) in team.tags"
+          :key="index"
+          class="tag"
+        >{{ tag }}</span>
+      </p>
+      <p class="team-creator">
+        创建者: UID {{ team.creatorId }}
+      </p>
+      <p class="team-time">
+        创建时间: {{ new Date(team.createdAt).toLocaleString() }}
+      </p>
     </section>
 
     <section class="team-actions">
-      <button v-if="isCreator" @click="openEditModal" class="action-button edit">编辑团队</button>
-      <button v-if="isCreator" @click="handleDelete" class="action-button delete">删除团队</button>
-      <button @click="openMembersModal" class="action-button members">成员管理</button>
+      <button
+        v-if="isCreator"
+        class="action-button edit"
+        @click="openEditModal"
+      >
+        编辑团队
+      </button>
+      <button
+        v-if="isCreator"
+        class="action-button delete"
+        @click="handleDelete"
+      >
+        删除团队
+      </button>
+      <button
+        class="action-button members"
+        @click="openMembersModal"
+      >
+        成员管理
+      </button>
     </section>
 
     <!-- 编辑团队弹窗 -->
-    <div v-if="showEditModal" class="modal-overlay" @click.self="closeEditModal">
+    <div
+      v-if="showEditModal"
+      class="modal-overlay"
+      @click.self="closeEditModal"
+    >
       <div class="modal">
         <h3>编辑团队</h3>
         <div class="form-item">
           <label>团队名称</label>
-          <input v-model="editForm.name" type="text" placeholder="请输入团队名称" />
+          <input
+            v-model="editForm.name"
+            type="text"
+            placeholder="请输入团队名称"
+          >
         </div>
         <div class="form-item">
           <label>团队描述</label>
-          <textarea v-model="editForm.description" placeholder="请输入团队描述" rows="3"></textarea>
+          <textarea
+            v-model="editForm.description"
+            placeholder="请输入团队描述"
+            rows="3"
+          />
         </div>
         <div class="form-item">
           <label>所属分区</label>
           <div class="checkbox-group">
-            <label v-for="tag in availableTags" :key="tag" class="checkbox-label">
-              <input type="checkbox" :value="tag" v-model="editForm.tags">
+            <label
+              v-for="tag in availableTags"
+              :key="tag"
+              class="checkbox-label"
+            >
+              <input
+                v-model="editForm.tags"
+                type="checkbox"
+                :value="tag"
+              >
               <span class="checkbox-text">{{ tag }}</span>
             </label>
           </div>
         </div>
 
         <div class="modal-actions">
-          <button @click="closeEditModal">取消</button>
-          <button @click="submitEdit" class="primary-btn">确认更新</button>
+          <button @click="closeEditModal">
+            取消
+          </button>
+          <button
+            class="primary-btn"
+            @click="submitEdit"
+          >
+            确认更新
+          </button>
         </div>
       </div>
     </div>
 
     <!-- 成员管理弹窗 -->
-    <div v-if="showMembersModal" class="modal-overlay" @click.self="closeMembersModal">
+    <div
+      v-if="showMembersModal"
+      class="modal-overlay"
+      @click.self="closeMembersModal"
+    >
       <div class="modal">
         <h3>团队成员</h3>
 
@@ -63,31 +140,67 @@
         <div class="form-item">
           <label>添加成员 (通过UID)</label>
           <div class="add-member-form">
-            <input v-model="addMemberForm.userId" type="number" placeholder="请输入用户UID" />
-            <button @click="submitAddMember" class="primary-btn">邀请</button>
+            <input
+              v-model="addMemberForm.userId"
+              type="number"
+              placeholder="请输入用户UID"
+            >
+            <button
+              class="primary-btn"
+              @click="submitAddMember"
+            >
+              邀请
+            </button>
           </div>
         </div>
 
         <!-- 成员列表 -->
         <div class="members-list">
-          <div v-if="teamMembers.length === 0" class="empty">暂无成员</div>
+          <div
+            v-if="teamMembers.length === 0"
+            class="empty"
+          >
+            暂无成员
+          </div>
           <ul v-else>
-            <li v-for="member in teamMembers" :key="member.id" class="member-item">
+            <li
+              v-for="member in teamMembers"
+              :key="member.id"
+              class="member-item"
+            >
               <div class="member-info">
-                <img :src="member.avatar || 'https://via.placeholder.com/40'" alt="头像" class="member-avatar" />
+                <img
+                  :src="member.avatar || 'https://via.placeholder.com/40'"
+                  alt="头像"
+                  class="member-avatar"
+                >
                 <div class="member-details">
                   <span class="member-username">{{ member.username }}</span>
-                  <span v-if="member.nickname" class="member-nickname">{{ member.nickname }}</span>
+                  <span
+                    v-if="member.nickname"
+                    class="member-nickname"
+                  >{{ member.nickname }}</span>
                   <span class="member-uid">UID: {{ member.id }}</span>
                 </div>
               </div>
-              <button v-if="isCreator" @click="handleRemoveMember(member.id)" class="remove-button">移除</button>
+              <button
+                v-if="isCreator"
+                class="remove-button"
+                @click="handleRemoveMember(member.id)"
+              >
+                移除
+              </button>
             </li>
           </ul>
         </div>
 
         <div class="modal-actions">
-          <button @click="closeMembersModal" class="primary-btn">关闭</button>
+          <button
+            class="primary-btn"
+            @click="closeMembersModal"
+          >
+            关闭
+          </button>
         </div>
       </div>
     </div>

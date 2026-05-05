@@ -33,8 +33,8 @@ export const getMyTeams = (): Promise<TeamVO[]> => {
   return http.get('/team/my').then((res) => res as unknown as TeamVO[])
 }
 
-export const createTeam = (payload: { name: string }): Promise<any> => {
-  return http.post('/teams', payload).then((res) => res)
+export const createTeam = (payload: { name: string }): Promise<TeamVO> => {
+  return http.post('/teams', payload).then((res) => res as unknown as TeamVO)
 }
 
 export const getTeamDetail = (teamId: number): Promise<TeamVO> => {

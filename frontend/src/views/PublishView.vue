@@ -2,18 +2,41 @@
   <div class="page publish-page">
     <h1>发布文章</h1>
     <div class="form-row">
-      <input v-model="title" placeholder="填写标题" />
+      <input
+        v-model="title"
+        placeholder="填写标题"
+      >
     </div>
     <div class="form-row">
-      <textarea v-model="content" rows="6" placeholder="填写正文"></textarea>
+      <textarea
+        v-model="content"
+        rows="6"
+        placeholder="填写正文"
+      />
     </div>
     <div class="form-row">
-      <select v-model="category" class="category-select">
-        <option value="">请选择分区</option>
-        <option v-for="cat in categories" :key="cat" :value="cat">{{ cat }}</option>
+      <select
+        v-model="category"
+        class="category-select"
+      >
+        <option value="">
+          请选择分区
+        </option>
+        <option
+          v-for="cat in categories"
+          :key="cat"
+          :value="cat"
+        >
+          {{ cat }}
+        </option>
       </select>
     </div>
-    <button @click="submit" :disabled="submitting">发布</button>
+    <button
+      :disabled="submitting"
+      @click="submit"
+    >
+      发布
+    </button>
   </div>
 </template>
 

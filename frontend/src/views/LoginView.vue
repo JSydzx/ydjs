@@ -1,19 +1,41 @@
 <template>
   <div class="page login-page">
     <header class="login-header">
-      <button class="back-button" @click="goBack">← 返回</button>
-      <h1 class="login-title">登录</h1>
+      <button
+        class="back-button"
+        @click="goBack"
+      >
+        ← 返回
+      </button>
+      <h1 class="login-title">
+        登录
+      </h1>
     </header>
     <form @submit.prevent="login">
       <div class="form-row">
         <label>用户名</label>
-        <input v-model="username" placeholder="请输入用户名" required />
+        <input
+          v-model="username"
+          placeholder="请输入用户名"
+          required
+        >
       </div>
       <div class="form-row">
         <label>密码</label>
-        <input v-model="password" type="password" placeholder="请输入密码" required />
+        <input
+          v-model="password"
+          type="password"
+          placeholder="请输入密码"
+          required
+        >
       </div>
-      <button class="login-button" type="submit" :disabled="loading">登录</button>
+      <button
+        class="login-button"
+        type="submit"
+        :disabled="loading"
+      >
+        登录
+      </button>
     </form>
   </div>
 </template>

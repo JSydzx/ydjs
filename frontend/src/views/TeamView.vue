@@ -1,16 +1,37 @@
 <template>
   <div class="page team-page">
     <header class="team-header">
-      <button class="back-button" @click="goBack">← 返回</button>
-      <h1 class="team-title">我的队伍</h1>
+      <button
+        class="back-button"
+        @click="goBack"
+      >
+        ← 返回
+      </button>
+      <h1 class="team-title">
+        我的队伍
+      </h1>
     </header>
     <div class="team-actions">
-      <button @click="refresh">刷新</button>
-      <button @click="createTeam">创建队伍</button>
+      <button @click="refresh">
+        刷新
+      </button>
+      <button @click="createTeam">
+        创建队伍
+      </button>
     </div>
-    <div v-if="teams.length === 0" class="empty">还没有队伍，去创建或加入一个吧</div>
+    <div
+      v-if="teams.length === 0"
+      class="empty"
+    >
+      还没有队伍，去创建或加入一个吧
+    </div>
     <ul v-else>
-      <li v-for="team in teams" :key="team.id" class="team-card" @click="goToDetail(team.id)">
+      <li
+        v-for="team in teams"
+        :key="team.id"
+        class="team-card"
+        @click="goToDetail(team.id)"
+      >
         <h3>{{ team.name }}</h3>
         <p>成员: {{ team.memberCount }} | 赛事: {{ team.eventCount }}</p>
       </li>

@@ -1,23 +1,45 @@
 <template>
   <div class="page email-page">
     <header class="email-header">
-      <button class="back-button" @click="goBack">← 返回</button>
+      <button
+        class="back-button"
+        @click="goBack"
+      >
+        ← 返回
+      </button>
       <div class="email-title-wrapper">
-        <h1 class="email-title">我的邮箱</h1>
-        <div class="user-email">{{ userEmail }}</div>
+        <h1 class="email-title">
+          我的邮箱
+        </h1>
+        <div class="user-email">
+          {{ userEmail }}
+        </div>
       </div>
     </header>
     <section class="messages-section">
-      <div v-if="messages.length === 0" class="empty-messages">
+      <div
+        v-if="messages.length === 0"
+        class="empty-messages"
+      >
         暂无消息
       </div>
-      <div v-else class="messages-list">
-        <div v-for="message in messages" :key="message.id" class="message-item" @click="openMessage(message)">
+      <div
+        v-else
+        class="messages-list"
+      >
+        <div
+          v-for="message in messages"
+          :key="message.id"
+          class="message-item"
+          @click="openMessage(message)"
+        >
           <div class="message-header">
             <span class="sender">{{ message.sender }}</span>
             <span class="time">{{ message.time }}</span>
           </div>
-          <div class="message-preview">{{ message.preview }}</div>
+          <div class="message-preview">
+            {{ message.preview }}
+          </div>
         </div>
       </div>
     </section>
@@ -78,7 +100,7 @@ const goBack = () => {
   router.back()
 }
 
-const openMessage = (message: any) => {
+const openMessage = (message: Message) => {
   window.alert(`消息详情：\n发件人：${message.sender}\n时间：${message.time}\n内容：${message.content || message.preview}`)
 }
 

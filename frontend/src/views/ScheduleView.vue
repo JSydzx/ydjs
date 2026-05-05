@@ -2,16 +2,24 @@
   <div class="page schedule-page">
     <h1>我的日程</h1>
 
-    <div v-if="!hasTeam" class="no-team">
+    <div
+      v-if="!hasTeam"
+      class="no-team"
+    >
       <p>暂未加入队伍</p>
-      <button @click="goToTeams">前往加入队伍</button>
+      <button @click="goToTeams">
+        前往加入队伍
+      </button>
     </div>
 
-    <div v-else class="schedule-table">
+    <div
+      v-else
+      class="schedule-table"
+    >
       <table>
         <thead>
           <tr>
-            <th></th>
+            <th />
             <th>上午</th>
             <th>下午</th>
             <th>晚上</th>
@@ -19,150 +27,353 @@
         </thead>
         <tbody>
           <tr>
-            <td class="day-header">星期一</td>
-            <td class="time-slot">
-              <div v-for="event in schedule.slots[0].events" :key="event.id" class="event-item">
-                {{ event.title }}
-              </div>
-              <div v-if="schedule.slots[0].events.length === 0" class="empty-slot">-</div>
+            <td class="day-header">
+              星期一
             </td>
             <td class="time-slot">
-              <div v-for="event in schedule.slots[1].events" :key="event.id" class="event-item">
+              <div
+                v-for="event in schedule.slots[0].events"
+                :key="event.id"
+                class="event-item"
+              >
                 {{ event.title }}
               </div>
-              <div v-if="schedule.slots[1].events.length === 0" class="empty-slot">-</div>
+              <div
+                v-if="schedule.slots[0].events.length === 0"
+                class="empty-slot"
+              >
+                -
+              </div>
             </td>
             <td class="time-slot">
-              <div v-for="event in schedule.slots[2].events" :key="event.id" class="event-item">
+              <div
+                v-for="event in schedule.slots[1].events"
+                :key="event.id"
+                class="event-item"
+              >
                 {{ event.title }}
               </div>
-              <div v-if="schedule.slots[2].events.length === 0" class="empty-slot">-</div>
-            </td>
-          </tr>
-          <tr>
-            <td class="day-header">星期二</td>
-            <td class="time-slot">
-              <div v-for="event in schedule.slots[0].events" :key="event.id" class="event-item">
-                {{ event.title }}
+              <div
+                v-if="schedule.slots[1].events.length === 0"
+                class="empty-slot"
+              >
+                -
               </div>
-              <div v-if="schedule.slots[0].events.length === 0" class="empty-slot">-</div>
-            </td>
-            <td class="time-slot">
-              <div v-for="event in schedule.slots[1].events" :key="event.id" class="event-item">
-                {{ event.title }}
-              </div>
-              <div v-if="schedule.slots[1].events.length === 0" class="empty-slot">-</div>
             </td>
             <td class="time-slot">
-              <div v-for="event in schedule.slots[2].events" :key="event.id" class="event-item">
+              <div
+                v-for="event in schedule.slots[2].events"
+                :key="event.id"
+                class="event-item"
+              >
                 {{ event.title }}
               </div>
-              <div v-if="schedule.slots[2].events.length === 0" class="empty-slot">-</div>
-            </td>
-          </tr>
-          <tr>
-            <td class="day-header">星期三</td>
-            <td class="time-slot">
-              <div v-for="event in schedule.slots[0].events" :key="event.id" class="event-item">
-                {{ event.title }}
+              <div
+                v-if="schedule.slots[2].events.length === 0"
+                class="empty-slot"
+              >
+                -
               </div>
-              <div v-if="schedule.slots[0].events.length === 0" class="empty-slot">-</div>
-            </td>
-            <td class="time-slot">
-              <div v-for="event in schedule.slots[1].events" :key="event.id" class="event-item">
-                {{ event.title }}
-              </div>
-              <div v-if="schedule.slots[1].events.length === 0" class="empty-slot">-</div>
-            </td>
-            <td class="time-slot">
-              <div v-for="event in schedule.slots[2].events" :key="event.id" class="event-item">
-                {{ event.title }}
-              </div>
-              <div v-if="schedule.slots[2].events.length === 0" class="empty-slot">-</div>
             </td>
           </tr>
           <tr>
-            <td class="day-header">星期四</td>
-            <td class="time-slot">
-              <div v-for="event in schedule.slots[0].events" :key="event.id" class="event-item">
-                {{ event.title }}
-              </div>
-              <div v-if="schedule.slots[0].events.length === 0" class="empty-slot">-</div>
+            <td class="day-header">
+              星期二
             </td>
             <td class="time-slot">
-              <div v-for="event in schedule.slots[1].events" :key="event.id" class="event-item">
+              <div
+                v-for="event in schedule.slots[0].events"
+                :key="event.id"
+                class="event-item"
+              >
                 {{ event.title }}
               </div>
-              <div v-if="schedule.slots[1].events.length === 0" class="empty-slot">-</div>
+              <div
+                v-if="schedule.slots[0].events.length === 0"
+                class="empty-slot"
+              >
+                -
+              </div>
             </td>
             <td class="time-slot">
-              <div v-for="event in schedule.slots[2].events" :key="event.id" class="event-item">
+              <div
+                v-for="event in schedule.slots[1].events"
+                :key="event.id"
+                class="event-item"
+              >
                 {{ event.title }}
               </div>
-              <div v-if="schedule.slots[2].events.length === 0" class="empty-slot">-</div>
-            </td>
-          </tr>
-          <tr>
-            <td class="day-header">星期五</td>
-            <td class="time-slot">
-              <div v-for="event in schedule.slots[0].events" :key="event.id" class="event-item">
-                {{ event.title }}
+              <div
+                v-if="schedule.slots[1].events.length === 0"
+                class="empty-slot"
+              >
+                -
               </div>
-              <div v-if="schedule.slots[0].events.length === 0" class="empty-slot">-</div>
-            </td>
-            <td class="time-slot">
-              <div v-for="event in schedule.slots[1].events" :key="event.id" class="event-item">
-                {{ event.title }}
-              </div>
-              <div v-if="schedule.slots[1].events.length === 0" class="empty-slot">-</div>
             </td>
             <td class="time-slot">
-              <div v-for="event in schedule.slots[2].events" :key="event.id" class="event-item">
+              <div
+                v-for="event in schedule.slots[2].events"
+                :key="event.id"
+                class="event-item"
+              >
                 {{ event.title }}
               </div>
-              <div v-if="schedule.slots[2].events.length === 0" class="empty-slot">-</div>
-            </td>
-          </tr>
-          <tr>
-            <td class="day-header">星期六</td>
-            <td class="time-slot">
-              <div v-for="event in schedule.slots[0].events" :key="event.id" class="event-item">
-                {{ event.title }}
+              <div
+                v-if="schedule.slots[2].events.length === 0"
+                class="empty-slot"
+              >
+                -
               </div>
-              <div v-if="schedule.slots[0].events.length === 0" class="empty-slot">-</div>
-            </td>
-            <td class="time-slot">
-              <div v-for="event in schedule.slots[1].events" :key="event.id" class="event-item">
-                {{ event.title }}
-              </div>
-              <div v-if="schedule.slots[1].events.length === 0" class="empty-slot">-</div>
-            </td>
-            <td class="time-slot">
-              <div v-for="event in schedule.slots[2].events" :key="event.id" class="event-item">
-                {{ event.title }}
-              </div>
-              <div v-if="schedule.slots[2].events.length === 0" class="empty-slot">-</div>
             </td>
           </tr>
           <tr>
-            <td class="day-header">星期日</td>
-            <td class="time-slot">
-              <div v-for="event in schedule.slots[0].events" :key="event.id" class="event-item">
-                {{ event.title }}
-              </div>
-              <div v-if="schedule.slots[0].events.length === 0" class="empty-slot">-</div>
+            <td class="day-header">
+              星期三
             </td>
             <td class="time-slot">
-              <div v-for="event in schedule.slots[1].events" :key="event.id" class="event-item">
+              <div
+                v-for="event in schedule.slots[0].events"
+                :key="event.id"
+                class="event-item"
+              >
                 {{ event.title }}
               </div>
-              <div v-if="schedule.slots[1].events.length === 0" class="empty-slot">-</div>
+              <div
+                v-if="schedule.slots[0].events.length === 0"
+                class="empty-slot"
+              >
+                -
+              </div>
             </td>
             <td class="time-slot">
-              <div v-for="event in schedule.slots[2].events" :key="event.id" class="event-item">
+              <div
+                v-for="event in schedule.slots[1].events"
+                :key="event.id"
+                class="event-item"
+              >
                 {{ event.title }}
               </div>
-              <div v-if="schedule.slots[2].events.length === 0" class="empty-slot">-</div>
+              <div
+                v-if="schedule.slots[1].events.length === 0"
+                class="empty-slot"
+              >
+                -
+              </div>
+            </td>
+            <td class="time-slot">
+              <div
+                v-for="event in schedule.slots[2].events"
+                :key="event.id"
+                class="event-item"
+              >
+                {{ event.title }}
+              </div>
+              <div
+                v-if="schedule.slots[2].events.length === 0"
+                class="empty-slot"
+              >
+                -
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="day-header">
+              星期四
+            </td>
+            <td class="time-slot">
+              <div
+                v-for="event in schedule.slots[0].events"
+                :key="event.id"
+                class="event-item"
+              >
+                {{ event.title }}
+              </div>
+              <div
+                v-if="schedule.slots[0].events.length === 0"
+                class="empty-slot"
+              >
+                -
+              </div>
+            </td>
+            <td class="time-slot">
+              <div
+                v-for="event in schedule.slots[1].events"
+                :key="event.id"
+                class="event-item"
+              >
+                {{ event.title }}
+              </div>
+              <div
+                v-if="schedule.slots[1].events.length === 0"
+                class="empty-slot"
+              >
+                -
+              </div>
+            </td>
+            <td class="time-slot">
+              <div
+                v-for="event in schedule.slots[2].events"
+                :key="event.id"
+                class="event-item"
+              >
+                {{ event.title }}
+              </div>
+              <div
+                v-if="schedule.slots[2].events.length === 0"
+                class="empty-slot"
+              >
+                -
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="day-header">
+              星期五
+            </td>
+            <td class="time-slot">
+              <div
+                v-for="event in schedule.slots[0].events"
+                :key="event.id"
+                class="event-item"
+              >
+                {{ event.title }}
+              </div>
+              <div
+                v-if="schedule.slots[0].events.length === 0"
+                class="empty-slot"
+              >
+                -
+              </div>
+            </td>
+            <td class="time-slot">
+              <div
+                v-for="event in schedule.slots[1].events"
+                :key="event.id"
+                class="event-item"
+              >
+                {{ event.title }}
+              </div>
+              <div
+                v-if="schedule.slots[1].events.length === 0"
+                class="empty-slot"
+              >
+                -
+              </div>
+            </td>
+            <td class="time-slot">
+              <div
+                v-for="event in schedule.slots[2].events"
+                :key="event.id"
+                class="event-item"
+              >
+                {{ event.title }}
+              </div>
+              <div
+                v-if="schedule.slots[2].events.length === 0"
+                class="empty-slot"
+              >
+                -
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="day-header">
+              星期六
+            </td>
+            <td class="time-slot">
+              <div
+                v-for="event in schedule.slots[0].events"
+                :key="event.id"
+                class="event-item"
+              >
+                {{ event.title }}
+              </div>
+              <div
+                v-if="schedule.slots[0].events.length === 0"
+                class="empty-slot"
+              >
+                -
+              </div>
+            </td>
+            <td class="time-slot">
+              <div
+                v-for="event in schedule.slots[1].events"
+                :key="event.id"
+                class="event-item"
+              >
+                {{ event.title }}
+              </div>
+              <div
+                v-if="schedule.slots[1].events.length === 0"
+                class="empty-slot"
+              >
+                -
+              </div>
+            </td>
+            <td class="time-slot">
+              <div
+                v-for="event in schedule.slots[2].events"
+                :key="event.id"
+                class="event-item"
+              >
+                {{ event.title }}
+              </div>
+              <div
+                v-if="schedule.slots[2].events.length === 0"
+                class="empty-slot"
+              >
+                -
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="day-header">
+              星期日
+            </td>
+            <td class="time-slot">
+              <div
+                v-for="event in schedule.slots[0].events"
+                :key="event.id"
+                class="event-item"
+              >
+                {{ event.title }}
+              </div>
+              <div
+                v-if="schedule.slots[0].events.length === 0"
+                class="empty-slot"
+              >
+                -
+              </div>
+            </td>
+            <td class="time-slot">
+              <div
+                v-for="event in schedule.slots[1].events"
+                :key="event.id"
+                class="event-item"
+              >
+                {{ event.title }}
+              </div>
+              <div
+                v-if="schedule.slots[1].events.length === 0"
+                class="empty-slot"
+              >
+                -
+              </div>
+            </td>
+            <td class="time-slot">
+              <div
+                v-for="event in schedule.slots[2].events"
+                :key="event.id"
+                class="event-item"
+              >
+                {{ event.title }}
+              </div>
+              <div
+                v-if="schedule.slots[2].events.length === 0"
+                class="empty-slot"
+              >
+                -
+              </div>
             </td>
           </tr>
         </tbody>

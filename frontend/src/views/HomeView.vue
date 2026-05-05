@@ -5,28 +5,56 @@
     </header>
 
     <section class="category-area">
-      <button v-for="cat in categories" :key="cat" :class="{ active: selectedCategory === cat }"
-        @click="selectedCategory = cat">
+      <button
+        v-for="cat in categories"
+        :key="cat"
+        :class="{ active: selectedCategory === cat }"
+        @click="selectedCategory = cat"
+      >
         {{ cat }}
       </button>
     </section>
 
     <section class="post-area">
       <ul>
-        <li v-for="post in filteredPosts" :key="post.id" class="post-card" @click="openPost(post.id)">
+        <li
+          v-for="post in filteredPosts"
+          :key="post.id"
+          class="post-card"
+          @click="openPost(post.id)"
+        >
           <div class="post-top">
-            <img class="avatar" :src="post.avatar" alt="头像" @click.stop="openUser(post.userId || 0)" />
+            <img
+              class="avatar"
+              :src="post.avatar"
+              alt="头像"
+              @click.stop="openUser(post.userId || 0)"
+            >
             <div class="user-meta">
               <div class="user-meta-top">
-                <div class="nickname">{{ post.nickname }}</div>
-                <div class="post-time">{{ post.time }}</div>
+                <div class="nickname">
+                  {{ post.nickname }}
+                </div>
+                <div class="post-time">
+                  {{ post.time }}
+                </div>
               </div>
-              <div class="title">{{ post.title }}</div>
+              <div class="title">
+                {{ post.title }}
+              </div>
             </div>
           </div>
-          <div class="content">{{ post.preview }}</div>
-          <div class="thumb" v-if="post.imgUrl">
-            <img :src="post.imgUrl" alt="配图" />
+          <div class="content">
+            {{ post.preview }}
+          </div>
+          <div
+            v-if="post.imgUrl"
+            class="thumb"
+          >
+            <img
+              :src="post.imgUrl"
+              alt="配图"
+            >
           </div>
         </li>
       </ul>
@@ -78,7 +106,7 @@ const loadPosts = async () => {
     const res = await getPostList({ page: 1, size: 20 })
     console.log('API 调用成功！返回数据:', res)
 
-    const items = (res as any)?.items || []
+    const items = res?.items || []
     if (!Array.isArray(items)) {
       console.warn('接口返回数据格式不合预期，将使用空列表替代', items)
       posts.value = []
