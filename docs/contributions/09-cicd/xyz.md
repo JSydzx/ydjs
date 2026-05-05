@@ -6,11 +6,11 @@
 - [√] 配置 Codecov 覆盖率上传（frontend flag）
 - [ ] 添加 README 状态徽章
 ### 代码适配
-- [ ] 本地测试命令与 CI 一致，无需额外配置
-- [ ] 代码通过 Lint 检查（ruff / ESLint）
-- [ ] 核心覆盖率达标（> 60%）
+- [√] 本地测试命令与 CI 一致，无需额外配置
+- [√] 代码通过 Lint 检查（ESLint）
+- [√] 核心覆盖率达标（> 60%）
 ### 可选项
-- [ ] 配置 Dependabot 自动更新依赖
+- [√] 配置 Dependabot 自动更新依赖
 - [ ] 集成 CodeRabbit AI 代码审查
 - [ ] 使用 act 本地验证工作流
 ## PR 链接
