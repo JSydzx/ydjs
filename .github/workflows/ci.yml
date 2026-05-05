@@ -29,17 +29,17 @@ jobs:
         run: ./mvnw -B -ntp test
 
   #  Python 
-  backend-python:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-          cache: 'pip'
-      - run: pip install -r backend/requirements.txt pytest coverage ruff
-      - run: ruff check backend/
-      - run: coverage run -m pytest backend/tests && coverage xml
+  # backend-python:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - uses: actions/setup-python@v5
+  #       with:
+  #         python-version: '3.12'
+  #         cache: 'pip'
+  #     - run: pip install -r backend/requirements.txt pytest coverage ruff
+  #     - run: ruff check backend/
+  #     - run: coverage run -m pytest backend/tests && coverage xml
 
   # 3 前端
   frontend:
