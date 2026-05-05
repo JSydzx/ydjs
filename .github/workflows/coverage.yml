@@ -1,0 +1,26 @@
+name: Coverage
+
+on: [push, pull_request]
+
+jobs:
+  coverage:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests with coverage
+        run: npm run test
+
+      - name: Upload to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          files: ./frontend/coverage/lcov.info
+          token: ${{ secrets.CODECOV_TOKEN }}
