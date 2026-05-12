@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx vue-tsc *)",
+      "Bash(npx vitest *)",
+      "Bash(npx vite *)",
+      "Bash(npx --prefix frontend vite build)",
+      "Bash(git checkout *)"
+    ]
+  }
+}

@@ -3,63 +3,45 @@ import { http } from './http'
 export interface TeamVO {
   id: number
   name: string
-  description: string
-  tags: string[]
+  description?: string
+  tag?: string
   creatorId: number
+  creatorName?: string
+  currentMembers: number
+  maxMembers: number
+  status: string
   createdAt: string
-  updatedAt: string
 }
 
 export interface UserVO {
   id: number
   username: string
-  nickname: string
-  avatar: string
+  nickname?: string
+  email?: string
+  avatar?: string
 }
 
-export const getTeamList = (): Promise<{
-  items: Array<{ id: number; name: string; memberCount: number; eventCount: number }>
-}> => {
-  return http.get('/teams').then(
-    (res) =>
-      res as unknown as {
-        items: Array<{ id: number; name: string; memberCount: number; eventCount: number }>
-      }
-  )
+export interface TeamCreateRequest {
+  name: string
+  description?: string
+  tag?: string
+  maxMembers?: number
 }
 
-// 为了保持向后兼容，添加 getMyTeams 作为 getTeamList 的别名
-export const getMyTeams = (): Promise<TeamVO[]> => {
-  return http.get('/team/my').then((res) => res as unknown as TeamVO[])
+export interface TeamUpdateRequest {
+  name?: string
+  description?: string
+  tag?: string
+  maxMembers?: number
+  status?: string
 }
 
-export const createTeam = (payload: { name: string }): Promise<TeamVO> => {
-  return http.post('/teams', payload).then((res) => res as unknown as TeamVO)
-}
-
-export const getTeamDetail = (teamId: number): Promise<TeamVO> => {
-  return http.get(`/teams/${teamId}`).then((res) => res as unknown as TeamVO)
-}
-
-export const updateTeam = (
-  teamId: number,
-  payload: { name: string; description: string; tags: string[] }
-): Promise<TeamVO> => {
-  return http.put(`/teams/${teamId}`, payload).then((res) => res as unknown as TeamVO)
-}
-
-export const deleteTeam = (teamId: number): Promise<void> => {
-  return http.delete(`/teams/${teamId}`).then(() => {})
-}
-
-export const getTeamMembers = (teamId: number): Promise<UserVO[]> => {
-  return http.get(`/teams/${teamId}/members`).then((res) => res as unknown as UserVO[])
-}
-
-export const addTeamMember = (teamId: number, payload: { userId: number }): Promise<void> => {
-  return http.post(`/teams/${teamId}/members`, payload).then(() => {})
-}
-
-export const removeTeamMember = (teamId: number, userId: number): Promise<void> => {
-  return http.delete(`/teams/${teamId}/members/${userId}`).then(() => {})
-}
+export const getTeamList = (): Promise<TeamVO[]> => http.get('/team/list')
+export const getMyTeams = (): Promise<TeamVO[]> => http.get('/team/my')
+export const getTeamDetail = (teamId: number): Promise<TeamVO> => http.get(`/team/${teamId}`)
+export const createTeam = (payload: TeamCreateRequest): Promise<TeamVO> => http.post('/team/create', payload)
+export const updateTeam = (teamId: number, payload: TeamUpdateRequest): Promise<TeamVO> => http.put(`/team/${teamId}`, payload)
+export const deleteTeam = (teamId: number): Promise<void> => http.delete(`/team/${teamId}`)
+export const getTeamMembers = (teamId: number): Promise<UserVO[]> => http.get(`/team/${teamId}/members`)
+export const addTeamMember = (teamId: number, userId: number): Promise<void> => http.post(`/team/${teamId}/members`, { userId })
+export const removeTeamMember = (teamId: number, userId: number): Promise<void> => http.delete(`/team/${teamId}/members/${userId}`)

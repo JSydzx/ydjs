@@ -1,159 +1,37 @@
 <template>
   <div class="page post-detail-page">
-    <header class="detail-header">
-      <button
-        class="back-button"
-        @click="goBack"
-      >
-        ← 返回
-      </button>
-    </header>
-
-    <div class="detail-image">
-      <img
-        :src="detail.imgUrl"
-        alt="帖子配图"
-      >
+    <van-nav-bar title="队伍详情" left-text="返回" left-arrow @click-left="goBack" />
+    <div v-if="team" class="team-info">
+      <van-cell-group inset>
+        <van-cell :title="team.name" :label="`${team.currentMembers}/${team.maxMembers}人`">
+          <template #extra><van-tag :type="team.status === 'ACTIVE' ? 'success' : 'danger'">{{ team.status === 'ACTIVE' ? '招募中' : '已关闭' }}</van-tag></template>
+        </van-cell>
+        <van-cell v-if="team.tag" title="标签" :value="team.tag" />
+        <van-cell v-if="team.description" title="描述" :label="team.description" />
+        <van-cell title="创建者" :value="team.creatorName || 'UID:' + team.creatorId" />
+        <van-cell title="创建时间" :value="formatTime(team.createdAt)" />
+      </van-cell-group>
+      <div class="actions"><van-button type="primary" block round @click="goApply">申请加入</van-button></div>
     </div>
-
-    <section class="detail-meta">
-      <img
-        class="avatar"
-        :src="detail.avatar"
-        alt="头像"
-      >
-      <div class="meta-text">
-        <div class="nickname">
-          {{ detail.nickname }}
-        </div>
-        <div class="time">
-          {{ detail.time }}
-        </div>
-      </div>
-    </section>
-
-    <section class="detail-content">
-      <h2>{{ detail.title }}</h2>
-      <p>{{ detail.content }}</p>
-    </section>
-
-    <section class="detail-actions">
-      <button
-        class="apply-button"
-        @click="applyToTeam"
-      >
-        申请加入队伍
-      </button>
-    </section>
   </div>
 </template>
 
 <script setup lang="ts">
-import { reactive } from 'vue'
+import { ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-
-const route = useRoute()
-const router = useRouter()
-
-const detail = reactive({
-  id: Number(route.params.id ?? 0),
-  title: '帖子标题示例：XXXX 队伍招人',
-  content:
-    '这里是帖子正文，展示详细内容。你可以在此处显示完整文本描述、活动规则、联系方式等信息。',
-  avatar: 'https://via.placeholder.com/60',
-  nickname: 'XX用户',
-  time: '2026-04-12 14:30',
-  imgUrl: 'https://via.placeholder.com/640x320',
-})
-
-const goBack = () => {
-  router.back()
-}
-
-const applyToTeam = () => {
-  router.push({ name: 'apply', params: { postId: detail.id } })
-}
+import { getTeamDetail, type TeamVO } from '../api/team'
+import { showToast } from 'vant'
+const route = useRoute(); const router = useRouter(); const teamId = Number(route.params.id)
+const team = ref<TeamVO | null>(null)
+const loadDetail = async () => { try { team.value = await getTeamDetail(teamId) } catch (e: any) { showToast(e.message || '加载失败') } }
+const goApply = () => { router.push({ name: 'apply', params: { postId: teamId } }) }
+const goBack = () => { router.back() }
+const formatTime = (t: string) => t ? new Date(t).toLocaleString() : ''
+loadDetail()
 </script>
 
 <style scoped>
-.post-detail-page {
-  padding: 12px;
-}
-
-.detail-header {
-  display: flex;
-  align-items: center;
-  margin-bottom: 14px;
-}
-
-.back-button {
-  border: none;
-  background: transparent;
-  color: #333333;
-}
-
-.detail-image img {
-  width: 100%;
-  border-radius: 12px;
-  display: block;
-  margin-bottom: 16px;
-}
-
-.detail-meta {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 16px;
-}
-
-.detail-meta .avatar {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-.meta-text .nickname {
-  font-weight: 700;
-  font-size: 16px;
-  color: #333333;
-}
-
-.meta-text .time {
-  color: #333333;
-  font-size: 14px;
-  margin-top: 4px;
-}
-
-.detail-content h2 {
-  margin: 0 0 12px;
-  font-size: 20px;
-  line-height: 1.4;
-  color: #333333;
-}
-
-.detail-content p {
-  margin: 0;
-  color: #333333;
-  line-height: 1.8;
-  white-space: pre-wrap;
-}
-
-.detail-actions {
-  margin-top: 20px;
-  text-align: center;
-}
-
-.apply-button {
-  background: #4CAF50;
-  color: #333333;
-  border: none;
-  padding: 12px 24px;
-  border-radius: 8px;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  width: 100%;
-  max-width: 300px;
-}
+.post-detail-page { min-height: 100vh; }
+.team-info { padding: 12px; }
+.actions { margin-top: 20px; padding: 0 16px; }
 </style>

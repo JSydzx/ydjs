@@ -9,6 +9,8 @@ badge.svg?flag=frontend)](https://codecov.io/gh/JSydzx/ydjs)
 
 ## 设计背景
 
+校园组队平台（移动端Web）
+
 ## 团队分工
 | 姓名 | 核心职责 |
 | :---: | :---: |
