@@ -2,10 +2,22 @@
   <div class="app-wrapper">
     <main class="page-container"><router-view /></main>
     <footer v-if="showTabbar" class="tabbar">
-      <router-link to="/" class="tab" :class="{ active: route.path === '/' }"><span>广场</span></router-link>
-      <router-link to="/publish" class="tab" :class="{ active: route.path === '/publish' }"><span>发布</span></router-link>
-      <router-link to="/email" class="tab" :class="{ active: route.path === '/email' }"><span>通知</span></router-link>
-      <router-link to="/profile" class="tab" :class="{ active: route.path === '/profile' }"><span>我的</span></router-link>
+      <router-link to="/" class="tab" :class="{ active: route.path === '/' }">
+        <span class="tab-icon">🏠</span>
+        <span class="tab-label">广场</span>
+      </router-link>
+      <router-link to="/publish" class="tab" :class="{ active: route.path === '/publish' }">
+        <span class="tab-icon">✏️</span>
+        <span class="tab-label">发布</span>
+      </router-link>
+      <router-link to="/email" class="tab" :class="{ active: route.path === '/email' }">
+        <span class="tab-icon">🔔</span>
+        <span class="tab-label">通知</span>
+      </router-link>
+      <router-link to="/profile" class="tab" :class="{ active: route.path === '/profile' }">
+        <span class="tab-icon">👤</span>
+        <span class="tab-label">我的</span>
+      </router-link>
     </footer>
   </div>
 </template>
@@ -19,9 +31,58 @@ const showTabbar = computed(() => !hideTabbarRoutes.includes(route.name as strin
 </script>
 
 <style>
-.app-wrapper { min-height: 100vh; display: flex; flex-direction: column; }
-.page-container { flex: 1; overflow: auto; padding-bottom: 70px; background-color: #f7f8fa; }
-.tabbar { position: fixed; left: 0; right: 0; bottom: 0; height: 56px; display: flex; border-top: 1px solid #eee; background: #ffffff; z-index: 10; justify-content: space-around; align-items: center; }
-.tab { text-decoration: none; color: #999; font-size: 13px; display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 4px; }
-.tab.active { color: #4a90e2; }
+.app-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-bg);
+}
+
+.page-container {
+  flex: 1;
+  overflow: auto;
+  padding-bottom: 70px;
+}
+
+.tabbar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 56px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background: var(--color-white);
+  box-shadow: 0 -1px 8px rgba(0, 0, 0, 0.06);
+  z-index: 100;
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
+
+.tab {
+  text-decoration: none;
+  color: var(--color-text-muted);
+  font-size: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 4px 12px;
+  transition: color 0.2s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.tab-icon {
+  font-size: 20px;
+  line-height: 1;
+}
+
+.tab-label {
+  font-size: 11px;
+}
+
+.tab.active {
+  color: var(--color-primary);
+  font-weight: 500;
+}
 </style>

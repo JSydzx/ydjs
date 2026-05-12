@@ -1,86 +1,76 @@
 <template>
   <div class="page register-page">
-    <header class="register-header">
-      <h1 class="register-title">
-        用户注册
-      </h1>
-    </header>
-
-    <form @submit.prevent="register">
-      <div class="form-row">
-        <label>用户名</label>
-        <input
-          v-model="form.username"
-          placeholder="请输入用户名"
-          required
-        >
-      </div>
-      <div class="form-row">
-        <label>密码</label>
-        <input
-          v-model="form.password"
-          type="password"
-          placeholder="请输入密码"
-          required
-        >
-      </div>
-      <div class="form-row">
-        <label>昵称</label>
-        <input
-          v-model="form.nickname"
-          placeholder="请输入昵称"
-        >
-      </div>
-      <div class="form-row">
-        <label>邮箱</label>
-        <input
-          v-model="form.email"
-          type="email"
-          placeholder="请输入邮箱"
-        >
-      </div>
-
-      <button
-        class="register-button"
-        type="submit"
-        :disabled="loading"
-      >
-        注册
-      </button>
-
+    <div class="register-card">
+      <h1 class="register-title">用户注册</h1>
+      <p class="register-subtitle">加入校园组队平台</p>
+      <van-form @submit="handleRegister">
+        <van-cell-group inset>
+          <van-field
+            v-model="form.username"
+            name="username"
+            label="用户名"
+            placeholder="请输入用户名"
+            :rules="[{ required: true, message: '请输入用户名' }]"
+          />
+          <van-field
+            v-model="form.password"
+            name="password"
+            label="密码"
+            type="password"
+            placeholder="请输入密码（至少6位）"
+            :rules="[{ required: true, message: '请输入密码' }, { min: 6, message: '密码至少6位' }]"
+          />
+          <van-field
+            v-model="form.nickname"
+            name="nickname"
+            label="昵称"
+            placeholder="请输入昵称"
+          />
+          <van-field
+            v-model="form.email"
+            name="email"
+            label="邮箱"
+            type="email"
+            placeholder="请输入邮箱"
+          />
+        </van-cell-group>
+        <div class="register-actions">
+          <van-button round block type="primary" native-type="submit" :loading="loading" class="register-btn">
+            注册
+          </van-button>
+        </div>
+      </van-form>
       <div class="login-link">
         <span>已有账号？</span>
-        <router-link to="/login">
-          去登录
-        </router-link>
+        <router-link to="/login">去登录</router-link>
       </div>
-    </form>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, reactive } from 'vue'
+import { reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { register as registerApi } from '../api/user'
+import { showToast } from 'vant'
 
 const form = reactive({
   username: '',
   password: '',
   nickname: '',
-  email: ''
+  email: '',
 })
 const loading = ref(false)
 const router = useRouter()
 
-const register = async () => {
+const handleRegister = async () => {
   loading.value = true
   try {
     await registerApi(form)
-    window.alert('注册成功！请登录')
+    showToast('注册成功！请登录')
     router.push({ name: 'login' })
-  } catch (error) {
-    console.error('注册失败:', error)
-    window.alert('注册失败，请重试')
+  } catch (e: any) {
+    showToast(e.message || '注册失败，请重试')
   } finally {
     loading.value = false
   }
@@ -89,81 +79,52 @@ const register = async () => {
 
 <style scoped>
 .register-page {
-  padding: 12px;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
+  padding: 24px 16px;
 }
 
-.register-header {
-  margin-bottom: 40px;
-  text-align: center;
+.register-card {
+  width: 100%;
+  max-width: 360px;
 }
 
 .register-title {
   margin: 0;
-  font-size: 24px;
-  font-weight: 600;
-  color: #333;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--color-text);
+  text-align: center;
 }
 
-.form-row {
-  margin-bottom: 15px;
-}
-
-label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
-  color: #333;
-}
-
-input {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  box-sizing: border-box;
+.register-subtitle {
+  margin: 6px 0 32px;
   font-size: 14px;
+  color: var(--color-text-muted);
+  text-align: center;
 }
 
-.register-button {
-  width: 100%;
-  padding: 14px;
-  background: #4a90e2;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
+.register-actions {
+  margin: 20px 12px;
+}
+
+.register-btn {
+  height: 46px;
   font-size: 16px;
-  font-weight: 500;
-  transition: background 0.2s;
-  margin-bottom: 15px;
-}
-
-.register-button:hover {
-  background: #357abd;
-}
-
-button:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
 }
 
 .login-link {
   text-align: center;
   font-size: 14px;
-  color: #666;
+  color: var(--color-text-secondary);
 }
 
 .login-link a {
-  color: #4a90e2;
+  color: var(--color-primary);
   text-decoration: none;
-  margin-left: 5px;
-}
-
-.login-link a:hover {
-  text-decoration: underline;
+  margin-left: 4px;
 }
 </style>
