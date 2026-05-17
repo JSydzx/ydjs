@@ -1,17 +1,28 @@
-# compose.prod.yaml
+# compose.prod.yaml - 生产环境配置
 services:
-  app:
-    image: ghcr.io/${GITHUB_REPOSITORY}:${VERSION:-latest}
+  frontend:
+    image: ghcr.io/${GITHUB_REPOSITORY}/frontend:${VERSION:-latest}
     restart: unless-stopped
     ports:
-      - '80:8080'
+      - '80:80'
+    depends_on:
+      backend:
+        condition: service_healthy
+
+  backend:
+    image: ghcr.io/${GITHUB_REPOSITORY}/backend:${VERSION:-latest}
+    restart: unless-stopped
+    ports:
+      - '8080:8080'
     environment:
-      - DATABASE_URL=postgres://db:5432/prod
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/teamplatform?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&useSSL=false
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD_FILE: /run/secrets/db_password
     depends_on:
       db:
         condition: service_healthy
     healthcheck:
-      test: ['CMD', 'wget', '-qO-', 'http://localhost:8080/health']
+      test: ['CMD', 'curl', '-f', 'http://localhost:8080/health']
       interval: 30s
       timeout: 10s
       retries: 3
@@ -21,17 +32,18 @@ services:
           memory: 512M
 
   db:
-    image: postgres:17-alpine
+    image: mysql:8.0
     restart: unless-stopped
     environment:
-      POSTGRES_PASSWORD_FILE: /run/secrets/db_password
+      MYSQL_DATABASE: teamplatform
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/db_password
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - mysql-data:/var/lib/mysql
     secrets:
       - db_password
 
 volumes:
-  pgdata:
+  mysql-data:
 
 secrets:
   db_password:

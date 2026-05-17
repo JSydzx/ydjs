@@ -1,34 +1,44 @@
-# compose.yaml（无需 version 字段，使用 Docker Compose V2）
+# compose.yaml - 开发环境配置
 services:
   frontend:
     build: ./frontend
     ports:
-      - '5173:5173'
+      - '5173:80'  # 使用 Nginx 端口
     volumes:
-      - ./frontend:/app # 热重载
+      - ./frontend:/app
     environment:
       - VITE_API_URL=http://localhost:8080
+    depends_on:
+      backend:
+        condition: service_healthy
 
   backend:
-    build: ./backend
+    build: ./backend/teamplatform  # 修复后端路径
     ports:
       - '8080:8080'
     environment:
-      - DATABASE_URL=postgres://postgres:dev123@db:5432/myapp
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/teamplatform?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&useSSL=false
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: 8163
     depends_on:
       db:
         condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
   db:
-    image: postgres:17-alpine
+    image: mysql:8.0  # 修改为 MySQL
     environment:
-      POSTGRES_PASSWORD: dev123
-      POSTGRES_DB: myapp
+      MYSQL_ROOT_PASSWORD: 8163
+      MYSQL_DATABASE: teamplatform
     healthcheck:
-      test: ['CMD-SHELL', 'pg_isready -U postgres']
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p8163"]
       interval: 5s
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - mysql-data:/var/lib/mysql
 
 volumes:
-  pgdata:
+  mysql-data:
