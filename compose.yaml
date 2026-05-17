@@ -1,0 +1,34 @@
+# compose.yaml（无需 version 字段，使用 Docker Compose V2）
+services:
+  frontend:
+    build: ./frontend
+    ports:
+      - '5173:5173'
+    volumes:
+      - ./frontend:/app # 热重载
+    environment:
+      - VITE_API_URL=http://localhost:8080
+
+  backend:
+    build: ./backend
+    ports:
+      - '8080:8080'
+    environment:
+      - DATABASE_URL=postgres://postgres:dev123@db:5432/myapp
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_PASSWORD: dev123
+      POSTGRES_DB: myapp
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U postgres']
+      interval: 5s
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
