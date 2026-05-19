@@ -1,21 +1,31 @@
-# compose.yaml - 开发环境配置
+# compose.yaml — 开发环境
+# 启动: docker compose up -d
+# 前端 Vite HMR 热更新，后端 spring-boot:run，源码挂载即改即生效
+
 services:
   frontend:
-    build: ./frontend
+    image: node:20-alpine
+    working_dir: /app
     ports:
-      - '5173:80'  # 使用 Nginx 端口
+      - '5173:5173'
     volumes:
       - ./frontend:/app
+      - /app/node_modules          # 匿名卷：隔离宿主机 node_modules，避免平台差异
+    command: sh -c "npm ci && npm run dev -- --host 0.0.0.0"
     environment:
       - VITE_API_URL=http://localhost:8080
     depends_on:
-      backend:
-        condition: service_healthy
+      - backend
 
   backend:
-    build: ./backend/teamplatform  # 修复后端路径
+    image: maven:3.9-eclipse-temurin-17-alpine
+    working_dir: /app
     ports:
       - '8080:8080'
+    volumes:
+      - ./backend/teamplatform:/app
+      - maven-cache:/root/.m2      # 持久化 maven 依赖缓存，加速重启
+    command: mvn spring-boot:run -Dspring-boot.run.profiles=dev
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/teamplatform?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&useSSL=false
       SPRING_DATASOURCE_USERNAME: root
@@ -24,21 +34,27 @@ services:
       db:
         condition: service_healthy
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      test: ["CMD", "wget", "-qO-", "http://localhost:8080/health"]
       interval: 30s
       timeout: 10s
       retries: 3
+      start_period: 60s
 
   db:
-    image: mysql:8.0  # 修改为 MySQL
+    image: mysql:8.0
+    ports:
+      - '3306:3306'
     environment:
       MYSQL_ROOT_PASSWORD: 8163
       MYSQL_DATABASE: teamplatform
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p8163"]
       interval: 5s
+      timeout: 5s
+      retries: 10
     volumes:
       - mysql-data:/var/lib/mysql
 
 volumes:
   mysql-data:
+  maven-cache:

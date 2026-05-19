@@ -1,0 +1,12 @@
+target/
+*.class
+*.jar
+*.war
+*.log
+.idea/
+.vscode/
+*.iml
+.git
+.gitignore
+.DS_Store
+Thumbs.db

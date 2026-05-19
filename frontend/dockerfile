@@ -4,36 +4,26 @@ FROM node:20-alpine AS builder
 
 WORKDIR /app
 
-# 复制 package.json 和 package-lock.json
 COPY package*.json ./
 
-# 安装依赖（包括开发依赖）
-RUN npm ci --only=production
+# 安装全部依赖（vite、vue-tsc 等 devDependencies 是构建必需的）
+RUN npm ci
 
-# 复制源代码
 COPY . .
 
-# 构建生产版本
 RUN npm run build
 
-# 生产阶段 - 使用 Nginx 作为静态文件服务器
-FROM nginx:1.25-alpine
+# 生产阶段 — Nginx 静态文件服务器
+FROM nginx:alpine
 
-# 移除默认配置
-RUN rm -rf /usr/share/nginx/html/*
+# SPA 路由 fallback + gzip + API 代理
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-# 从构建阶段复制构建产物
 COPY --from=builder /app/dist /usr/share/nginx/html
 
-# 复制自定义 Nginx 配置（可选）
-# COPY nginx.conf /etc/nginx/nginx.conf
-
-# 暴露端口
 EXPOSE 80
 
-# 健康检查
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-  CMD curl -f http://localhost:80 || exit 1
+  CMD wget -qO- http://localhost:80 || exit 1
 
-# 启动 Nginx
 CMD ["nginx", "-g", "daemon off;"]

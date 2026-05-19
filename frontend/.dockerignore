@@ -3,6 +3,10 @@ dist/
 .vite/
 coverage/
 .env
+.env.local
+.env.*.local
 .git
 .gitignore
+.DS_Store
+Thumbs.db
 *.log

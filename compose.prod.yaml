@@ -1,16 +1,24 @@
-# compose.prod.yaml - 生产环境配置
+# compose.prod.yaml — 生产环境
+# 启动: docker compose -f compose.prod.yaml up -d
+# 使用多阶段 Dockerfile 构建，Nginx 反代 + JRE 瘦镜像
+
 services:
   frontend:
-    image: ghcr.io/${GITHUB_REPOSITORY}/frontend:${VERSION:-latest}
+    build: ./frontend
     restart: unless-stopped
     ports:
       - '80:80'
     depends_on:
       backend:
         condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:80"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
 
   backend:
-    image: ghcr.io/${GITHUB_REPOSITORY}/backend:${VERSION:-latest}
+    build: ./backend/teamplatform
     restart: unless-stopped
     ports:
       - '8080:8080'
@@ -22,10 +30,12 @@ services:
       db:
         condition: service_healthy
     healthcheck:
-      test: ['CMD', 'curl', '-f', 'http://localhost:8080/health']
+      test: ["CMD", "wget", "-qO-", "http://localhost:8080/health"]
       interval: 30s
       timeout: 10s
       retries: 3
+    secrets:
+      - db_password
     deploy:
       resources:
         limits:
@@ -39,6 +49,11 @@ services:
       MYSQL_ROOT_PASSWORD_FILE: /run/secrets/db_password
     volumes:
       - mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
     secrets:
       - db_password
 
