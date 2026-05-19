@@ -13,7 +13,7 @@ services:
       - /app/node_modules          # 匿名卷：隔离宿主机 node_modules，避免平台差异
     command: sh -c "npm ci && npm run dev -- --host 0.0.0.0"
     environment:
-      - VITE_API_URL=http://localhost:8080
+      - VITE_API_URL=http://backend:8080
     depends_on:
       - backend
 
@@ -43,7 +43,7 @@ services:
   db:
     image: mysql:8.0
     ports:
-      - '3306:3306'
+      - '5432:5432'
     environment:
       MYSQL_ROOT_PASSWORD: 8163
       MYSQL_DATABASE: teamplatform
@@ -52,6 +52,7 @@ services:
       interval: 5s
       timeout: 5s
       retries: 10
+      start_period: 30s
     volumes:
       - mysql-data:/var/lib/mysql
 
