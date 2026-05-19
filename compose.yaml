@@ -10,7 +10,7 @@ services:
       - '5173:5173'
     volumes:
       - ./frontend:/app
-      - /app/node_modules          # 匿名卷：隔离宿主机 node_modules，避免平台差异
+      - /app/node_modules
     command: sh -c "npm ci && npm run dev -- --host 0.0.0.0"
     depends_on:
       - backend
@@ -22,7 +22,7 @@ services:
       - '8080:8080'
     volumes:
       - ./backend/teamplatform:/app
-      - maven-cache:/root/.m2      # 持久化 maven 依赖缓存，加速重启
+      - maven-cache:/root/.m2
     command: mvn spring-boot:run -Dspring-boot.run.profiles=dev
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/teamplatform?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true

@@ -6,7 +6,8 @@
       "Bash(npx vite *)",
       "Bash(npx --prefix frontend vite build)",
       "Bash(git checkout *)",
-      "Bash(docker compose *)"
+      "Bash(docker compose *)",
+      "Bash(findstr SPRING_DATASOURCE_URL *)"
     ]
   }
 }
