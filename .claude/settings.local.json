@@ -5,7 +5,8 @@
       "Bash(npx vitest *)",
       "Bash(npx vite *)",
       "Bash(npx --prefix frontend vite build)",
-      "Bash(git checkout *)"
+      "Bash(git checkout *)",
+      "Bash(docker compose *)"
     ]
   }
 }
