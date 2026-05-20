@@ -29,7 +29,12 @@
     </div>
 
     <!-- 加入申请记录弹窗 -->
-    <van-dialog v-model:show="showApplyHistory" title="加入申请记录" :show-confirm-button="false">
+    <van-dialog
+      v-model:show="showApplyHistory"
+      title="加入申请记录"
+      :show-confirm-button="false"
+      :close-on-click-overlay="true"
+    >
       <div class="dialog-list">
         <div v-for="r in applyList" :key="r.id" class="dialog-item">
           <div class="apply-info">
