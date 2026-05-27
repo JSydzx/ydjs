@@ -9,6 +9,7 @@ import EmailView from '../views/EmailView.vue'
 import LoginView from '../views/LoginView.vue'
 import RegisterView from '../views/RegisterView.vue'
 import TeamDetailView from '../views/TeamDetailView.vue'
+import ChatDetailView from '../views/ChatDetailView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -18,6 +19,7 @@ const router = createRouter({
     { path: '/post/:id', name: 'postDetail', component: PostDetailView, props: true },
     { path: '/apply/:postId', name: 'apply', component: ApplyView, props: true, meta: { requiresAuth: true } },
     { path: '/email', name: 'email', component: EmailView, meta: { requiresAuth: true } },
+    { path: '/email/chat/:type/:id', name: 'chatDetail', component: ChatDetailView, meta: { requiresAuth: true } },
     { path: '/team', name: 'team', component: TeamView, meta: { requiresAuth: true } },
     { path: '/team/:id', name: 'teamDetail', component: TeamDetailView, props: true },
     { path: '/login', name: 'login', component: LoginView },

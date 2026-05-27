@@ -36,6 +36,12 @@ public interface TeamMemberMapper {
     List<TeamMember> findByTeamId(@Param("teamId") Long teamId);
 
     /**
+     * 查询用户加入的团队列表。
+     */
+    @Select("SELECT id, team_id AS teamId, user_id AS userId, role, joined_at AS joinedAt FROM team_member WHERE user_id = #{userId} ORDER BY id DESC")
+    List<TeamMember> findByUserId(@Param("userId") Long userId);
+
+    /**
      * 统计团队成员数量。
      */
     @Select("SELECT COUNT(1) FROM team_member WHERE team_id = #{teamId}")
