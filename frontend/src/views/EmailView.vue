@@ -104,6 +104,9 @@ const totalUnread = computed(() => {
 /** 切换顶部 Tab。 */
 const switchTab = (tab: 'notification' | 'chat') => {
   activeTab.value = tab
+  if (tab === 'chat') {
+    Promise.all([chatStore.loadChatList(), chatStore.loadTeamChatList()])
+  }
 }
 
 /** 加载通知数据。 */

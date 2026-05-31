@@ -101,7 +101,7 @@ const goToLogin = () => {
 
 const handleLogout = async () => {
   try {
-    await showConfirmDialog({ title: '提示', message: '确定退出登录吗？' })
+    await showConfirmDialog({ title: '提示', message: '确定退出登录吗？', closeOnClickOverlay: true })
     userStore.logout()
     showToast('已退出')
   } catch {

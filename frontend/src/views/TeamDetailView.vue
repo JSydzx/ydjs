@@ -39,26 +39,37 @@
     </div>
 
     <!-- 成员管理弹窗 -->
-    <van-dialog v-model:show="showMembers" title="团队成员" :show-confirm-button="false">
+    <van-dialog v-model:show="showMembers" title="团队成员" :show-confirm-button="false" :close-on-click-overlay="true">
       <div class="dialog-list">
         <div v-for="m in members" :key="m.id" class="dialog-item">
           <span class="member-name">{{ m.nickname || m.username }}</span>
-          <van-button
-            v-if="isMyTeam && m.id !== team?.creatorId"
-            size="small"
-            type="danger"
-            plain
-            @click="handleRemove(m.id)"
-          >
-            移除
-          </van-button>
+          <div class="member-actions">
+            <van-button
+              v-if="m.id !== currentUserId"
+              size="small"
+              type="primary"
+              plain
+              @click="handleChat(m.id, m.nickname || m.username)"
+            >
+              私聊
+            </van-button>
+            <van-button
+              v-if="isMyTeam && m.id !== team?.creatorId"
+              size="small"
+              type="danger"
+              plain
+              @click="handleRemove(m.id)"
+            >
+              移除
+            </van-button>
+          </div>
         </div>
         <div v-if="members.length === 0" class="dialog-empty">暂无成员</div>
       </div>
     </van-dialog>
 
     <!-- 申请列表弹窗 -->
-    <van-dialog v-model:show="showRequests" title="入队申请" :show-confirm-button="false">
+    <van-dialog v-model:show="showRequests" title="入队申请" :show-confirm-button="false" :close-on-click-overlay="true">
       <div class="dialog-list">
         <div v-for="r in joinRequests" :key="r.id" class="dialog-item">
           <div class="request-info">
@@ -128,7 +139,7 @@ const openJoinRequests = async () => {
 
 const handleRemove = async (userId: number) => {
   try {
-    await showConfirmDialog({ title: '确认', message: '确定要移除该成员吗？' })
+    await showConfirmDialog({ title: '确认', message: '确定要移除该成员吗？', closeOnClickOverlay: true })
     await removeTeamMember(teamId, userId)
     showToast('已移除')
     await loadDetail()
@@ -166,6 +177,15 @@ const handleReject = async (requestId: number) => {
 
 const goApply = () => {
   router.push({ name: 'apply', params: { postId: teamId } })
+}
+
+const handleChat = (memberId: number, memberName: string) => {
+  showMembers.value = false
+  router.push({
+    name: 'chatDetail',
+    params: { type: 'user', id: memberId },
+    query: { title: memberName },
+  })
 }
 
 const goBack = () => {
@@ -283,6 +303,11 @@ loadDetail()
 .member-name {
   font-size: 15px;
   color: var(--color-text);
+}
+
+.member-actions {
+  display: flex;
+  gap: 6px;
 }
 
 .request-info {
