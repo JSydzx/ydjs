@@ -8,9 +8,9 @@
 
 ### 1. Dockerfile 编写
 
-- [√] 前端 Dockerfile修复（多阶段构建）
+- 前端 Dockerfile bug修复（多阶段构建）
 - 后端 Dockerfile编写（多阶段构建）
-- [√] .dockerignore 文件
+- .dockerignore 文件
 
 ### 2. Compose 配置
 
@@ -19,4 +19,4 @@
 
 ### 3. 自动化部署
 
- null
+- 构建并推送镜像到GHCR
