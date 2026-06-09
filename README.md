@@ -59,6 +59,7 @@ badge.svg?flag=frontend)](https://codecov.io/gh/JSydzx/ydjs)
 
 ## 项目结构
 
+```
 ydjs/
 ├── frontend/ # 前端代码
 │ ├── src/
@@ -88,3 +89,4 @@ ydjs/
 ├── .gitignore
 ├── README.md
 └── package.json
+```
