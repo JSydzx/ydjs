@@ -19,7 +19,7 @@ services:
     image: maven:3.9-eclipse-temurin-17-alpine
     working_dir: /app
     ports:
-      - '8080:8080'
+      - '8765:8080'
     volumes:
       - ./backend/teamplatform:/app
       - maven-cache:/root/.m2
@@ -32,7 +32,7 @@ services:
       db:
         condition: service_healthy
     healthcheck:
-      test: ["CMD", "wget", "-qO-", "http://localhost:8080/health"]
+      test: ["CMD", "wget", "-qO-", "http://localhost:8080/api/health"]
       interval: 30s
       timeout: 10s
       retries: 3
