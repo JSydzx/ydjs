@@ -20,14 +20,14 @@ public interface NotificationMapper {
     /**
      * 新增通知。
      */
-    @Insert("INSERT INTO notification(user_id, message, type, is_read) VALUES(#{userId}, #{message}, #{type}, #{isRead})")
+    @Insert("INSERT INTO notification(user_id, message, type, related_id, is_read) VALUES(#{userId}, #{message}, #{type}, #{relatedId}, #{isRead})")
     @Options(useGeneratedKeys = true, keyProperty = "id")
     int insert(Notification notification);
 
     /**
      * 查询用户通知。
      */
-    @Select("SELECT id, user_id AS userId, message, type, is_read AS isRead, created_at AS createdAt FROM notification WHERE user_id = #{userId} ORDER BY id DESC")
+    @Select("SELECT id, user_id AS userId, message, type, related_id AS relatedId, is_read AS isRead, created_at AS createdAt FROM notification WHERE user_id = #{userId} ORDER BY id DESC")
     List<Notification> findByUserId(@Param("userId") Long userId);
 
     /**

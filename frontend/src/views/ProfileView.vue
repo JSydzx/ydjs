@@ -4,20 +4,32 @@
       <div class="avatar">{{ userInitial }}</div>
       <div class="info">
         <h2>{{ userStore.user?.nickname || userStore.user?.username || '未登录' }}</h2>
-        <small>{{ userStore.user?.email || '' }}</small>
+        <small>{{ userStore.user?.email || '完善资料后更容易被队长了解' }}</small>
+        <div v-if="userStore.user?.major || userStore.user?.grade" class="profile-tags">
+          <span v-if="userStore.user?.major">{{ userStore.user.major }}</span>
+          <span v-if="userStore.user?.grade">{{ userStore.user.grade }}</span>
+        </div>
       </div>
       <van-icon v-if="!userStore.isLoggedIn" name="arrow" color="#bbb" @click="goToLogin" />
     </div>
 
+    <div v-if="userStore.user?.skills || userStore.user?.bio" class="summary-card">
+      <p v-if="userStore.user?.skills">技能：{{ userStore.user.skills }}</p>
+      <p v-if="userStore.user?.bio">{{ userStore.user.bio }}</p>
+    </div>
+
     <van-cell-group inset>
+      <van-cell title="编辑个人资料" is-link @click="openProfileEditor">
+        <template #icon><span class="cell-icon">资料</span></template>
+      </van-cell>
       <van-cell title="我的队伍" is-link @click="go('team')">
-        <template #icon><span class="cell-icon">🚩</span></template>
+        <template #icon><span class="cell-icon">队伍</span></template>
       </van-cell>
       <van-cell title="通知中心" is-link @click="go('email')">
-        <template #icon><span class="cell-icon">🔔</span></template>
+        <template #icon><span class="cell-icon">通知</span></template>
       </van-cell>
       <van-cell title="加入申请记录" is-link @click="openApplyHistory">
-        <template #icon><span class="cell-icon">📋</span></template>
+        <template #icon><span class="cell-icon">申请</span></template>
       </van-cell>
     </van-cell-group>
 
@@ -28,25 +40,28 @@
       <van-button round block type="primary" @click="goToLogin">去登录</van-button>
     </div>
 
-    <!-- 加入申请记录弹窗 -->
-    <van-dialog
-      v-model:show="showApplyHistory"
-      title="加入申请记录"
-      :show-confirm-button="false"
-      :close-on-click-overlay="true"
-    >
+    <van-dialog v-model:show="showProfileEditor" title="编辑个人资料" show-cancel-button confirm-button-text="保存" @confirm="saveProfile">
+      <van-form class="edit-form">
+        <van-field v-model="profileForm.nickname" label="昵称" maxlength="50" />
+        <van-field v-model="profileForm.email" label="邮箱" type="email" />
+        <van-field v-model="profileForm.major" label="专业" maxlength="100" />
+        <van-field v-model="profileForm.grade" label="年级" maxlength="50" />
+        <van-field v-model="profileForm.skills" label="技能" placeholder="例如：Vue, Java, UI设计" maxlength="255" />
+        <van-field v-model="profileForm.bio" label="简介" type="textarea" rows="3" autosize maxlength="500" show-word-limit />
+      </van-form>
+    </van-dialog>
+
+    <van-dialog v-model:show="showApplyHistory" title="加入申请记录" :show-confirm-button="false" :close-on-click-overlay="true">
       <div class="dialog-list">
-        <div v-for="r in applyList" :key="r.id" class="dialog-item">
+        <div v-for="request in applyList" :key="request.id" class="dialog-item">
           <div class="apply-info">
-            <span class="apply-team">队伍 #{{ r.teamId }}</span>
-            <span v-if="r.reason" class="apply-reason">理由：{{ r.reason }}</span>
-            <span class="apply-time">{{ formatTime(r.requestedAt) }}</span>
+            <span class="apply-team">{{ request.teamName || `队伍 #${request.teamId}` }}</span>
+            <span v-if="request.reason" class="apply-reason">理由：{{ request.reason }}</span>
+            <span class="apply-time">提交：{{ formatTime(request.requestedAt) }}</span>
+            <span v-if="request.processedAt" class="apply-time">处理：{{ formatTime(request.processedAt) }}</span>
           </div>
-          <van-tag
-            :type="r.status === 'APPROVED' ? 'success' : r.status === 'REJECTED' ? 'danger' : 'warning'"
-            size="small"
-          >
-            {{ r.status === 'APPROVED' ? '已通过' : r.status === 'REJECTED' ? '已拒绝' : '待审核' }}
+          <van-tag :type="request.status === 'APPROVED' ? 'success' : request.status === 'REJECTED' ? 'danger' : 'warning'" size="small">
+            {{ request.status === 'APPROVED' ? '已通过' : request.status === 'REJECTED' ? '已拒绝' : '待审核' }}
           </van-tag>
         </div>
         <div v-if="applyList.length === 0" class="dialog-empty">暂无申请记录</div>
@@ -56,37 +71,69 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
+import { computed, onMounted, reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '../stores/user'
 import { getMyJoinRequests, type JoinRequestVO } from '../api/join'
-import { showToast, showConfirmDialog } from 'vant'
+import { showConfirmDialog, showToast } from 'vant'
 
 const router = useRouter()
 const userStore = useUserStore()
 
 const applyList = ref<JoinRequestVO[]>([])
 const showApplyHistory = ref(false)
+const showProfileEditor = ref(false)
+const profileForm = reactive({
+  nickname: '',
+  email: '',
+  major: '',
+  grade: '',
+  skills: '',
+  bio: '',
+})
 
 const userInitial = computed(() => {
   const name = userStore.user?.nickname || userStore.user?.username
   return name ? name.charAt(0).toUpperCase() : '?'
 })
 
-const go = (page: string) => {
+const requireLogin = () => {
   if (!userStore.isLoggedIn) {
     router.push({ name: 'login' })
-    return
+    return false
   }
+  return true
+}
+
+const go = (page: string) => {
+  if (!requireLogin()) return
   if (page === 'team') router.push({ name: 'team' })
   else if (page === 'email') router.push({ name: 'email' })
 }
 
-const openApplyHistory = async () => {
-  if (!userStore.isLoggedIn) {
-    router.push({ name: 'login' })
-    return
+const openProfileEditor = () => {
+  if (!requireLogin()) return
+  const user = userStore.user
+  profileForm.nickname = user?.nickname || ''
+  profileForm.email = user?.email || ''
+  profileForm.major = user?.major || ''
+  profileForm.grade = user?.grade || ''
+  profileForm.skills = user?.skills || ''
+  profileForm.bio = user?.bio || ''
+  showProfileEditor.value = true
+}
+
+const saveProfile = async () => {
+  try {
+    await userStore.saveProfile({ ...profileForm })
+    showToast('资料已保存')
+  } catch (e: any) {
+    showToast(e.message || '保存失败')
   }
+}
+
+const openApplyHistory = async () => {
+  if (!requireLogin()) return
   try {
     applyList.value = await getMyJoinRequests()
   } catch {
@@ -105,13 +152,13 @@ const handleLogout = async () => {
     userStore.logout()
     showToast('已退出')
   } catch {
-    /* 取消 */
+    /* 用户取消 */
   }
 }
 
-const formatTime = (t: string) => {
-  if (!t) return ''
-  return new Date(t).toLocaleString()
+const formatTime = (time: string) => {
+  if (!time) return ''
+  return new Date(time).toLocaleString()
 }
 
 onMounted(() => {
@@ -125,14 +172,33 @@ onMounted(() => {
   min-height: 100vh;
 }
 
+.profile-card,
+.summary-card {
+  background: var(--color-white);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 16px;
+}
+
 .profile-card {
   display: flex;
   align-items: center;
-  background: var(--color-white);
-  border-radius: var(--radius-lg);
   padding: 20px;
-  box-shadow: var(--shadow-sm);
-  margin-bottom: 16px;
+}
+
+.summary-card {
+  padding: 14px 16px;
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+}
+
+.summary-card p {
+  margin: 0 0 6px;
+}
+
+.summary-card p:last-child {
+  margin-bottom: 0;
 }
 
 .avatar {
@@ -152,6 +218,7 @@ onMounted(() => {
 
 .info {
   flex: 1;
+  min-width: 0;
 }
 
 .info h2 {
@@ -161,15 +228,28 @@ onMounted(() => {
   color: var(--color-text);
 }
 
-.info small {
+.info small,
+.apply-time {
   color: var(--color-text-muted);
-  font-size: 13px;
-  margin-top: 2px;
-  display: block;
+  font-size: 12px;
+}
+
+.profile-tags {
+  display: flex;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.profile-tags span,
+.cell-icon {
+  font-size: 12px;
+  color: var(--color-primary);
+  background: rgba(98, 87, 255, 0.1);
+  border-radius: 4px;
+  padding: 2px 6px;
 }
 
 .cell-icon {
-  font-size: 18px;
   margin-right: 8px;
 }
 
@@ -187,6 +267,7 @@ onMounted(() => {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 10px;
   padding: 12px 0;
   border-bottom: 1px solid var(--color-divider);
 }
@@ -198,13 +279,13 @@ onMounted(() => {
 .apply-info {
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: 4px;
   flex: 1;
 }
 
 .apply-team {
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 600;
   color: var(--color-text);
 }
 
@@ -213,15 +294,14 @@ onMounted(() => {
   color: var(--color-text-secondary);
 }
 
-.apply-time {
-  font-size: 11px;
-  color: var(--color-text-muted);
-}
-
 .dialog-empty {
   text-align: center;
   padding: 24px;
   color: var(--color-text-muted);
   font-size: 14px;
+}
+
+.edit-form {
+  padding: 10px 0;
 }
 </style>

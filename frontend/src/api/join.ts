@@ -3,7 +3,9 @@ import { http } from './http'
 export interface JoinRequestVO {
   id: number
   teamId: number
+  teamName?: string
   userId: number
+  applicantName?: string
   status: 'PENDING' | 'APPROVED' | 'REJECTED'
   reason?: string
   requestedAt: string

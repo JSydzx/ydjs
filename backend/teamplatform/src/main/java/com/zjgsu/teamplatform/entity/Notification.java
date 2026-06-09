@@ -13,6 +13,7 @@ public class Notification {
     private Long userId;
     private String message;
     private String type;
+    private Long relatedId;
     private Boolean isRead;
     private LocalDateTime createdAt;
 }

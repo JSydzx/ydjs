@@ -3,7 +3,6 @@ import HomeView from '../views/HomeView.vue'
 import PublishView from '../views/PublishView.vue'
 import TeamView from '../views/TeamView.vue'
 import ProfileView from '../views/ProfileView.vue'
-import PostDetailView from '../views/PostDetailView.vue'
 import ApplyView from '../views/ApplyView.vue'
 import EmailView from '../views/EmailView.vue'
 import LoginView from '../views/LoginView.vue'
@@ -16,7 +15,7 @@ const router = createRouter({
   routes: [
     { path: '/', name: 'home', component: HomeView },
     { path: '/publish', name: 'publish', component: PublishView, meta: { requiresAuth: true } },
-    { path: '/post/:id', name: 'postDetail', component: PostDetailView, props: true },
+    { path: '/post/:id', name: 'postDetail', component: TeamDetailView, props: true },
     { path: '/apply/:postId', name: 'apply', component: ApplyView, props: true, meta: { requiresAuth: true } },
     { path: '/email', name: 'email', component: EmailView, meta: { requiresAuth: true } },
     { path: '/email/chat/:type/:id', name: 'chatDetail', component: ChatDetailView, meta: { requiresAuth: true } },
@@ -29,12 +28,16 @@ const router = createRouter({
   ],
 })
 
-router.beforeEach((to, _from) => {
-  const userId = localStorage.getItem('userId')
-  if (to.meta.requiresAuth && !userId) {
+router.beforeEach((to) => {
+  const token = localStorage.getItem('token')
+  if (to.meta.requiresAuth && !token) {
     return { name: 'login', query: { redirect: to.fullPath } }
   }
   return true
+})
+
+window.addEventListener('auth-expired', () => {
+  router.push({ name: 'login', query: { redirect: router.currentRoute.value.fullPath } })
 })
 
 export default router

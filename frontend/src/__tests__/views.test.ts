@@ -9,7 +9,7 @@ import RegisterView from '../views/RegisterView.vue'
 const router = createRouter({
   history: createWebHistory(),
   routes: [
-    { path: '/home', name: 'home', component: HomeView },
+    { path: '/', name: 'home', component: HomeView },
     { path: '/login', name: 'login', component: LoginView },
     { path: '/register', name: 'register', component: RegisterView },
   ],
@@ -47,21 +47,21 @@ describe('视图组件测试', () => {
     expect(wrapper.exists()).toBe(true)
   })
 
-  it('LoginView 应该包含表单元素', () => {
+  it('LoginView 应该包含 Vant 表单组件', () => {
     const wrapper = mount(LoginView, {
       global: {
         plugins: [router],
       },
     })
-    expect(wrapper.find('form').exists()).toBe(true)
+    expect(wrapper.find('van-form').exists()).toBe(true)
   })
 
-  it('RegisterView 应该包含表单元素', () => {
+  it('RegisterView 应该包含 Vant 表单组件', () => {
     const wrapper = mount(RegisterView, {
       global: {
         plugins: [router],
       },
     })
-    expect(wrapper.find('form').exists()).toBe(true)
+    expect(wrapper.find('van-form').exists()).toBe(true)
   })
 })

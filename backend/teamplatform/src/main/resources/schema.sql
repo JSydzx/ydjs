@@ -5,6 +5,10 @@ CREATE TABLE IF NOT EXISTS user (
     password VARCHAR(255) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE,
     avatar VARCHAR(255),
+    major VARCHAR(100),
+    grade VARCHAR(50),
+    skills VARCHAR(255),
+    bio VARCHAR(500),
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
@@ -64,6 +68,7 @@ CREATE TABLE IF NOT EXISTS notification (
     user_id BIGINT NOT NULL,
     message TEXT NOT NULL,
     type VARCHAR(30) DEFAULT 'SYSTEM',
+    related_id BIGINT,
     is_read BOOLEAN DEFAULT FALSE,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT fk_notification_user FOREIGN KEY (user_id) REFERENCES user(id)

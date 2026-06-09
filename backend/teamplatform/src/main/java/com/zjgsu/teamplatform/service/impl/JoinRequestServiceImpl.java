@@ -6,21 +6,25 @@ import com.zjgsu.teamplatform.dto.JoinRequestCreateRequest;
 import com.zjgsu.teamplatform.entity.JoinRequest;
 import com.zjgsu.teamplatform.entity.Team;
 import com.zjgsu.teamplatform.entity.TeamMember;
+import com.zjgsu.teamplatform.entity.User;
 import com.zjgsu.teamplatform.exception.BizException;
 import com.zjgsu.teamplatform.mapper.JoinRequestMapper;
 import com.zjgsu.teamplatform.mapper.TeamMapper;
 import com.zjgsu.teamplatform.mapper.TeamMemberMapper;
+import com.zjgsu.teamplatform.mapper.UserMapper;
 import com.zjgsu.teamplatform.service.JoinRequestService;
 import com.zjgsu.teamplatform.service.NotificationService;
+import com.zjgsu.teamplatform.vo.JoinRequestVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 加入请求服务实现。
+ * 入队申请服务实现。
  */
 @Service
 @RequiredArgsConstructor
@@ -29,14 +33,21 @@ public class JoinRequestServiceImpl implements JoinRequestService {
     private final JoinRequestMapper joinRequestMapper;
     private final TeamMapper teamMapper;
     private final TeamMemberMapper teamMemberMapper;
+    private final UserMapper userMapper;
     private final NotificationService notificationService;
 
     /**
-     * 发起加入请求。
+     * 发起入队申请，关闭招募和满员团队不允许继续申请。
      */
     @Override
-    public JoinRequest create(Long userId, JoinRequestCreateRequest request) {
+    public JoinRequestVO create(Long userId, JoinRequestCreateRequest request) {
         Team team = requireTeam(request.getTeamId());
+        if (!Constants.TEAM_STATUS_ACTIVE.equals(team.getStatus())) {
+            throw new BizException(ErrorCode.BAD_REQUEST, "团队已关闭招募");
+        }
+        if (team.getCurrentMembers() >= team.getMaxMembers()) {
+            throw new BizException(ErrorCode.BAD_REQUEST, "团队人数已满");
+        }
         if (teamMemberMapper.findByTeamAndUser(team.getId(), userId) != null) {
             throw new BizException(ErrorCode.CONFLICT, "你已在团队中");
         }
@@ -53,31 +64,32 @@ public class JoinRequestServiceImpl implements JoinRequestService {
         joinRequest.setReason(request.getReason());
         joinRequestMapper.insert(joinRequest);
 
+        User applicant = userMapper.findById(userId);
         notificationService.push(team.getCreatorId(), Constants.NOTIFICATION_TYPE_JOIN_REQUEST,
-                "你有新的入队申请，申请人ID=" + userId + "，团队ID=" + team.getId());
-        return joinRequestMapper.findById(joinRequest.getId());
+                displayName(applicant, userId) + " 申请加入团队「" + team.getName() + "」", team.getId());
+        return toVO(joinRequestMapper.findById(joinRequest.getId()));
     }
 
     /**
-     * 查询我的加入请求。
+     * 查询我的入队申请。
      */
     @Override
-    public List<JoinRequest> myRequests(Long userId) {
-        return joinRequestMapper.findByUserId(userId);
+    public List<JoinRequestVO> myRequests(Long userId) {
+        return toVOList(joinRequestMapper.findByUserId(userId));
     }
 
     /**
-     * 查询团队加入请求。
+     * 查询团队入队申请，仅团队管理员可查看。
      */
     @Override
-    public List<JoinRequest> teamRequests(Long operatorId, Long teamId) {
+    public List<JoinRequestVO> teamRequests(Long operatorId, Long teamId) {
         Team team = requireTeam(teamId);
         checkTeamAdmin(operatorId, team);
-        return joinRequestMapper.findByTeamId(teamId);
+        return toVOList(joinRequestMapper.findByTeamId(teamId));
     }
 
     /**
-     * 批准加入请求。
+     * 批准入队申请，并同步团队人数和申请人通知。
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -88,6 +100,9 @@ public class JoinRequestServiceImpl implements JoinRequestService {
 
         if (!Constants.REQUEST_STATUS_PENDING.equals(joinRequest.getStatus())) {
             throw new BizException(ErrorCode.BAD_REQUEST, "该申请已处理");
+        }
+        if (!Constants.TEAM_STATUS_ACTIVE.equals(team.getStatus())) {
+            throw new BizException(ErrorCode.BAD_REQUEST, "团队已关闭招募");
         }
         if (teamMemberMapper.findByTeamAndUser(team.getId(), joinRequest.getUserId()) != null) {
             throw new BizException(ErrorCode.CONFLICT, "申请用户已在团队中");
@@ -107,12 +122,12 @@ public class JoinRequestServiceImpl implements JoinRequestService {
         joinRequestMapper.updateStatus(joinRequest.getId(), Constants.REQUEST_STATUS_APPROVED, LocalDateTime.now());
         teamMapper.updateCurrentMembers(team.getId(), count + 1);
 
-        notificationService.push(joinRequest.getUserId(), Constants.NOTIFICATION_TYPE_SYSTEM,
-                "你的入队申请已通过，团队ID=" + team.getId());
+        notificationService.push(joinRequest.getUserId(), Constants.NOTIFICATION_TYPE_TEAM_UPDATE,
+                "你的入队申请已通过，团队「" + team.getName() + "」欢迎你", team.getId());
     }
 
     /**
-     * 拒绝加入请求。
+     * 拒绝入队申请，并通知申请人。
      */
     @Override
     public void reject(Long operatorId, Long requestId) {
@@ -125,8 +140,8 @@ public class JoinRequestServiceImpl implements JoinRequestService {
         }
 
         joinRequestMapper.updateStatus(joinRequest.getId(), Constants.REQUEST_STATUS_REJECTED, LocalDateTime.now());
-        notificationService.push(joinRequest.getUserId(), Constants.NOTIFICATION_TYPE_SYSTEM,
-                "你的入队申请已被拒绝，团队ID=" + team.getId());
+        notificationService.push(joinRequest.getUserId(), Constants.NOTIFICATION_TYPE_TEAM_UPDATE,
+                "你的入队申请已被拒绝，团队「" + team.getName() + "」", team.getId());
     }
 
     /**
@@ -141,7 +156,7 @@ public class JoinRequestServiceImpl implements JoinRequestService {
     }
 
     /**
-     * 校验请求存在。
+     * 校验申请存在。
      */
     private JoinRequest requireJoinRequest(Long requestId) {
         JoinRequest joinRequest = joinRequestMapper.findById(requestId);
@@ -164,5 +179,48 @@ public class JoinRequestServiceImpl implements JoinRequestService {
         if (!isCreator && !isAdmin) {
             throw new BizException(ErrorCode.UNAUTHORIZED, "仅管理员可执行该操作");
         }
+    }
+
+    /**
+     * 批量转换申请视图。
+     */
+    private List<JoinRequestVO> toVOList(List<JoinRequest> requests) {
+        List<JoinRequestVO> result = new ArrayList<>();
+        for (JoinRequest request : requests) {
+            result.add(toVO(request));
+        }
+        return result;
+    }
+
+    /**
+     * 转换入队申请视图对象。
+     */
+    private JoinRequestVO toVO(JoinRequest request) {
+        Team team = teamMapper.findById(request.getTeamId());
+        User user = userMapper.findById(request.getUserId());
+        JoinRequestVO vo = new JoinRequestVO();
+        vo.setId(request.getId());
+        vo.setTeamId(request.getTeamId());
+        vo.setTeamName(team == null ? null : team.getName());
+        vo.setUserId(request.getUserId());
+        vo.setApplicantName(displayName(user, request.getUserId()));
+        vo.setStatus(request.getStatus());
+        vo.setRequestedAt(request.getRequestedAt());
+        vo.setProcessedAt(request.getProcessedAt());
+        vo.setReason(request.getReason());
+        return vo;
+    }
+
+    /**
+     * 优先显示昵称，缺失时回退到用户名。
+     */
+    private String displayName(User user, Long userId) {
+        if (user == null) {
+            return "用户" + userId;
+        }
+        if (user.getNickname() != null && !user.getNickname().isBlank()) {
+            return user.getNickname();
+        }
+        return user.getUsername();
     }
 }

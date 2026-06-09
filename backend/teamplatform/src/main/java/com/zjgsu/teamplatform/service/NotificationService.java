@@ -28,4 +28,9 @@ public interface NotificationService {
      * 发送系统通知。
      */
     void push(Long userId, String type, String message);
+
+    /**
+     * 发送带业务关联 ID 的通知。
+     */
+    void push(Long userId, String type, String message, Long relatedId);
 }

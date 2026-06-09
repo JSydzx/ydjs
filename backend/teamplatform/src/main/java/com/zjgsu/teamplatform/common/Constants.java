@@ -8,6 +8,7 @@ public final class Constants {
     }
 
     public static final String HEADER_USER_ID = "X-User-Id";
+    public static final String CURRENT_USER_ID = "currentUserId";
 
     public static final String TEAM_STATUS_ACTIVE = "ACTIVE";
     public static final String TEAM_STATUS_CLOSED = "CLOSED";

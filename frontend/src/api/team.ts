@@ -9,7 +9,7 @@ export interface TeamVO {
   creatorName?: string
   currentMembers: number
   maxMembers: number
-  status: string
+  status: 'ACTIVE' | 'CLOSED' | string
   createdAt: string
 }
 
@@ -19,6 +19,10 @@ export interface UserVO {
   nickname?: string
   email?: string
   avatar?: string
+  major?: string
+  grade?: string
+  skills?: string
+  bio?: string
 }
 
 export interface TeamCreateRequest {
@@ -33,10 +37,16 @@ export interface TeamUpdateRequest {
   description?: string
   tag?: string
   maxMembers?: number
-  status?: string
+  status?: 'ACTIVE' | 'CLOSED'
 }
 
-export const getTeamList = (): Promise<TeamVO[]> => http.get('/team/list')
+export interface TeamListParams {
+  keyword?: string
+  tag?: string
+  availableOnly?: boolean
+}
+
+export const getTeamList = (params: TeamListParams = {}): Promise<TeamVO[]> => http.get('/team/list', { params })
 export const getMyTeams = (): Promise<TeamVO[]> => http.get('/team/my')
 export const getTeamDetail = (teamId: number): Promise<TeamVO> => http.get(`/team/${teamId}`)
 export const createTeam = (payload: TeamCreateRequest): Promise<TeamVO> => http.post('/team/create', payload)

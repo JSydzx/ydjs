@@ -1,6 +1,15 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
-import { login as loginApi, register as registerApi, getProfile, updateProfile, type UserVO, type LoginRequest, type RegisterRequest, type UserProfileUpdateRequest } from '../api/user'
+import {
+  login as loginApi,
+  register as registerApi,
+  getProfile,
+  updateProfile,
+  type UserVO,
+  type LoginRequest,
+  type RegisterRequest,
+  type UserProfileUpdateRequest,
+} from '../api/user'
 
 export const useUserStore = defineStore('user', () => {
   const userId = ref<number | null>(Number(localStorage.getItem('userId')) || null)
@@ -13,13 +22,13 @@ export const useUserStore = defineStore('user', () => {
   async function login(params: LoginRequest) {
     loading.value = true
     try {
-      const res = await loginApi(params)
-      userId.value = res.id
-      token.value = 'jwt-token-' + res.id
-      user.value = res
-      localStorage.setItem('userId', String(res.id))
-      localStorage.setItem('token', token.value)
-      return res
+      const response = await loginApi(params)
+      userId.value = response.user.id
+      token.value = response.token
+      user.value = response.user
+      localStorage.setItem('userId', String(response.user.id))
+      localStorage.setItem('token', response.token)
+      return response.user
     } finally {
       loading.value = false
     }
@@ -35,20 +44,25 @@ export const useUserStore = defineStore('user', () => {
   }
 
   async function loadProfile() {
-    if (!userId.value) return
+    if (!token.value) return
     loading.value = true
     try {
       user.value = await getProfile()
-    } catch { /* ignore */ } finally {
+      userId.value = user.value.id
+      localStorage.setItem('userId', String(user.value.id))
+    } catch {
+      logout()
+    } finally {
       loading.value = false
     }
   }
 
   async function saveProfile(params: UserProfileUpdateRequest) {
-    if (!userId.value) return
+    if (!token.value) return
     loading.value = true
     try {
       user.value = await updateProfile(params)
+      return user.value
     } finally {
       loading.value = false
     }
@@ -62,5 +76,11 @@ export const useUserStore = defineStore('user', () => {
     localStorage.removeItem('token')
   }
 
-  return { userId, token, user, loading, isLoggedIn, login, register, loadProfile, saveProfile, logout }
+  function syncFromStorage() {
+    userId.value = Number(localStorage.getItem('userId')) || null
+    token.value = localStorage.getItem('token') || null
+    if (!token.value) user.value = null
+  }
+
+  return { userId, token, user, loading, isLoggedIn, login, register, loadProfile, saveProfile, logout, syncFromStorage }
 })

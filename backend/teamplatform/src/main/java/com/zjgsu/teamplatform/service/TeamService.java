@@ -21,7 +21,7 @@ public interface TeamService {
     /**
      * 获取团队列表。
      */
-    List<TeamVO> list();
+    List<TeamVO> list(String keyword, String tag, Boolean availableOnly);
 
     /**
      * 获取团队详情。

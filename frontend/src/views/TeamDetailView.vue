@@ -1,6 +1,7 @@
 <template>
   <div class="page team-detail-page">
     <van-nav-bar title="队伍详情" left-text="返回" left-arrow @click-left="goBack" />
+
     <div v-if="team" class="team-info">
       <div class="info-card">
         <div class="card-row">
@@ -11,7 +12,7 @@
         </div>
         <div class="card-row meta-row">
           <span class="member-count">{{ team.currentMembers }}/{{ team.maxMembers }}人</span>
-          <span class="creator">队长：{{ team.creatorName || 'UID:' + team.creatorId }}</span>
+          <span class="creator">队长：{{ team.creatorName || `UID:${team.creatorId}` }}</span>
         </div>
         <div v-if="team.tag" class="tag-row">
           <van-tag type="primary" size="medium" plain>{{ team.tag }}</van-tag>
@@ -21,14 +22,16 @@
       </div>
 
       <div class="actions">
-        <van-button v-if="!isMyTeam" type="primary" block round @click="goApply">申请加入</van-button>
-        <template v-else>
-          <van-button type="primary" block round @click="openJoinRequests" class="action-btn">
-            申请列表
+        <van-button v-if="canApply" type="primary" block round @click="goApply">申请加入</van-button>
+        <van-button type="default" block round @click="openMembers">成员列表 ({{ team.currentMembers }})</van-button>
+
+        <template v-if="isTeamAdmin">
+          <van-button type="primary" block round @click="openJoinRequests">申请列表</van-button>
+          <van-button type="default" block round @click="openEdit">编辑队伍</van-button>
+          <van-button :type="team.status === 'ACTIVE' ? 'warning' : 'success'" block round @click="toggleStatus">
+            {{ team.status === 'ACTIVE' ? '关闭招募' : '重新开放招募' }}
           </van-button>
-          <van-button type="default" block round @click="openMembers" class="action-btn">
-            成员管理 ({{ team.currentMembers }})
-          </van-button>
+          <van-button type="danger" block round plain @click="handleDelete">删除队伍</van-button>
         </template>
       </div>
     </div>
@@ -38,28 +41,18 @@
       <p>加载中...</p>
     </div>
 
-    <!-- 成员管理弹窗 -->
-    <van-dialog v-model:show="showMembers" title="团队成员" :show-confirm-button="false" :close-on-click-overlay="true">
+    <van-dialog v-model:show="showMembers" title="队伍成员" :show-confirm-button="false" :close-on-click-overlay="true">
       <div class="dialog-list">
-        <div v-for="m in members" :key="m.id" class="dialog-item">
-          <span class="member-name">{{ m.nickname || m.username }}</span>
+        <div v-for="member in members" :key="member.id" class="dialog-item">
+          <div class="member-info">
+            <span class="member-name">{{ member.nickname || member.username }}</span>
+            <span class="member-meta">{{ [member.email, member.major, member.grade].filter(Boolean).join(' · ') || '资料待完善' }}</span>
+          </div>
           <div class="member-actions">
-            <van-button
-              v-if="m.id !== currentUserId"
-              size="small"
-              type="primary"
-              plain
-              @click="handleChat(m.id, m.nickname || m.username)"
-            >
+            <van-button v-if="member.id !== currentUserId && currentUserId" size="small" type="primary" plain @click="handleChat(member.id, member.nickname || member.username)">
               私聊
             </van-button>
-            <van-button
-              v-if="isMyTeam && m.id !== team?.creatorId"
-              size="small"
-              type="danger"
-              plain
-              @click="handleRemove(m.id)"
-            >
+            <van-button v-if="isTeamAdmin && member.id !== team?.creatorId" size="small" type="danger" plain @click="handleRemove(member.id)">
               移除
             </van-button>
           </div>
@@ -68,35 +61,51 @@
       </div>
     </van-dialog>
 
-    <!-- 申请列表弹窗 -->
     <van-dialog v-model:show="showRequests" title="入队申请" :show-confirm-button="false" :close-on-click-overlay="true">
       <div class="dialog-list">
-        <div v-for="r in joinRequests" :key="r.id" class="dialog-item">
+        <div v-for="request in joinRequests" :key="request.id" class="dialog-item request-item">
           <div class="request-info">
-            <span class="request-user">用户 #{{ r.userId }}</span>
-            <span v-if="r.reason" class="request-reason">{{ r.reason }}</span>
-            <span class="request-time">{{ formatTime(r.requestedAt) }}</span>
+            <span class="request-user">{{ request.applicantName || `用户 #${request.userId}` }}</span>
+            <span v-if="request.reason" class="request-reason">{{ request.reason }}</span>
+            <span class="request-time">{{ formatTime(request.requestedAt) }}</span>
           </div>
-          <div v-if="r.status === 'PENDING'" class="request-actions">
-            <van-button size="small" type="success" @click="handleApprove(r.id)">同意</van-button>
-            <van-button size="small" type="danger" @click="handleReject(r.id)">拒绝</van-button>
+          <div v-if="request.status === 'PENDING'" class="request-actions">
+            <van-button size="small" type="success" @click="handleApprove(request.id)">同意</van-button>
+            <van-button size="small" type="danger" @click="handleReject(request.id)">拒绝</van-button>
           </div>
-          <van-tag v-else :type="r.status === 'APPROVED' ? 'success' : 'danger'" size="small">
-            {{ r.status === 'APPROVED' ? '已同意' : '已拒绝' }}
+          <van-tag v-else :type="request.status === 'APPROVED' ? 'success' : 'danger'" size="small">
+            {{ request.status === 'APPROVED' ? '已同意' : '已拒绝' }}
           </van-tag>
         </div>
         <div v-if="joinRequests.length === 0" class="dialog-empty">暂无入队申请</div>
       </div>
     </van-dialog>
+
+    <van-dialog v-model:show="showEdit" title="编辑队伍" show-cancel-button confirm-button-text="保存" @confirm="saveEdit">
+      <van-form class="edit-form">
+        <van-field v-model="editForm.name" label="名称" placeholder="请输入队伍名称" maxlength="100" />
+        <van-field v-model="editForm.tag" label="标签" placeholder="例如：前端、算法" maxlength="255" />
+        <van-field v-model.number="editForm.maxMembers" label="人数上限" type="digit" placeholder="2-200" />
+        <van-field v-model="editForm.description" label="描述" type="textarea" rows="3" autosize maxlength="1000" show-word-limit />
+      </van-form>
+    </van-dialog>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { computed, reactive, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { getTeamDetail, getTeamMembers, removeTeamMember, type TeamVO, type UserVO } from '../api/team'
-import { getTeamJoinRequests, approveJoinRequest, rejectJoinRequest, type JoinRequestVO } from '../api/join'
-import { showToast, showConfirmDialog } from 'vant'
+import {
+  deleteTeam,
+  getTeamDetail,
+  getTeamMembers,
+  removeTeamMember,
+  updateTeam,
+  type TeamVO,
+  type UserVO,
+} from '../api/team'
+import { approveJoinRequest, getTeamJoinRequests, rejectJoinRequest, type JoinRequestVO } from '../api/join'
+import { showConfirmDialog, showToast } from 'vant'
 
 const route = useRoute()
 const router = useRouter()
@@ -107,9 +116,18 @@ const members = ref<UserVO[]>([])
 const joinRequests = ref<JoinRequestVO[]>([])
 const showMembers = ref(false)
 const showRequests = ref(false)
+const showEdit = ref(false)
+const currentUserId = Number(localStorage.getItem('userId') || '0')
 
-const currentUserId = Number(localStorage.getItem('userId'))
-const isMyTeam = computed(() => team.value?.creatorId === currentUserId)
+const editForm = reactive({
+  name: '',
+  description: '',
+  tag: '',
+  maxMembers: 10,
+})
+
+const isTeamAdmin = computed(() => !!team.value && team.value.creatorId === currentUserId)
+const canApply = computed(() => !!team.value && team.value.status === 'ACTIVE' && team.value.creatorId !== currentUserId)
 
 const loadDetail = async () => {
   try {
@@ -137,15 +155,69 @@ const openJoinRequests = async () => {
   showRequests.value = true
 }
 
+const openEdit = () => {
+  if (!team.value) return
+  editForm.name = team.value.name
+  editForm.description = team.value.description || ''
+  editForm.tag = team.value.tag || ''
+  editForm.maxMembers = team.value.maxMembers
+  showEdit.value = true
+}
+
+const saveEdit = async () => {
+  if (!team.value) return
+  if (!editForm.name.trim()) {
+    showToast('请输入队伍名称')
+    return
+  }
+  if (editForm.maxMembers < team.value.currentMembers || editForm.maxMembers > 200) {
+    showToast('人数上限不能小于当前人数，且不能超过200')
+    return
+  }
+  try {
+    team.value = await updateTeam(teamId, {
+      name: editForm.name.trim(),
+      description: editForm.description.trim() || undefined,
+      tag: editForm.tag.trim() || undefined,
+      maxMembers: editForm.maxMembers,
+    })
+    showToast('已保存')
+  } catch (e: any) {
+    showToast(e.message || '保存失败')
+  }
+}
+
+const toggleStatus = async () => {
+  if (!team.value) return
+  const nextStatus = team.value.status === 'ACTIVE' ? 'CLOSED' : 'ACTIVE'
+  try {
+    team.value = await updateTeam(teamId, { status: nextStatus })
+    showToast(nextStatus === 'ACTIVE' ? '已开放招募' : '已关闭招募')
+  } catch (e: any) {
+    showToast(e.message || '操作失败')
+  }
+}
+
+const handleDelete = async () => {
+  try {
+    await showConfirmDialog({ title: '确认删除', message: '删除后队伍和成员关系将不可恢复，确定继续吗？', closeOnClickOverlay: true })
+    await deleteTeam(teamId)
+    showToast('已删除')
+    router.replace({ name: 'team' })
+  } catch {
+    /* 用户取消 */
+  }
+}
+
 const handleRemove = async (userId: number) => {
   try {
-    await showConfirmDialog({ title: '确认', message: '确定要移除该成员吗？', closeOnClickOverlay: true })
+    await showConfirmDialog({ title: '确认移除', message: '确定要移除该成员吗？', closeOnClickOverlay: true })
     await removeTeamMember(teamId, userId)
-    showToast('已移除')
+    members.value = members.value.filter((member) => member.id !== userId)
     await loadDetail()
-    members.value = members.value.filter(m => m.id !== userId)
+    showToast('已移除')
   } catch {
-    /* 取消 */
+    /* 用户取消 */
   }
 }
 
@@ -153,11 +225,7 @@ const handleApprove = async (requestId: number) => {
   try {
     await approveJoinRequest(requestId)
     showToast('已同意')
-    await loadDetail()
-    // 刷新申请列表
-    joinRequests.value = joinRequests.value.map(r =>
-      r.id === requestId ? { ...r, status: 'APPROVED' as const } : r
-    )
+    await Promise.all([loadDetail(), openJoinRequests()])
   } catch (e: any) {
     showToast(e.message || '操作失败')
   }
@@ -167,9 +235,7 @@ const handleReject = async (requestId: number) => {
   try {
     await rejectJoinRequest(requestId)
     showToast('已拒绝')
-    joinRequests.value = joinRequests.value.map(r =>
-      r.id === requestId ? { ...r, status: 'REJECTED' as const } : r
-    )
+    await openJoinRequests()
   } catch (e: any) {
     showToast(e.message || '操作失败')
   }
@@ -181,20 +247,16 @@ const goApply = () => {
 
 const handleChat = (memberId: number, memberName: string) => {
   showMembers.value = false
-  router.push({
-    name: 'chatDetail',
-    params: { type: 'user', id: memberId },
-    query: { title: memberName },
-  })
+  router.push({ name: 'chatDetail', params: { type: 'user', id: memberId }, query: { title: memberName } })
 }
 
 const goBack = () => {
   router.back()
 }
 
-const formatTime = (t: string) => {
-  if (!t) return ''
-  return new Date(t).toLocaleString()
+const formatTime = (time: string) => {
+  if (!time) return ''
+  return new Date(time).toLocaleString()
 }
 
 loadDetail()
@@ -230,6 +292,7 @@ loadDetail()
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 10px;
   margin-bottom: 8px;
 }
 
@@ -250,7 +313,10 @@ loadDetail()
   font-weight: 500;
 }
 
-.creator {
+.creator,
+.team-time,
+.member-meta,
+.request-time {
   color: var(--color-text-muted);
 }
 
@@ -268,7 +334,6 @@ loadDetail()
 .team-time {
   margin: 0;
   font-size: 12px;
-  color: var(--color-text-muted);
 }
 
 .actions {
@@ -278,13 +343,9 @@ loadDetail()
   gap: 10px;
 }
 
-.action-btn {
-  margin: 0;
-}
-
 .dialog-list {
   padding: 12px 16px;
-  max-height: 320px;
+  max-height: 340px;
   overflow-y: auto;
 }
 
@@ -292,6 +353,7 @@ loadDetail()
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 10px;
   padding: 12px 0;
   border-bottom: 1px solid var(--color-divider);
 }
@@ -300,42 +362,41 @@ loadDetail()
   border-bottom: none;
 }
 
-.member-name {
-  font-size: 15px;
-  color: var(--color-text);
-}
-
-.member-actions {
-  display: flex;
-  gap: 6px;
-}
-
+.member-info,
 .request-info {
   display: flex;
+  flex: 1;
+  min-width: 0;
   flex-direction: column;
   gap: 4px;
-  flex: 1;
 }
 
+.member-name,
 .request-user {
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 600;
   color: var(--color-text);
+}
+
+.member-meta,
+.request-reason,
+.request-time {
+  font-size: 12px;
 }
 
 .request-reason {
-  font-size: 12px;
   color: var(--color-text-secondary);
+  line-height: 1.4;
 }
 
-.request-time {
-  font-size: 11px;
-  color: var(--color-text-muted);
-}
-
+.member-actions,
 .request-actions {
   display: flex;
   gap: 6px;
+}
+
+.request-item {
+  align-items: flex-start;
 }
 
 .dialog-empty {
@@ -343,5 +404,9 @@ loadDetail()
   padding: 24px;
   color: var(--color-text-muted);
   font-size: 14px;
+}
+
+.edit-form {
+  padding: 10px 0;
 }
 </style>

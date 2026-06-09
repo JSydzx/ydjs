@@ -37,6 +37,29 @@ public interface TeamMapper {
     List<Team> findAllActive();
 
     /**
+     * 按关键词、标签和余量筛选活跃团队。
+     */
+    @Select({
+            "<script>",
+            "SELECT id, name, description, tag, creator_id AS creatorId, max_members AS maxMembers, current_members AS currentMembers, status, created_at AS createdAt, updated_at AS updatedAt",
+            "FROM team WHERE status = 'ACTIVE'",
+            "<if test='keyword != null and keyword != \"\"'>",
+            "AND (LOWER(name) LIKE LOWER(CONCAT('%', #{keyword}, '%')) OR LOWER(description) LIKE LOWER(CONCAT('%', #{keyword}, '%')) OR LOWER(tag) LIKE LOWER(CONCAT('%', #{keyword}, '%')))",
+            "</if>",
+            "<if test='tag != null and tag != \"\"'>",
+            "AND LOWER(tag) LIKE LOWER(CONCAT('%', #{tag}, '%'))",
+            "</if>",
+            "<if test='availableOnly != null and availableOnly'>",
+            "AND current_members &lt; max_members",
+            "</if>",
+            "ORDER BY id DESC",
+            "</script>"
+    })
+    List<Team> findByFilters(@Param("keyword") String keyword,
+                             @Param("tag") String tag,
+                             @Param("availableOnly") Boolean availableOnly);
+
+    /**
      * 查询我创建的团队。
      */
     @Select("SELECT id, name, description, tag, creator_id AS creatorId, max_members AS maxMembers, current_members AS currentMembers, status, created_at AS createdAt, updated_at AS updatedAt FROM team WHERE creator_id = #{creatorId} ORDER BY id DESC")

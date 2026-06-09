@@ -3,6 +3,7 @@ package com.zjgsu.teamplatform.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zjgsu.teamplatform.common.Constants;
 import com.zjgsu.teamplatform.dto.LoginRequest;
+import com.zjgsu.teamplatform.dto.LoginResponse;
 import com.zjgsu.teamplatform.dto.RegisterRequest;
 import com.zjgsu.teamplatform.dto.UserProfileUpdateRequest;
 import com.zjgsu.teamplatform.service.UserService;
@@ -13,8 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.web.servlet.MockMvc;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
@@ -52,52 +53,50 @@ class UserControllerTest {
         request.setPassword("secret123");
         request.setEmail("alice@example.com");
 
-        UserVO userVO = buildUserVO();
-        Mockito.when(userService.register(any(RegisterRequest.class))).thenReturn(userVO);
+        Mockito.when(userService.register(any(RegisterRequest.class))).thenReturn(buildUserVO());
 
         mockMvc.perform(post("/api/user/register")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(request)))
             .andExpect(status().isOk())
             .andExpect(jsonPath("$.code").value(200))
-            .andExpect(jsonPath("$.message").value("成功"))
             .andExpect(jsonPath("$.data.username").value("alice"));
     }
 
     /**
-     * 登录接口返回成功结构。
+     * 登录接口返回 token 和用户信息。
      */
     @Test
-    void login_returnsSuccessResult() throws Exception {
+    void login_returnsTokenAndUser() throws Exception {
         LoginRequest request = new LoginRequest();
         request.setUsername("alice");
         request.setPassword("secret123");
 
-        UserVO userVO = buildUserVO();
-        Mockito.when(userService.login(any(LoginRequest.class))).thenReturn(userVO);
+        LoginResponse response = new LoginResponse();
+        response.setToken("token-1");
+        response.setUser(buildUserVO());
+        Mockito.when(userService.login(any(LoginRequest.class))).thenReturn(response);
 
         mockMvc.perform(post("/api/user/login")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(request)))
             .andExpect(status().isOk())
             .andExpect(jsonPath("$.code").value(200))
-            .andExpect(jsonPath("$.message").value("成功"))
-            .andExpect(jsonPath("$.data.username").value("alice"));
+            .andExpect(jsonPath("$.data.token").value("token-1"))
+            .andExpect(jsonPath("$.data.user.username").value("alice"));
     }
 
     /**
-     * 获取资料接口返回成功结构。
+     * 获取资料接口从鉴权属性读取用户 ID。
      */
     @Test
     void profile_returnsSuccessResult() throws Exception {
-        UserVO userVO = buildUserVO();
-        Mockito.when(userService.getProfile(1L)).thenReturn(userVO);
+        Mockito.when(userService.getProfile(1L)).thenReturn(buildUserVO());
 
         mockMvc.perform(get("/api/user/profile")
-                .header(Constants.HEADER_USER_ID, "1"))
+                .requestAttr(Constants.CURRENT_USER_ID, 1L))
             .andExpect(status().isOk())
             .andExpect(jsonPath("$.code").value(200))
-            .andExpect(jsonPath("$.message").value("成功"))
             .andExpect(jsonPath("$.data.username").value("alice"));
     }
 
@@ -110,25 +109,28 @@ class UserControllerTest {
         request.setNickname("Alice2");
         request.setEmail("alice2@example.com");
         request.setAvatar("https://example.com/avatar.png");
+        request.setMajor("软件工程");
+        request.setGrade("大三");
+        request.setSkills("Java, Vue");
+        request.setBio("喜欢做项目");
 
         UserVO userVO = buildUserVO();
         userVO.setNickname("Alice2");
-        userVO.setEmail("alice2@example.com");
-        userVO.setAvatar("https://example.com/avatar.png");
+        userVO.setMajor("软件工程");
         Mockito.when(userService.updateProfile(eq(1L), any(UserProfileUpdateRequest.class))).thenReturn(userVO);
 
         mockMvc.perform(put("/api/user/profile")
-                .header(Constants.HEADER_USER_ID, "1")
+                .requestAttr(Constants.CURRENT_USER_ID, 1L)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(request)))
             .andExpect(status().isOk())
             .andExpect(jsonPath("$.code").value(200))
-            .andExpect(jsonPath("$.message").value("成功"))
-            .andExpect(jsonPath("$.data.nickname").value("Alice2"));
+            .andExpect(jsonPath("$.data.nickname").value("Alice2"))
+            .andExpect(jsonPath("$.data.major").value("软件工程"));
     }
 
     /**
-     * 注册参数校验失败时返回 400。
+     * 注册参数校验失败时不进入服务层。
      */
     @Test
     void register_whenInvalidRequest_returnsBadRequest() throws Exception {

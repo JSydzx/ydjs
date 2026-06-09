@@ -1,6 +1,7 @@
 package com.zjgsu.teamplatform.service;
 
 import com.zjgsu.teamplatform.dto.LoginRequest;
+import com.zjgsu.teamplatform.dto.LoginResponse;
 import com.zjgsu.teamplatform.dto.RegisterRequest;
 import com.zjgsu.teamplatform.dto.UserProfileUpdateRequest;
 import com.zjgsu.teamplatform.vo.UserVO;
@@ -18,7 +19,7 @@ public interface UserService {
     /**
      * 用户登录。
      */
-    UserVO login(LoginRequest request);
+    LoginResponse login(LoginRequest request);
 
     /**
      * 获取用户资料。

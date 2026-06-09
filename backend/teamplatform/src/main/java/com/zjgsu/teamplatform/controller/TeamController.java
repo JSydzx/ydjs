@@ -15,9 +15,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -36,17 +37,19 @@ public class TeamController {
      * 创建团队。
      */
     @PostMapping("/create")
-    public Result<TeamVO> create(@RequestHeader(Constants.HEADER_USER_ID) Long userId,
+    public Result<TeamVO> create(@RequestAttribute(Constants.CURRENT_USER_ID) Long userId,
                                  @Valid @RequestBody TeamCreateRequest request) {
         return Result.success(teamService.create(userId, request));
     }
 
     /**
-     * 查询团队列表。
+     * 查询团队列表，支持关键词、标签和未满员筛选。
      */
     @GetMapping("/list")
-    public Result<List<TeamVO>> list() {
-        return Result.success(teamService.list());
+    public Result<List<TeamVO>> list(@RequestParam(value = "keyword", required = false) String keyword,
+                                     @RequestParam(value = "tag", required = false) String tag,
+                                     @RequestParam(value = "availableOnly", required = false) Boolean availableOnly) {
+        return Result.success(teamService.list(keyword, tag, availableOnly));
     }
 
     /**
@@ -61,7 +64,7 @@ public class TeamController {
      * 查询我的团队。
      */
     @GetMapping("/my")
-    public Result<List<TeamVO>> myTeams(@RequestHeader(Constants.HEADER_USER_ID) Long userId) {
+    public Result<List<TeamVO>> myTeams(@RequestAttribute(Constants.CURRENT_USER_ID) Long userId) {
         return Result.success(teamService.myTeams(userId));
     }
 
@@ -69,7 +72,7 @@ public class TeamController {
      * 更新团队。
      */
     @PutMapping("/{id}")
-    public Result<TeamVO> update(@RequestHeader(Constants.HEADER_USER_ID) Long userId,
+    public Result<TeamVO> update(@RequestAttribute(Constants.CURRENT_USER_ID) Long userId,
                                  @PathVariable("id") Long id,
                                  @Valid @RequestBody TeamUpdateRequest request) {
         return Result.success(teamService.update(userId, id, request));
@@ -79,7 +82,7 @@ public class TeamController {
      * 删除团队。
      */
     @DeleteMapping("/{id}")
-    public Result<Void> delete(@RequestHeader(Constants.HEADER_USER_ID) Long userId,
+    public Result<Void> delete(@RequestAttribute(Constants.CURRENT_USER_ID) Long userId,
                                @PathVariable("id") Long id) {
         teamService.delete(userId, id);
         return Result.success(null);
@@ -97,7 +100,7 @@ public class TeamController {
      * 添加团队成员。
      */
     @PostMapping("/{id}/members")
-    public Result<Void> addMember(@RequestHeader(Constants.HEADER_USER_ID) Long userId,
+    public Result<Void> addMember(@RequestAttribute(Constants.CURRENT_USER_ID) Long userId,
                                   @PathVariable("id") Long id,
                                   @Valid @RequestBody TeamMemberAddRequest request) {
         teamService.addMember(userId, id, request);
@@ -108,7 +111,7 @@ public class TeamController {
      * 移除团队成员。
      */
     @DeleteMapping("/{id}/members/{userId}")
-    public Result<Void> removeMember(@RequestHeader(Constants.HEADER_USER_ID) Long operatorId,
+    public Result<Void> removeMember(@RequestAttribute(Constants.CURRENT_USER_ID) Long operatorId,
                                      @PathVariable("id") Long id,
                                      @PathVariable("userId") Long userId) {
         teamService.removeMember(operatorId, id, userId);

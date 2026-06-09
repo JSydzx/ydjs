@@ -9,17 +9,18 @@ describe('Router 测试', () => {
 
   it('应该包含必要的路由', () => {
     const routes = router.getRoutes()
-    const routeNames = routes.map((r) => r.name)
+    const routeNames = routes.map((route) => route.name)
 
     expect(routeNames).toContain('home')
     expect(routeNames).toContain('login')
     expect(routeNames).toContain('register')
     expect(routeNames).toContain('profile')
+    expect(routeNames).toContain('teamDetail')
   })
 
-  it('应该有正确的重定向路由', () => {
+  it('根路径应该直接展示首页', () => {
     const routes = router.getRoutes()
-    const redirectRoute = routes.find((r) => r.path === '/')
-    expect(redirectRoute?.redirect).toBe('/home')
+    const homeRoute = routes.find((route) => route.path === '/')
+    expect(homeRoute?.name).toBe('home')
   })
 })

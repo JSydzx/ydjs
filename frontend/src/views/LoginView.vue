@@ -54,7 +54,7 @@ const handleLogin = async () => {
   try {
     await userStore.login({ username: username.value, password: password.value })
     showToast('登录成功')
-    router.push({ name: 'home' })
+    router.push((router.currentRoute.value.query.redirect as string) || { name: 'home' })
   } catch (e: any) {
     showToast(e.message || '登录失败')
   } finally {

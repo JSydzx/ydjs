@@ -15,6 +15,10 @@ public class User {
     private String password;
     private String email;
     private String avatar;
+    private String major;
+    private String grade;
+    private String skills;
+    private String bio;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }

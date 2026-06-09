@@ -54,10 +54,19 @@ public class NotificationServiceImpl implements NotificationService {
      */
     @Override
     public void push(Long userId, String type, String message) {
+        push(userId, type, message, null);
+    }
+
+    /**
+     * 鎺ㄩ€佸甫涓氬姟鍏宠仈鐨勯€氱煡銆?
+     */
+    @Override
+    public void push(Long userId, String type, String message, Long relatedId) {
         Notification notification = new Notification();
         notification.setUserId(userId);
         notification.setType(type);
         notification.setMessage(message);
+        notification.setRelatedId(relatedId);
         notification.setIsRead(false);
         notificationMapper.insert(notification);
     }

@@ -1,7 +1,7 @@
 package com.zjgsu.teamplatform.service;
 
 import com.zjgsu.teamplatform.dto.JoinRequestCreateRequest;
-import com.zjgsu.teamplatform.entity.JoinRequest;
+import com.zjgsu.teamplatform.vo.JoinRequestVO;
 
 import java.util.List;
 
@@ -13,17 +13,17 @@ public interface JoinRequestService {
     /**
      * 发起加入请求。
      */
-    JoinRequest create(Long userId, JoinRequestCreateRequest request);
+    JoinRequestVO create(Long userId, JoinRequestCreateRequest request);
 
     /**
      * 查询我的加入请求。
      */
-    List<JoinRequest> myRequests(Long userId);
+    List<JoinRequestVO> myRequests(Long userId);
 
     /**
      * 查询团队加入请求。
      */
-    List<JoinRequest> teamRequests(Long operatorId, Long teamId);
+    List<JoinRequestVO> teamRequests(Long operatorId, Long teamId);
 
     /**
      * 批准加入请求。

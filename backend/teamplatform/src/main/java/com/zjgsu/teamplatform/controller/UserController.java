@@ -3,6 +3,7 @@ package com.zjgsu.teamplatform.controller;
 import com.zjgsu.teamplatform.common.Constants;
 import com.zjgsu.teamplatform.common.Result;
 import com.zjgsu.teamplatform.dto.LoginRequest;
+import com.zjgsu.teamplatform.dto.LoginResponse;
 import com.zjgsu.teamplatform.dto.RegisterRequest;
 import com.zjgsu.teamplatform.dto.UserProfileUpdateRequest;
 import com.zjgsu.teamplatform.service.UserService;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -39,7 +40,7 @@ public class UserController {
      * 用户登录。
      */
     @PostMapping("/login")
-    public Result<UserVO> login(@Valid @RequestBody LoginRequest request) {
+    public Result<LoginResponse> login(@Valid @RequestBody LoginRequest request) {
         return Result.success(userService.login(request));
     }
 
@@ -47,7 +48,7 @@ public class UserController {
      * 获取用户资料。
      */
     @GetMapping("/profile")
-    public Result<UserVO> profile(@RequestHeader(Constants.HEADER_USER_ID) Long userId) {
+    public Result<UserVO> profile(@RequestAttribute(Constants.CURRENT_USER_ID) Long userId) {
         return Result.success(userService.getProfile(userId));
     }
 
@@ -55,7 +56,7 @@ public class UserController {
      * 更新用户资料。
      */
     @PutMapping("/profile")
-    public Result<UserVO> updateProfile(@RequestHeader(Constants.HEADER_USER_ID) Long userId,
+    public Result<UserVO> updateProfile(@RequestAttribute(Constants.CURRENT_USER_ID) Long userId,
                                         @Valid @RequestBody UserProfileUpdateRequest request) {
         return Result.success(userService.updateProfile(userId, request));
     }

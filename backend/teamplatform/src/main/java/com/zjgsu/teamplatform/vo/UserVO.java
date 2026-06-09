@@ -12,4 +12,8 @@ public class UserVO {
     private String nickname;
     private String email;
     private String avatar;
+    private String major;
+    private String grade;
+    private String skills;
+    private String bio;
 }

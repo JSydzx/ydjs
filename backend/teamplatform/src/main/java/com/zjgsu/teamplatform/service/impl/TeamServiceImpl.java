@@ -67,8 +67,8 @@ public class TeamServiceImpl implements TeamService {
      * 查询团队列表。
      */
     @Override
-    public List<TeamVO> list() {
-        List<Team> teams = teamMapper.findAllActive();
+    public List<TeamVO> list(String keyword, String tag, Boolean availableOnly) {
+        List<Team> teams = teamMapper.findByFilters(trimToNull(keyword), trimToNull(tag), Boolean.TRUE.equals(availableOnly));
         List<TeamVO> result = new ArrayList<>();
         for (Team team : teams) {
             result.add(toVO(team));
@@ -256,5 +256,15 @@ public class TeamServiceImpl implements TeamService {
         vo.setStatus(team.getStatus());
         vo.setCreatedAt(team.getCreatedAt());
         return vo;
+    }
+
+    /**
+     * 清理筛选参数，避免空白字符串影响 SQL 判断。
+     */
+    private String trimToNull(String value) {
+        if (value == null || value.trim().isEmpty()) {
+            return null;
+        }
+        return value.trim();
     }
 }

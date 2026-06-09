@@ -5,6 +5,7 @@ export interface NotificationVO {
   userId: number
   message: string
   type: 'JOIN_REQUEST' | 'SYSTEM' | 'TEAM_UPDATE'
+  relatedId?: number
   isRead: boolean
   createdAt: string
 }

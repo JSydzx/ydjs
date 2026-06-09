@@ -1,4 +1,3 @@
-// src/api/user.ts
 import { http } from './http'
 
 export interface RegisterRequest {
@@ -17,6 +16,10 @@ export interface UserProfileUpdateRequest {
   nickname?: string
   email?: string
   avatar?: string
+  major?: string
+  grade?: string
+  skills?: string
+  bio?: string
 }
 
 export interface UserVO {
@@ -25,26 +28,20 @@ export interface UserVO {
   nickname?: string
   email?: string
   avatar?: string
-  createdAt: string
-  updatedAt: string
+  major?: string
+  grade?: string
+  skills?: string
+  bio?: string
+  createdAt?: string
+  updatedAt?: string
 }
 
-// 用户注册
-export const register = (params: RegisterRequest): Promise<UserVO> => {
-  return http.post('/user/register', params)
+export interface LoginResponse {
+  token: string
+  user: UserVO
 }
 
-// 用户登录
-export const login = (params: LoginRequest): Promise<UserVO> => {
-  return http.post('/user/login', params)
-}
-
-// 获取用户资料
-export const getProfile = (): Promise<UserVO> => {
-  return http.get('/user/profile')
-}
-
-// 更新用户资料
-export const updateProfile = (params: UserProfileUpdateRequest): Promise<UserVO> => {
-  return http.put('/user/profile', params)
-}
+export const register = (params: RegisterRequest): Promise<UserVO> => http.post('/user/register', params)
+export const login = (params: LoginRequest): Promise<LoginResponse> => http.post('/user/login', params)
+export const getProfile = (): Promise<UserVO> => http.get('/user/profile')
+export const updateProfile = (params: UserProfileUpdateRequest): Promise<UserVO> => http.put('/user/profile', params)

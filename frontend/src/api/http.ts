@@ -8,12 +8,8 @@ export const http = axios.create({
 
 http.interceptors.request.use((config) => {
   const token = localStorage.getItem('token')
-  const userId = localStorage.getItem('userId')
   if (token && config.headers) {
     config.headers.Authorization = `Bearer ${token}`
-  }
-  if (userId && config.headers) {
-    config.headers['X-User-Id'] = userId
   }
   return config
 })
@@ -21,14 +17,28 @@ http.interceptors.request.use((config) => {
 http.interceptors.response.use(
   (response) => {
     const data = response.data
-    // 后端 ErrorCode.SUCCESS = 200
     if (data && typeof data.code === 'number' && data.code !== 200) {
+      if (data.code === 401) {
+        clearLoginState()
+      }
       return Promise.reject(new Error(data.message || '请求失败'))
     }
-    return data.data !== undefined ? data.data : data
+    return data?.data !== undefined ? data.data : data
   },
   (error) => {
+    if (error.response?.status === 401) {
+      clearLoginState()
+      return Promise.reject(new Error(error.response?.data?.message || '登录已过期，请重新登录'))
+    }
     const msg = error.response?.data?.message || error.message || '网络错误'
     return Promise.reject(new Error(msg))
   }
 )
+
+function clearLoginState() {
+  localStorage.removeItem('userId')
+  localStorage.removeItem('token')
+  if (window.location.pathname !== '/login') {
+    window.dispatchEvent(new CustomEvent('auth-expired'))
+  }
+}
