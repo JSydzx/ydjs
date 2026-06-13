@@ -75,7 +75,7 @@ const refreshing = ref(false)
 const keyword = ref('')
 const activeTag = ref('')
 const availableOnly = ref(false)
-const tagOptions = ['算法', '前端', '后端', '设计', '竞赛', '创业']
+const tagOptions = ['前端', '后端', '娱乐' ]
 
 let searchTimer: number | undefined
 
