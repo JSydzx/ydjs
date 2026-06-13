@@ -1,11 +1,9 @@
 # ydjs
 
-[![CI](https://github.com/JSydzx/ydjs/actions/workflows/ci.yml/badge.svg)]
-(https://github.com/JSydzx/ydjs/actions)
-[![Backend Coverage](https://codecov.io/gh/JSydzx/ydjs/branch/main/graph/
-badge.svg?flag=backend)](https://codecov.io/gh/JSydzx/ydjs)
-[![Frontend Coverage](https://codecov.io/gh/JSydzx/ydjs/branch/main/graph/
-badge.svg?flag=frontend)](https://codecov.io/gh/JSydzx/ydjs)
+[![CI](https://github.com/JSydzx/ydjs/actions/workflows/ci.yml/badge.svg)](https://github.com/JSydzx/ydjs/actions)
+[![Backend Core Coverage](https://img.shields.io/badge/backend_core_coverage-74.9%25-brightgreen)](backend/teamplatform/target/site/jacoco/index.html)
+[![Backend Coverage](https://codecov.io/gh/JSydzx/ydjs/branch/main/graph/badge.svg?flag=backend)](https://codecov.io/gh/JSydzx/ydjs)
+[![Frontend Coverage](https://codecov.io/gh/JSydzx/ydjs/branch/main/graph/badge.svg?flag=frontend)](https://codecov.io/gh/JSydzx/ydjs)
 
 ## 设计背景
 
