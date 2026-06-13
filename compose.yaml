@@ -10,8 +10,12 @@ services:
       - '5173:5173'
     volumes:
       - ./frontend:/app
-      - /app/node_modules
-    command: sh -c "npm ci && npm run dev -- --host 0.0.0.0"
+      - frontend-node-modules:/app/node_modules
+    command: >
+      sh -c "if [ ! -d node_modules/vite ]; then
+        npm ci;
+      fi &&
+      npm run dev -- --host 0.0.0.0"
     depends_on:
       - backend
 
@@ -41,7 +45,7 @@ services:
   db:
     image: mysql:8.0
     ports:
-      - '3307:3306'
+      - '4306:3306'
     environment:
       MYSQL_ROOT_PASSWORD: 8163
       MYSQL_DATABASE: teamplatform
@@ -58,3 +62,4 @@ services:
 volumes:
   mysql-data:
   maven-cache:
+  frontend-node-modules:
