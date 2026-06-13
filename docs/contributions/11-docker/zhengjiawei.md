@@ -8,15 +8,17 @@
 
 ### 1. Dockerfile 编写
 
-- 前端 Dockerfile bug修复（多阶段构建）
-- 后端 Dockerfile编写（多阶段构建）
-- .dockerignore 文件
+- [x] 前端 Dockerfile bug修复
+
+- [x] 后端 Dockerfile编写
+
+- [x] .dockerignore 文件
 
 ### 2. Compose 配置
 
-- 开发环境 compose.yaml 修复
-- 生产环境 compose.prod.yaml 修复
+- [x] 开发环境 compose.yaml 修复
+- [x] 生产环境 compose.prod.yaml 修复
 
 ### 3. 自动化部署
 
-- 构建并推送镜像到GHCR
+- [x] 构建并推送镜像到GHCR
