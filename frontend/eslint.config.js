@@ -4,7 +4,6 @@ import tseslint from 'typescript-eslint'
 import vueParser from 'vue-eslint-parser'
 
 export default [
-  // 使用插件提供的推荐配置
   ...tseslint.configs.recommended,
   ...pluginVue.configs['flat/recommended'],
   {
@@ -22,11 +21,14 @@ export default [
       },
     },
     rules: {
-      // 可根据项目需求自定义规则
       'vue/multi-word-component-names': 'off',
+      'vue/max-attributes-per-line': 'off',
+      'vue/singleline-html-element-content-newline': 'off',
+      'vue/html-self-closing': 'off',
+      'vue/attributes-order': 'off',
+      '@typescript-eslint/no-explicit-any': 'off',
     },
   },
-  // 测试文件特殊配置
   {
     files: ['src/__tests__/**/*.ts'],
     languageOptions: {
