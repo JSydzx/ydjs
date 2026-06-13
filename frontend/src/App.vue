@@ -32,10 +32,13 @@ const showTabbar = computed(() => !hideTabbarRoutes.includes(route.name as strin
 
 <style>
 .app-wrapper {
+  width: min(100%, var(--app-max-width));
   min-height: 100vh;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   background: var(--color-bg);
+  box-shadow: 0 0 36px rgba(20, 37, 63, 0.08);
 }
 
 .page-container {
@@ -46,9 +49,10 @@ const showTabbar = computed(() => !hideTabbarRoutes.includes(route.name as strin
 
 .tabbar {
   position: fixed;
-  left: 0;
-  right: 0;
+  left: 50%;
+  right: auto;
   bottom: 0;
+  width: min(100%, var(--app-max-width));
   height: 56px;
   display: flex;
   justify-content: space-around;
@@ -57,6 +61,7 @@ const showTabbar = computed(() => !hideTabbarRoutes.includes(route.name as strin
   box-shadow: 0 -1px 8px rgba(0, 0, 0, 0.06);
   z-index: 100;
   padding-bottom: env(safe-area-inset-bottom, 0);
+  transform: translateX(-50%);
 }
 
 .tab {
@@ -68,7 +73,6 @@ const showTabbar = computed(() => !hideTabbarRoutes.includes(route.name as strin
   align-items: center;
   gap: 2px;
   padding: 4px 12px;
-  transition: color 0.2s;
   -webkit-tap-highlight-color: transparent;
 }
 
