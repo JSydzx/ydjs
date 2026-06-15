@@ -3,16 +3,49 @@ name: Coverage
 on:
   push:
     paths:
+      - "backend/**"
       - "frontend/**"
       - ".github/workflows/coverage.yml"
   pull_request:
     paths:
+      - "backend/**"
       - "frontend/**"
       - ".github/workflows/coverage.yml"
   workflow_dispatch:
 
 jobs:
-  coverage:
+  backend-coverage:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend/teamplatform
+    env:
+      CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Install JDK
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: "17"
+          cache: maven
+
+      - name: Make mvnw executable
+        run: chmod +x mvnw
+
+      - name: Run tests with coverage
+        run: ./mvnw -B -ntp test
+
+      - name: Upload backend coverage to Codecov
+        if: ${{ github.event_name == 'push' && env.CODECOV_TOKEN != '' }}
+        uses: codecov/codecov-action@v7
+        with:
+          files: backend/teamplatform/target/site/jacoco/jacoco.xml
+          flags: backend
+          token: ${{ env.CODECOV_TOKEN }}
+
+  frontend-coverage:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -35,10 +68,10 @@ jobs:
       - name: Run tests with coverage
         run: npm run test
 
-      - name: Upload to Codecov
+      - name: Upload frontend coverage to Codecov
         if: ${{ github.event_name == 'push' && env.CODECOV_TOKEN != '' }}
         uses: codecov/codecov-action@v7
         with:
-          files: coverage/lcov.info
+          files: frontend/coverage/lcov.info
           flags: frontend
           token: ${{ env.CODECOV_TOKEN }}
